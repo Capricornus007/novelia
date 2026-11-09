@@ -100,7 +100,8 @@ fun legacyFolderId(name: String): String = if(name == DEFAULT_FOLDER) DEFAULT_FO
     val syncReplica: SyncReplica = SyncReplica(),
     val forumRulesReminderDismissed: Boolean = false,
     val readingStatistics: ReadingStatistics = ReadingStatistics(),
-    val comicReadingMode: ComicReadingMode = ComicReadingMode.RightToLeft
+    val comicReadingMode: ComicReadingMode = ComicReadingMode.RightToLeft,
+    val comicShelfGrid: Boolean = true,
 )
 
 /** 收藏夹名称仅用于显示；改名时 ID 及所有本地分卷仍保持原关系。 */
