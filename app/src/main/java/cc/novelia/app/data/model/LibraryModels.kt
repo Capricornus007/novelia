@@ -29,7 +29,8 @@ import kotlinx.serialization.Serializable
 @Serializable data class SavedBook(val book: BookCard, val folder: String = "默认收藏", val pinned: Boolean = false, val status: String = "在读", val addedAt: Long = System.currentTimeMillis(), val hasUpdates: Boolean = false,
     val parentWenkuKey: String? = null, val volumesExpanded: Boolean = false, val volumeOrder: List<String> = emptyList(),
     val folderId: String? = null,
-    val sourceVolumeId: String? = null, val siteVolumeOrderDescending: Boolean = false)
+    val sourceVolumeId: String? = null, val siteVolumeOrderDescending: Boolean = false,
+    val comicPreferences: ComicPreferences = ComicPreferences(), val epubMediumOverride: BookMedium? = null)
 
 /** key 为 BookRef.key；text 可为空，此时仍是一条保留章节和段落位置的书签。 */
 @Serializable data class Note(val id: String, val key: String, val chapterId: String, val paragraph: Int, val quote: String, val text: String, val createdAt: Long = System.currentTimeMillis(), val bookTitle: String = "", val chapterTitle: String = "", val bookmarked: Boolean = true,
