@@ -122,7 +122,7 @@ jobs:
           $signature = (& $apksigner verify --print-certs $apk 2>&1) -join "`n"
           if ($LASTEXITCODE -ne 0) { throw 'Release APK signature verification failed.' }
           $expectedCertificate = (Get-Content -LiteralPath 'gradle/preview-signing.sha256' -Raw -Encoding utf8).Trim()
-          $certificates = [regex]::Matches($signature, '(?m)^Signer #\d+ certificate SHA-256 digest: ([0-9a-fA-F]{64})\s*$')
+          $certificates = [regex]::Matches($signature, '(?im)^(?:V\d+\s+)?Signer(?:\s+#\d+)?:?\s+certificate SHA-256 digest: ([0-9a-fA-F]{64})\s*$')
           if ($certificates.Count -ne 1 -or $certificates[0].Groups[1].Value.ToLowerInvariant() -ne $expectedCertificate) {
             throw 'Release APK was not signed with the shared preview certificate.'
           }
