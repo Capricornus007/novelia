@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import cc.novelia.app.data.catalog.KeywordCatalog
 import cc.novelia.app.data.catalog.KeywordEntry
 import cc.novelia.app.ui.components.base.AppAlertDialog
+import cc.novelia.app.ui.i18n.Text
 
 @Composable
 fun KeywordEditorDialog(

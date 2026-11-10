@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import cc.novelia.app.ui.components.base.AppAlertDialog
 import cc.novelia.app.ui.components.base.ChoiceRow
 import cc.novelia.app.ui.account.ProfileMenuRow
+import cc.novelia.app.ui.i18n.Text
 
 @Composable internal fun KeywordLimitPreference(limit: Int?, entryCount: Int, onSave: (Int?) -> Unit) {
     var editing by rememberSaveable { mutableStateOf(false) }

@@ -13,6 +13,7 @@ import cc.novelia.app.data.library.withWenkuSiteOrder
 import cc.novelia.app.data.model.BookRef
 import cc.novelia.app.data.model.WenkuDetail
 import cc.novelia.app.ui.navigation.AppController
+import cc.novelia.app.ui.i18n.Text
 
 @Composable internal fun WenkuSiteOrderActions(c: AppController, parentKey: String) {
     var busy by remember(parentKey) { mutableStateOf(false) }

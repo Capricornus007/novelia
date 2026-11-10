@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.sp
 import cc.novelia.app.data.model.ReaderCustomColors
 import cc.novelia.app.data.model.ReaderSettings
 import cc.novelia.app.ui.theme.readerColors
+import cc.novelia.app.ui.i18n.Text
 
 private fun rgb(value: Long) = Color(0xFF000000L or value)
 private fun hex(value: Long) = "#%06X".format(value)

@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import cc.novelia.app.ui.components.base.rememberCloudFilterCollapse
 import cc.novelia.app.ui.theme.AppMotion
 import cc.novelia.app.ui.theme.appReducedMotion
+import cc.novelia.app.ui.i18n.Text
 
 /** 搜索始终在标题栏内编辑；离开编辑状态后显示已生效的搜索词，保留输入草稿。 */
 @Composable internal fun DiscoverSearchLayout(

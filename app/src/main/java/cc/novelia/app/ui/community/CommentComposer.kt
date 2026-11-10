@@ -19,6 +19,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import cc.novelia.app.ui.theme.AppMotion
 import cc.novelia.app.ui.theme.appReducedMotion
+import cc.novelia.app.ui.i18n.Text
 
 /** 默认仅显示浮动入口；离开编辑器不清理草稿，返回键优先收起编辑器。 */
 @Composable internal fun CommentEditor(expanded: Boolean, onCollapse: () -> Unit, content: @Composable () -> Unit) {

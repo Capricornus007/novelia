@@ -34,6 +34,7 @@ import cc.novelia.app.ui.markdown.rememberMarkdownRenderer
 import cc.novelia.app.ui.navigation.AppController
 import cc.novelia.app.ui.navigation.ObserveForumLogin
 import cc.novelia.app.ui.theme.MotionContent
+import cc.novelia.app.ui.i18n.Text
 
 @Composable fun ComposeArticleScreen(c: AppController, articleId: String?, draftKey: String? = null) {
     val editingId = articleId?.takeIf { ForumLinks.postId(it) != null }

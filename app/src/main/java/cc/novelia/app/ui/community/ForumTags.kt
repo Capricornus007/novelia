@@ -22,6 +22,7 @@ import cc.novelia.app.data.community.ForumRules
 import cc.novelia.app.data.community.ForumTag
 import cc.novelia.app.ui.components.base.appHorizontalScroll
 import cc.novelia.app.ui.theme.LocalEInkMode
+import cc.novelia.app.ui.i18n.Text
 
 @Composable internal fun ForumTagFilterToggle(expanded: Boolean, selectedTag: String?, onClick: () -> Unit) {
     AppIconButton(onClick, Modifier.testTag("forum-tag-toggle").semantics {

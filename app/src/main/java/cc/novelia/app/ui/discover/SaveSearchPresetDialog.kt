@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cc.novelia.app.data.catalog.SavedSearchPreset
 import cc.novelia.app.ui.components.base.AppAlertDialog
+import cc.novelia.app.ui.i18n.Text
 
 @Composable internal fun SaveSearchPresetDialog(preset: SavedSearchPreset, onDismiss: () -> Unit, onSave: (SavedSearchPreset) -> Unit) {
     var name by rememberSaveable(preset.id) { mutableStateOf(preset.name) }

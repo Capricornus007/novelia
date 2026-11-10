@@ -19,6 +19,7 @@ import cc.novelia.app.data.model.LibraryState
 import cc.novelia.app.ui.components.base.*
 import cc.novelia.app.ui.components.book.BookRow
 import cc.novelia.app.ui.components.book.bookRowStatus
+import cc.novelia.app.ui.i18n.Text
 
 /** 列表只负责选择交互；云端请求和待同步操作仍由账户层管理。 */
 @Composable internal fun CloudShelfBooks(

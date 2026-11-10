@@ -37,6 +37,7 @@ import cc.novelia.app.ui.theme.AppMotion
 import cc.novelia.app.ui.theme.appReducedMotion
 import cc.novelia.app.ui.theme.motionClickable
 import kotlin.math.roundToInt
+import cc.novelia.app.ui.i18n.Text
 
 /** 状态由弹层外部持有，避免对话框与底部弹层切换重建组合时丢失。 */
 @Stable class ReaderPreferencesState internal constructor(

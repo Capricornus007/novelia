@@ -22,6 +22,7 @@ import cc.novelia.app.data.model.Folder
 import cc.novelia.app.data.network.CloudWebFilter
 import cc.novelia.app.ui.components.base.*
 import cc.novelia.app.ui.components.book.WebSourceOptions
+import cc.novelia.app.ui.i18n.Text
 
 @Composable internal fun CompactCloudControls(
     folders: List<Folder>, current: Folder?, onFolder: (String) -> Unit, sort: String, onSort: (String) -> Unit,

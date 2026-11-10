@@ -8,6 +8,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import cc.novelia.app.ui.components.base.AppFilledTonalButton
 import cc.novelia.app.ui.components.base.AppTextButton
+import cc.novelia.app.ui.i18n.Text
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable internal fun DiscoverFilterHelp(onAssistant: (() -> Unit)?, onSyntax: () -> Unit) {

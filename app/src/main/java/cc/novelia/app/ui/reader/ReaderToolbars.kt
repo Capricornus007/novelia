@@ -36,6 +36,7 @@ import cc.novelia.app.reader.*
 import cc.novelia.app.ui.feedback.MidoriSticker
 import cc.novelia.app.ui.feedback.StickerAccent
 import cc.novelia.app.ui.theme.AppMotion
+import cc.novelia.app.ui.i18n.Text
 
 
 internal data class ReaderTopToolbarState(

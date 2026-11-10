@@ -42,6 +42,7 @@ import cc.novelia.app.ui.downloads.DownloadSheet
 import cc.novelia.app.ui.navigation.AppController
 import cc.novelia.app.ui.theme.AppMotion
 import cc.novelia.app.ui.theme.appReducedMotion
+import cc.novelia.app.ui.i18n.Text
 
 @Composable internal fun WenkuVolumesPanel(
     c: AppController, book: BookCard, detail: WenkuDetail, uploadBusy: Boolean,

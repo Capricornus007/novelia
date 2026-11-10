@@ -36,9 +36,10 @@ import cc.novelia.app.reader.transformIllustration
 import cc.novelia.app.ui.theme.LocalEInkMode
 import cc.novelia.app.ui.theme.appReducedMotion
 import cc.novelia.app.ui.components.media.RecoveringAsyncImage as AsyncImage
-import coil.request.ImageRequest
+import coil3.request.ImageRequest
 import kotlin.math.roundToInt
 import cc.novelia.app.ui.components.base.AppDialog
+import cc.novelia.app.ui.i18n.Text
 
 @Composable
 internal fun IllustrationViewer(model: Any, imageLabel: String = "插图", onDismiss: () -> Unit) {
@@ -97,7 +98,7 @@ internal fun IllustrationViewer(model: Any, imageLabel: String = "插图", onDis
                     }, contentScale = ContentScale.Fit,
                         onLoading = { loading = true; failed = false },
                         onSuccess = {
-                            imageSize = Size(it.result.drawable.intrinsicWidth.coerceAtLeast(1).toFloat(), it.result.drawable.intrinsicHeight.coerceAtLeast(1).toFloat())
+                            imageSize = Size(it.result.image.width.coerceAtLeast(1).toFloat(), it.result.image.height.coerceAtLeast(1).toFloat())
                             loading = false; failed = false
                         },
                         onError = { loading = false; failed = true },

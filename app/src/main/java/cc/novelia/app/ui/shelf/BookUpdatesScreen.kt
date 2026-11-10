@@ -21,6 +21,7 @@ import cc.novelia.app.ui.account.ProfileSummary
 import cc.novelia.app.ui.account.ProfileDetailScreen
 import cc.novelia.app.ui.components.base.syncTime
 import cc.novelia.app.ui.navigation.AppController
+import cc.novelia.app.ui.i18n.Text
 
 @Composable fun BookUpdatesScreen(c: AppController) {
     val state by c.store.state.collectAsStateWithLifecycle()

@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
 import cc.novelia.app.ui.components.base.SectionTitle
+import cc.novelia.app.ui.i18n.Text
 
 @Composable fun MetaParagraph(label: String, text: String) = MetaParagraph(label, AnnotatedString(text))
 

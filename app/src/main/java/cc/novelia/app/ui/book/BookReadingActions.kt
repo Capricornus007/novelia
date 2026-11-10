@@ -12,6 +12,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import cc.novelia.app.data.library.ReadingDestination
 import cc.novelia.app.ui.shelf.BookFavoriteState
+import cc.novelia.app.ui.i18n.Text
 
 @Composable internal fun BookReadingActions(destination: ReadingDestination?, continuing: Boolean,
     favoriteState: BookFavoriteState, onLocalFavorite: () -> Unit, onCloudFavorite: () -> Unit,

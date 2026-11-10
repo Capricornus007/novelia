@@ -35,6 +35,7 @@ import cc.novelia.app.ui.theme.LocalEInkMode
 import cc.novelia.app.ui.theme.LocalSquareCorners
 import cc.novelia.app.ui.theme.appReducedMotion
 import cc.novelia.app.ui.theme.appRoundedCornerShape
+import cc.novelia.app.ui.i18n.Text
 
 internal class NetworkDiagnosticsPanelState(
     val tab: MutableState<Int>,

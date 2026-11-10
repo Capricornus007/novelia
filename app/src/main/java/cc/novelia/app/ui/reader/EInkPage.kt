@@ -21,7 +21,7 @@ import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Text
+import cc.novelia.app.ui.i18n.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -54,7 +54,7 @@ import cc.novelia.app.ui.theme.AppMotion
 import cc.novelia.app.ui.theme.LocalEInkMode
 import cc.novelia.app.ui.theme.LocalReducedMotion
 import cc.novelia.app.ui.components.media.RecoveringAsyncImage as AsyncImage
-import coil.request.ImageRequest
+import coil3.request.ImageRequest
 import kotlin.math.abs
 import kotlin.math.roundToInt
 import kotlinx.coroutines.Dispatchers
@@ -447,7 +447,7 @@ internal fun PageBody(
                 val model = imageModel(paragraph)
                 var retry by remember(model) { mutableIntStateOf(0) }
                 val request = remember(context, model, retry) {
-                    ImageRequest.Builder(context).data(model).setParameter("readerRetry", retry).crossfade(false).build()
+                    ImageRequest.Builder(context).data(model).memoryCacheKeyExtra("readerRetry", retry.toString()).build()
                 }
                 var failed by remember(model) { mutableStateOf(false) }
                 Box(Modifier.fillMaxWidth().height(with(density) { viewportHeight.toDp() }).combinedClickable(

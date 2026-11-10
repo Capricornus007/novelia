@@ -30,6 +30,7 @@ import cc.novelia.app.data.appupdate.AppDownloadPhase
 import cc.novelia.app.data.appupdate.AppDownloadState
 import cc.novelia.app.data.appupdate.AppReleaseChannel
 import cc.novelia.app.data.appupdate.AppReleaseException
+import cc.novelia.app.ui.i18n.Text
 
 @Composable internal fun ObserveAppReleaseDownloads(c: AppController, show: Boolean) {
     val service = c.app.appReleaseDownloads

@@ -40,6 +40,7 @@ import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import cc.novelia.app.ui.i18n.Text
 
 @Composable internal fun ChapterCacheDialog(c: AppController, ref: BookRef, toc: List<TocItem>, current: String?, onChanged: () -> Unit, onDismiss: () -> Unit) {
     val count = toc.count { it.chapterId != null }

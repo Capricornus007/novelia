@@ -39,6 +39,7 @@ import androidx.compose.ui.window.PopupPositionProvider
 import androidx.compose.ui.window.PopupProperties
 import cc.novelia.app.data.community.ForumSort
 import cc.novelia.app.data.model.Profile
+import cc.novelia.app.ui.i18n.Text
 
 internal enum class ForumAccountAction { LOGIN, POSTS, FAVORITES, BLACKLIST, STRIKES, RULES, LOGOUT }
 

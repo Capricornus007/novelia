@@ -84,6 +84,7 @@ import cc.novelia.app.ui.theme.appReducedMotion
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.withContext
+import cc.novelia.app.ui.i18n.Text
 
 @Composable fun ShelfScreen(c: AppController, onOpenBook: (BookRef) -> Unit = c::book, selectedBookKey: String? = null,
     sharedDocuments: List<Uri> = emptyList(), onSharedDocumentsConsumed: (List<Uri>) -> Unit = {}) {

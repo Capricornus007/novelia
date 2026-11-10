@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cc.novelia.app.data.model.Note
 import cc.novelia.app.ui.components.base.AppAlertDialog
+import cc.novelia.app.ui.i18n.Text
 
 /** 空笔记仍保留书签，清空笔记内容不删除其阅读位置。 */
 @Composable internal fun NoteEditorDialog(note: Note, onDismiss: () -> Unit, onSave: (String) -> Unit) {

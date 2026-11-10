@@ -23,6 +23,7 @@ import cc.novelia.app.ui.theme.motionClickable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.withContext
+import cc.novelia.app.ui.i18n.Text
 
 @Composable
 fun WebDavServerScreen(c: AppController) {

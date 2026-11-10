@@ -37,6 +37,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import cc.novelia.app.ui.i18n.Text
 
 private enum class LoginMode { LOGIN, REGISTER, RESET_PASSWORD }
 

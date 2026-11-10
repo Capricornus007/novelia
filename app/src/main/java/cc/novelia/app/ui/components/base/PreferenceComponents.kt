@@ -16,6 +16,7 @@ import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import cc.novelia.app.ui.theme.motionClickable
+import cc.novelia.app.ui.i18n.Text
 
 @Composable fun SectionTitle(title: String, detail: String? = null, onClick: () -> Unit = {}) {
     Row(Modifier.fillMaxWidth().padding(start = 20.dp, end = 12.dp, top = 14.dp, bottom = 6.dp), verticalAlignment = Alignment.CenterVertically) {

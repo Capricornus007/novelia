@@ -48,6 +48,7 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import cc.novelia.app.ui.i18n.Text
 
 internal const val READER_FONT_SAMPLE_ZH = "中文字体排版示例"
 internal const val READER_FONT_SAMPLE_LATIN = "Aa Bb 0123456789"

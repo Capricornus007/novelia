@@ -21,6 +21,7 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.ensureActive
+import cc.novelia.app.ui.i18n.Text
 
 /**
  * 页面共用的加载容器。key 表示内容身份，变化时清空结果；refreshKey 或内部重试只刷新同一内容。

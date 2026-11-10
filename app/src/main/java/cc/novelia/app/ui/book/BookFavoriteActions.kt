@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import cc.novelia.app.ui.shelf.BookFavoriteState
 import cc.novelia.app.ui.theme.AppMotion
 import cc.novelia.app.ui.theme.appReducedMotion
+import cc.novelia.app.ui.i18n.Text
 
 /** 两个入口只展示各自的收藏状态，共用收藏面板的不同初始位置。 */
 @Composable internal fun BookFavoriteActions(

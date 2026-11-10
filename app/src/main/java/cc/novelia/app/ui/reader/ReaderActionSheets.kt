@@ -14,6 +14,7 @@ import cc.novelia.app.data.model.Note
 import cc.novelia.app.data.model.NoteSelection
 import cc.novelia.app.reader.*
 import cc.novelia.app.ui.components.base.AppScrollColumn
+import cc.novelia.app.ui.i18n.Text
 
 
 @Composable internal fun ReaderParagraphSheet(

@@ -3,7 +3,8 @@ package cc.novelia.app.ui.community
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.material3.Text as MaterialText
+import cc.novelia.app.ui.i18n.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
@@ -41,7 +42,7 @@ import cc.novelia.app.data.community.ForumLinks
         modifier = Modifier.fillMaxWidth().testTag("forum-publishing-notice")) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Text("发帖前请确认", style = MaterialTheme.typography.titleSmall)
-            Text(notice, style = MaterialTheme.typography.bodyMedium)
+            MaterialText(notice, style = MaterialTheme.typography.bodyMedium)
         }
     }
 }

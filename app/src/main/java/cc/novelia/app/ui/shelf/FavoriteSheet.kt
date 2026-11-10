@@ -25,6 +25,7 @@ import cc.novelia.app.ui.components.base.MenuRow
 import cc.novelia.app.ui.components.base.TextPrompt
 import cc.novelia.app.ui.navigation.AppController
 import cc.novelia.app.ui.navigation.loginForFavorite
+import cc.novelia.app.ui.i18n.Text
 
 @Composable fun FavoriteSheet(c: AppController, book: BookCard, initialCloud: Boolean = false, dismiss: () -> Unit) {
     val state by c.store.state.collectAsStateWithLifecycle(); val profile by c.session.profile.collectAsStateWithLifecycle()

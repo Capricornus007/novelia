@@ -36,6 +36,7 @@ import kotlin.math.sin
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
+import cc.novelia.app.ui.i18n.Text
 
 /** 一次交互只播放一轮有限动画，结束后静止，不续播被中断的动画。 */
 @Composable

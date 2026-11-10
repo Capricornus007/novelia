@@ -23,6 +23,7 @@ import cc.novelia.app.ui.components.base.friendlyMessage
 import cc.novelia.app.ui.navigation.AppController
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import cc.novelia.app.ui.i18n.Text
 
 internal data class KeywordTransferState(val busy: Boolean, val error: String?, val export: () -> Unit, val importLibrary: () -> Unit, val picker: FilteredDocumentPicker)
 

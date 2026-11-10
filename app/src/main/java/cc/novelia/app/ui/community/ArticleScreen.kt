@@ -34,6 +34,7 @@ import cc.novelia.app.ui.navigation.FORUM_FAVORITE_REQUEST
 import cc.novelia.app.ui.navigation.ForumFavoriteRequest
 import cc.novelia.app.ui.navigation.loginForForumFavorite
 import kotlinx.coroutines.CancellationException
+import cc.novelia.app.ui.i18n.Text
 
 @Composable fun ArticleScreen(c: AppController, id: String, navigationState: SavedStateHandle? = null) {
     val forumId = requireNotNull(ForumLinks.postId(id))

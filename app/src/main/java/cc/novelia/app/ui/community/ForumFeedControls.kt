@@ -18,6 +18,7 @@ import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import cc.novelia.app.data.community.ForumCategory
+import cc.novelia.app.ui.i18n.Text
 
 @Composable internal fun ForumCategoryTabs(categories: List<ForumCategory>, selected: String, onSelect: (String) -> Unit) {
     val index = categories.indexOfFirst { it.slug == selected }.coerceAtLeast(0)

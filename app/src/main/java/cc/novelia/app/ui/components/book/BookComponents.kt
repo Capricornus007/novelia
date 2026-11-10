@@ -37,10 +37,11 @@ import cc.novelia.app.ui.theme.AppMotion
 import cc.novelia.app.ui.theme.appReducedMotion
 import cc.novelia.app.ui.theme.motionClickable
 import cc.novelia.app.ui.components.media.RecoveringAsyncImage as AsyncImage
-import coil.decode.DataSource
+import coil3.decode.DataSource
 import cc.novelia.app.ui.components.base.AppChipFlowRow
 import cc.novelia.app.ui.components.base.AppSelectionChip
 import cc.novelia.app.ui.components.keywords.KeywordEditorDialog
+import cc.novelia.app.ui.i18n.Text
 
 @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
 @Composable fun TagList(tags: List<String>, c: AppController) {

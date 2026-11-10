@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import cc.novelia.app.ui.components.base.AppDropdownMenu
 import cc.novelia.app.ui.theme.LocalEInkMode
 import kotlin.math.abs
+import cc.novelia.app.ui.i18n.Text
 
 /** 拖动时只改草稿；松手保存一次，取消手势恢复原顺序。 */
 internal class KeywordCategoryReorderState(

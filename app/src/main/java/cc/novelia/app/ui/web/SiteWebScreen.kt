@@ -30,6 +30,7 @@ import cc.novelia.app.ui.components.base.ScreenPageButtons
 import cc.novelia.app.ui.navigation.AppController
 import cc.novelia.app.ui.theme.LocalEInkMode
 import cc.novelia.app.ui.theme.appReducedMotion
+import cc.novelia.app.ui.i18n.Text
 
 /**
  * 没有原生页面的站内内容使用 WebView 展示，站外链接交给浏览器，已支持的页面转原生导航。

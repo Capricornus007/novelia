@@ -1,10 +1,10 @@
 package cc.novelia.app.ui.community
 
-import androidx.compose.runtime.*
-import androidx.compose.material3.Text
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import cc.novelia.app.data.auth.Session
 import cc.novelia.app.data.community.ForumBlacklistApi
+import cc.novelia.app.data.auth.Session
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.compose.runtime.*
+import cc.novelia.app.ui.i18n.Text
 import cc.novelia.app.ui.components.base.AppTextButton
 import cc.novelia.app.ui.components.base.ConfirmDialog
 import cc.novelia.app.ui.navigation.AppController

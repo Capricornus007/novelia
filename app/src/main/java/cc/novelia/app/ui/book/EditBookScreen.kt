@@ -19,6 +19,7 @@ import cc.novelia.app.ui.components.base.EmptyState
 import cc.novelia.app.ui.components.base.Screen
 import cc.novelia.app.ui.navigation.AppController
 import kotlinx.serialization.json.*
+import cc.novelia.app.ui.i18n.Text
 
 @Composable fun EditBookScreen(c: AppController, ref: BookRef) {
     if(ref.isWenku) { WenkuEditorScreen(c, ref.id); return }

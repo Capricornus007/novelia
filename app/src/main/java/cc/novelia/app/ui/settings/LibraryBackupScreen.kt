@@ -30,6 +30,7 @@ import java.text.DateFormat
 import java.util.Date
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import cc.novelia.app.ui.i18n.Text
 
 @Composable fun LibraryBackupScreen(c: AppController) {
     val service = remember(c.store, c.app.keywords) { LibraryBackupService(c.store, c.app.keywords) }

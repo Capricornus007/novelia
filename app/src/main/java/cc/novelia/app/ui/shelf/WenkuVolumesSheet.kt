@@ -31,6 +31,7 @@ import cc.novelia.app.ui.components.book.bookRowStatus
 import cc.novelia.app.ui.theme.appReducedMotion
 import cc.novelia.app.ui.theme.appShape
 import kotlinx.coroutines.launch
+import cc.novelia.app.ui.i18n.Text
 
 /** 分卷浏览使用完整挂载集合；来自搜索的匹配集合可一键展开为全部，不改写书架筛选。 */
 @Composable internal fun WenkuVolumesSheet(

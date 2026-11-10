@@ -21,6 +21,7 @@ import cc.novelia.app.ui.account.ProfileMenuRow
 import cc.novelia.app.ui.navigation.AppController
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import cc.novelia.app.ui.i18n.Text
 
 @Composable internal fun BookSourcePreference(c: AppController) {
     val selected by c.app.bookSources.state.collectAsStateWithLifecycle()

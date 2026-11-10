@@ -30,6 +30,7 @@ import cc.novelia.app.ui.theme.appReducedMotion
 import cc.novelia.app.ui.theme.appShape
 import cc.novelia.app.ui.components.base.AppLazyColumn
 import cc.novelia.app.ui.components.base.AppSheet
+import cc.novelia.app.ui.i18n.Text
 
 @Composable internal fun ImportResultsPanel(
     items: List<ImportItem>, running: Boolean, onPause: () -> Unit, onRetryFailed: () -> Unit,

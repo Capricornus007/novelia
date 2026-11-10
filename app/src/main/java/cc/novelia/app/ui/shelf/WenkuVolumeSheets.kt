@@ -26,6 +26,7 @@ import cc.novelia.app.ui.components.base.AppSheet
 import cc.novelia.app.ui.components.book.BookReadingProgressBar
 import cc.novelia.app.ui.components.book.bookRowStatus
 import cc.novelia.app.ui.theme.motionClickable
+import cc.novelia.app.ui.i18n.Text
 
 internal data class ShelfRowItem(val saved: SavedBook, val parent: SavedBook? = null, val volumeCount: Int = 0, val expanded: Boolean = false)
 

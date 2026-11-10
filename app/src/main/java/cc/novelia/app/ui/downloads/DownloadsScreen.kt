@@ -59,6 +59,7 @@ import cc.novelia.app.files.exporting.downloadArchiveBooks
 import cc.novelia.app.data.storage.hashName
 import cc.novelia.app.files.exporting.bookFileMimeType
 import cc.novelia.app.files.importing.importDownloadedDocument
+import cc.novelia.app.ui.i18n.Text
 
 @Composable fun DownloadsScreen(c: AppController) {
     val state by c.store.state.collectAsStateWithLifecycle(); var exportId by rememberSaveable { mutableStateOf<String?>(null) }; var remove by remember { mutableStateOf<DownloadEntry?>(null) }

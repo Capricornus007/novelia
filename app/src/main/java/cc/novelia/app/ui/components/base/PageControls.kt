@@ -25,6 +25,7 @@ import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import cc.novelia.app.ui.i18n.Text
 
 /** 页码从 0 开始；null 表示两端页码与当前页窗口之间的省略区间。 */
 internal fun paginationItems(page: Int, count: Int): List<Int?> {

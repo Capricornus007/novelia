@@ -17,6 +17,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import cc.novelia.app.ui.components.base.*
+import cc.novelia.app.ui.i18n.Text
 
 @Composable internal fun ShelfSelectionHeader(count: Int, enabled: Boolean, minimumHeight: Dp,
     onSelectAll: () -> Unit, onFinish: () -> Unit, tagPrefix: String = "local", selectAllLabel: String = "全选") {

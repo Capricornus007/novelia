@@ -12,6 +12,7 @@ import cc.novelia.app.ui.components.base.AppScrollColumn
 import cc.novelia.app.ui.components.base.AppSheet
 import cc.novelia.app.ui.components.base.MenuRow
 import cc.novelia.app.ui.components.base.TextPrompt
+import cc.novelia.app.ui.i18n.Text
 
 @Composable internal fun CloudFavoriteLocalSheet(folders: List<String>, count: Int, onDismiss: () -> Unit, onSave: (String) -> Unit) {
     var create by remember { mutableStateOf(false) }

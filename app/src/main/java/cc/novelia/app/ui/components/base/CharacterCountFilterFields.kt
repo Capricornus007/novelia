@@ -18,6 +18,7 @@ import cc.novelia.app.data.catalog.CharacterCountFilter
 import cc.novelia.app.data.catalog.NovelLocalFilter
 import cc.novelia.app.data.storage.appJson
 import kotlinx.serialization.encodeToString
+import cc.novelia.app.ui.i18n.Text
 
 internal val NovelLocalFilterSaver = Saver<NovelLocalFilter, String>(
     save = { appJson.encodeToString(it) }, restore = { appJson.decodeFromString<NovelLocalFilter>(it).normalized() },

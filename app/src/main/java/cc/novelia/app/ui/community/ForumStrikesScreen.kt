@@ -25,6 +25,7 @@ import kotlinx.coroutines.CancellationException
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
+import cc.novelia.app.ui.i18n.Text
 
 @Composable internal fun ForumStrikesScreen(c: AppController) {
     ObserveForumLogin(c.session, c.forumSession)

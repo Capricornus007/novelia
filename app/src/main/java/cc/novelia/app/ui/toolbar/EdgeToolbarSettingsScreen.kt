@@ -20,6 +20,7 @@ import cc.novelia.app.ui.account.*
 import cc.novelia.app.ui.components.base.*
 import cc.novelia.app.ui.navigation.AppController
 import kotlin.math.roundToInt
+import cc.novelia.app.ui.i18n.Text
 
 internal data class EdgeShortcut(val id: String, val title: String, val icon: ImageVector)
 internal val edgeShortcuts = listOf(

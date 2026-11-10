@@ -47,6 +47,7 @@ import cc.novelia.app.ui.navigation.AppController
 import cc.novelia.app.ui.theme.AppMotion
 import cc.novelia.app.ui.theme.LocalEInkMode
 import cc.novelia.app.ui.theme.appReducedMotion
+import cc.novelia.app.ui.i18n.Text
 
 @Composable fun ProfileScreen(c: AppController) {
     val profile by c.session.profile.collectAsStateWithLifecycle()

@@ -12,6 +12,7 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import cc.novelia.app.ui.i18n.Text
 
 @Composable internal fun CollapsibleCloudFilters(expanded: Boolean, toggle: () -> Unit, summary: String, maxHeight: androidx.compose.ui.unit.Dp, modifier: Modifier = Modifier, showHeader: Boolean = true, content: @Composable () -> Unit) {
     val scroll = rememberPanelScrollState(expanded)

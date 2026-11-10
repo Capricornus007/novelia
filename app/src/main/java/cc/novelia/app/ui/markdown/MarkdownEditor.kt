@@ -20,6 +20,7 @@ import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import cc.novelia.app.ui.i18n.Text
 
 /** 尺寸变化时保留同一输入缓冲区，包括输入法组合文本和选区。 */
 @Composable internal fun MarkdownEditor(text: String, onTextChange: (String) -> Unit, maxEditorHeight: Dp, unicodeLimit: Int? = null) {

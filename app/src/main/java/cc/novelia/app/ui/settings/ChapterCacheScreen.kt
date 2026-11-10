@@ -20,6 +20,7 @@ import cc.novelia.app.ui.navigation.AppController
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import cc.novelia.app.ui.i18n.Text
 
 @Composable internal fun ChapterCacheScreen(c: AppController) {
     val revision by c.store.chapterCacheRevision.collectAsStateWithLifecycle()

@@ -14,7 +14,7 @@ import androidx.compose.material.icons.outlined.ArrowDropDown
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import cc.novelia.app.ui.i18n.Text
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue

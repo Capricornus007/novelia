@@ -37,6 +37,7 @@ import cc.novelia.app.data.model.InlineKind
 import cc.novelia.app.data.model.ReaderSettings
 import cc.novelia.app.reader.*
 import kotlin.math.roundToInt
+import cc.novelia.app.ui.i18n.Text
 
 /** combinedClickable 仍负责滚动取消和长按；这里只记录本次已确认点击的局部坐标。 */
 @Composable internal fun Modifier.readerInlineActions(onClick: (Offset?) -> Unit, onLongClick: () -> Unit): Modifier {

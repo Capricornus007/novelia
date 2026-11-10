@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import cc.novelia.app.ui.feedback.MidoriSticker
 import cc.novelia.app.ui.feedback.StickerAccent
 import cc.novelia.app.ui.theme.MotionContent
+import cc.novelia.app.ui.i18n.Text
 
 @Composable fun EmptyState(title: String, message: String, icon: ImageVector = Icons.Outlined.AutoStories, action: String? = null, onAction: () -> Unit = {}, sticker: MidoriSticker? = null) {
     MotionContent(Unit, Modifier.fillMaxWidth()) {

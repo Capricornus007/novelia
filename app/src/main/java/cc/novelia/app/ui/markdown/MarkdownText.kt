@@ -28,6 +28,7 @@ import io.noties.markwon.image.destination.ImageDestinationProcessor
 import kotlin.coroutines.resume
 import kotlinx.coroutines.suspendCancellableCoroutine
 import org.commonmark.node.Heading
+import cc.novelia.app.ui.i18n.Text
 
 @Composable internal fun rememberMarkdownRenderer(c: AppController, documentUrl: String? = null): Markwon {
     val context = LocalContext.current

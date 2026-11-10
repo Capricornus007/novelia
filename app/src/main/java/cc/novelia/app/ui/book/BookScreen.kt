@@ -75,6 +75,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.withContext
+import cc.novelia.app.ui.i18n.Text
 
 @Composable fun BookScreen(c: AppController, ref: BookRef, onBack: () -> Unit = c::back) {
     if(ref.isLocal) {

@@ -28,6 +28,7 @@ import cc.novelia.app.ui.components.base.AppLazyColumn
 import cc.novelia.app.ui.components.base.rememberCachedListState
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import cc.novelia.app.ui.components.base.friendlyMessage
+import cc.novelia.app.ui.i18n.Text
 
 /** 本地筛选使用继续加载游标，不把原站页数当成筛选后的总页数。 */
 @Composable internal fun FilteredNovelList(c: AppController, requestKey: Any, filter: NovelLocalFilter, library: LibraryState,

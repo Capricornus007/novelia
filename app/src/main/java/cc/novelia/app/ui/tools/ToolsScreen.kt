@@ -36,6 +36,7 @@ import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.withContext
 import cc.novelia.app.files.epub.EpubCompressor
 import cc.novelia.app.files.exporting.PendingExportFiles
+import cc.novelia.app.ui.i18n.Text
 
 @Composable fun ToolsScreen(c: AppController) {
     val libraryState by c.store.state.collectAsStateWithLifecycle()

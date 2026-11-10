@@ -32,11 +32,12 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import cc.novelia.app.data.updates.UpdateWorker
 import cc.novelia.app.launcher.LauncherIconManager
-import coil.ImageLoader
-import coil.ImageLoaderFactory
-import coil.imageLoader
-import coil.disk.DiskCache
-import coil.memory.MemoryCache
+import coil3.ImageLoader
+import coil3.SingletonImageLoader
+import okio.Path.Companion.toOkioPath
+import coil3.imageLoader
+import coil3.disk.DiskCache
+import coil3.memory.MemoryCache
 import java.io.File
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
@@ -59,13 +60,14 @@ import cc.novelia.app.startup.StartupStep
 import cc.novelia.app.startup.StartupAppearance
 import cc.novelia.app.startup.StartupAppearanceStore
 
+import cc.novelia.app.ui.i18n.ZhLanguage
 /**
  * 应用级服务的装配入口，书库、会话、API 和图片加载器在各页面之间复用。
  * [initialization] 是进入主界面的初始化屏障：磁盘读取在 IO 作用域中执行，Activity 等待
  * 完成后再观察书库。后台维护使用 SupervisorJob，单个维护任务失败不会取消其他任务。
  * 此处只持有应用级对象，页面选择、弹窗及导航回调由界面自己的生命周期管理。
  */
-class NoveliaApplication : Application(), ImageLoaderFactory {
+class NoveliaApplication : Application(), SingletonImageLoader.Factory {
     private val applicationScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     val store by lazy { LocalStore(this) { webDavConfig.config.value.syncDevicePreferences } }
     val ech by lazy { EchTransport(this) }
@@ -133,6 +135,7 @@ class NoveliaApplication : Application(), ImageLoaderFactory {
     override fun onCreate() {
         super.onCreate()
         startupAppearance
+        applicationScope.launch { store.state.map { it.interfaceLanguage }.distinctUntilChanged().collect { ZhLanguage.tag = it } }
         launcherIcons
         initialization
         applicationScope.launch { store.cacheGeneration.collect { uiResults.clear() } }
@@ -271,17 +274,24 @@ class NoveliaApplication : Application(), ImageLoaderFactory {
         catch(_: Exception) { /* 同步界面提供错误，Worker 负责可恢复失败的退避。 */ }
     }
 
-    override fun newImageLoader(): ImageLoader = ImageLoader.Builder(this)
-        .components { add(ech.imageRecovery()) }
-        .callFactory {
-            val client = api.transport.newBuilder().echRedirects(true).build()
-            object : okhttp3.Call.Factory {
-                override fun newCall(request: okhttp3.Request) = client.newNetworkCall(request.newBuilder()
-                    .tag(cc.novelia.app.data.network.RecoverableNetworkRead::class.java, cc.novelia.app.data.network.RecoverableNetworkRead)
-                    .tag(cc.novelia.app.data.network.ManagedConnectAttempts::class.java, cc.novelia.app.data.network.ManagedConnectAttempts).build())
-            }
+    override fun newImageLoader(context: android.content.Context): ImageLoader = ImageLoader.Builder(context)
+        .components {
+            add(ech.imageRecovery())
+            add(coil3.network.okhttp.OkHttpNetworkFetcherFactory(
+                callFactory = {
+                    val client = api.transport.newBuilder().echRedirects(true).build()
+                    object : okhttp3.Call.Factory {
+                        override fun newCall(request: okhttp3.Request) = client.newNetworkCall(request.newBuilder()
+                            .tag(cc.novelia.app.data.network.RecoverableNetworkRead::class.java, cc.novelia.app.data.network.RecoverableNetworkRead)
+                            .tag(cc.novelia.app.data.network.ManagedConnectAttempts::class.java, cc.novelia.app.data.network.ManagedConnectAttempts).build())
+                    }
+                },
+                cacheStrategy = { coil3.network.CacheStrategy.DEFAULT },
+                connectivityChecker = { coil3.network.ConnectivityChecker.ONLINE },
+                concurrentRequestStrategy = { coil3.network.ConcurrentRequestStrategy.UNCOORDINATED },
+            ))
         }
-        .memoryCache { MemoryCache.Builder(this).maxSizePercent(0.15).build() }
-        .diskCache { DiskCache.Builder().directory(File(cacheDir, "images")).maxSizeBytes(128L * 1024 * 1024).build() }
+        .memoryCache { MemoryCache.Builder().maxSizePercent(context, 0.15).build() }
+        .diskCache { DiskCache.Builder().directory(java.io.File(context.cacheDir, "images").toOkioPath()).maxSizeBytes(128L * 1024 * 1024).build() }
         .build()
 }

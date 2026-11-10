@@ -21,13 +21,14 @@ import cc.novelia.app.ui.components.media.IllustrationViewer
 import cc.novelia.app.ui.theme.AppMotion
 import cc.novelia.app.ui.theme.appReducedMotion
 import cc.novelia.app.ui.components.media.RecoveringAsyncImage as AsyncImage
-import coil.request.ImageRequest
+import coil3.request.ImageRequest
+import cc.novelia.app.ui.i18n.Text
 
 @Composable internal fun ReaderIllustration(model: Any, foreground: Color, onToggleMenu: () -> Unit) {
     val context = LocalContext.current
     val animate = !appReducedMotion()
     var retry by remember(model) { mutableIntStateOf(0) }
-    val request = remember(context, model, animate, retry) { ImageRequest.Builder(context).data(model).setParameter("readerRetry", retry).crossfade(if(animate) AppMotion.Release else 0).build() }
+    val request = remember(context, model, animate, retry) { ImageRequest.Builder(context).data(model).memoryCacheKeyExtra("readerRetry", retry.toString()).build() }
     var loading by remember(model) { mutableStateOf(true) }
     var failed by remember(model) { mutableStateOf(false) }
     var expanded by remember(model) { mutableStateOf(false) }

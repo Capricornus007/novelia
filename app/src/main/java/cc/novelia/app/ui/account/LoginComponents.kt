@@ -31,6 +31,7 @@ import cc.novelia.app.ui.components.base.AppScrollColumn
 import cc.novelia.app.ui.components.base.FilterPanelExpandIcon
 import cc.novelia.app.ui.feedback.MidoriCompanion
 import cc.novelia.app.ui.theme.appRoundedCornerShape
+import cc.novelia.app.ui.i18n.Text
 
 @Composable internal fun LoginPageLayout(
     register: Boolean,

@@ -37,6 +37,7 @@ import cc.novelia.app.ui.components.base.PageControls
 import cc.novelia.app.ui.account.ProfileDetailScreen
 import cc.novelia.app.ui.navigation.AppController
 import kotlinx.coroutines.CancellationException
+import cc.novelia.app.ui.i18n.Text
 
 private data class HistoryRemoval(val book: BookCard, val binding: SessionBinding? = null)
 

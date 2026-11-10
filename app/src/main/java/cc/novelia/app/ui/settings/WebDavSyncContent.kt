@@ -17,6 +17,7 @@ import cc.novelia.app.ui.components.base.AppLazyColumn
 import cc.novelia.app.ui.components.base.ChoiceRow
 import cc.novelia.app.ui.components.base.syncTime
 import java.net.URI
+import cc.novelia.app.ui.i18n.Text
 
 internal data class WebDavSyncActions(
     val onBack: () -> Unit = {},

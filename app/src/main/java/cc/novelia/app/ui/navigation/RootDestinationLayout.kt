@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import cc.novelia.app.ui.theme.AppMotion
 import cc.novelia.app.ui.theme.appReducedMotion
 import cc.novelia.app.ui.theme.LocalSquareCorners
+import cc.novelia.app.ui.i18n.Text
 
 /** 根页面内的选择操作栏接管手机底部导航，不影响其他路由或平板侧栏。 */
 internal val LocalRootSelectionMode = staticCompositionLocalOf<(Boolean) -> Unit> { {} }

@@ -39,6 +39,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import cc.novelia.app.ui.i18n.Text
 
 /** 一级评论分页加载并保留附带的首屏回复；展开时复用，后续页通过独立接口读取。 */
 @Composable internal fun ForumCommentsPanel(c: AppController, postId: Long, locked: Boolean) {

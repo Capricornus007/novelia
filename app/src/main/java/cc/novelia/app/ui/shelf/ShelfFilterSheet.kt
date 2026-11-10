@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import cc.novelia.app.data.catalog.CharacterCountFilter
 import cc.novelia.app.ui.components.base.*
 import cc.novelia.app.ui.theme.appShape
+import cc.novelia.app.ui.i18n.Text
 
 /** 三个书架分区共用紧凑面板，草稿由调用方保存，底部确认区始终可达。 */
 @Composable internal fun ShelfFilterSheet(title: String, prefix: String, maxHeight: Dp, valid: Boolean = true,

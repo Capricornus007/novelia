@@ -23,6 +23,7 @@ import cc.novelia.app.ui.account.*
 import cc.novelia.app.ui.components.base.ConfirmDialog
 import cc.novelia.app.ui.components.base.syncTime
 import cc.novelia.app.ui.navigation.AppController
+import cc.novelia.app.ui.i18n.Text
 
 /** “我的”、设置分类和旧的网络深链共用同一页面。 */
 @Composable fun NetworkSyncScreen(c: AppController, onBack: () -> Unit = c::back) {

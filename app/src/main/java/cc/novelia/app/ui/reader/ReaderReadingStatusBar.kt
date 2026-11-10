@@ -8,7 +8,7 @@ import android.os.BatteryManager
 import android.text.format.DateFormat
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.clickable
-import androidx.compose.material3.Text
+import cc.novelia.app.ui.i18n.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier

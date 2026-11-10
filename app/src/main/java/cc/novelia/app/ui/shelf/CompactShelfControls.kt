@@ -21,6 +21,7 @@ import cc.novelia.app.data.catalog.CharacterCountFilter
 import cc.novelia.app.data.library.ShelfBookType
 import cc.novelia.app.data.library.readingStatuses
 import cc.novelia.app.ui.components.base.*
+import cc.novelia.app.ui.i18n.Text
 
 /** 日常仅保留收藏夹/搜索/筛选，以及数量/排序；筛选草稿确认后才影响书架。 */
 @Composable internal fun LocalShelfFilters(

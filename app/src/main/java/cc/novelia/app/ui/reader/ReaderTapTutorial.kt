@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import cc.novelia.app.reader.ReaderTapZoneMap
 import cc.novelia.app.ui.components.base.AppIconButton
 import cc.novelia.app.ui.components.base.AppTextButton
+import cc.novelia.app.ui.i18n.Text
 
 /** 使用当前配置覆盖正文，分区位置、合并结果与真实命中范围一致。 */
 @Composable internal fun ReaderTapTutorial(

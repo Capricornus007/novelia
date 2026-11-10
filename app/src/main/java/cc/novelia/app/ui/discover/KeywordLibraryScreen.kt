@@ -37,6 +37,7 @@ import cc.novelia.app.ui.components.base.Screen
 import cc.novelia.app.ui.components.base.rememberDebouncedQuery
 import cc.novelia.app.ui.components.keywords.KeywordCategoryChips
 import cc.novelia.app.ui.components.keywords.KeywordEditorDialog
+import cc.novelia.app.ui.i18n.Text
 
 class KeywordLibraryActions(
     val createCategory: (String) -> Unit,

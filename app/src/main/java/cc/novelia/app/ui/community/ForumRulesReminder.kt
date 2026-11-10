@@ -14,6 +14,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import cc.novelia.app.ui.navigation.AppController
+import cc.novelia.app.ui.i18n.Text
 
 @Composable internal fun ForumRulesReminder(c: AppController) {
     val state by c.store.state.collectAsStateWithLifecycle()

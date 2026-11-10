@@ -18,6 +18,7 @@ import cc.novelia.app.data.community.ForumCommunityRules
 import cc.novelia.app.data.community.ForumRuleTable
 import cc.novelia.app.data.community.bundledForumCommunityRules
 import kotlinx.coroutines.CancellationException
+import cc.novelia.app.ui.i18n.Text
 
 /** 先显示本地副本，进入页面时检查原站更新；同步失败仍可离线阅读。 */
 @Composable fun ForumRulesScreen(c: AppController) {

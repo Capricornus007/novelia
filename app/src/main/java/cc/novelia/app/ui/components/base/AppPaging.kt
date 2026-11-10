@@ -32,6 +32,7 @@ import cc.novelia.app.ui.theme.LocalEInkMode
 import cc.novelia.app.ui.theme.LocalScreenPageButtons
 import kotlin.math.abs
 import kotlinx.coroutines.launch
+import cc.novelia.app.ui.i18n.Text
 
 /** 翻屏时保留少量上一屏内容，防止跳过边缘被截开的文字行或卡片。 */
 internal fun screenPageDistance(viewport: Int, overlap: Float): Float =

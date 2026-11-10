@@ -16,6 +16,7 @@ import cc.novelia.app.ui.components.base.AppScrollColumn
 import cc.novelia.app.ui.markdown.MarkdownText
 import cc.novelia.app.ui.navigation.AppController
 import cc.novelia.app.ui.navigation.downloadAppRelease
+import cc.novelia.app.ui.i18n.Text
 
 @Composable internal fun ObserveAppUpdates(c: AppController, show: Boolean) {
     val release by c.app.appUpdates.available.collectAsStateWithLifecycle()

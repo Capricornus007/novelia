@@ -31,6 +31,7 @@ import cc.novelia.app.ui.components.book.BookCover
 import cc.novelia.app.ui.components.book.BookRowStatus
 import cc.novelia.app.ui.theme.*
 import kotlin.math.abs
+import cc.novelia.app.ui.i18n.Text
 
 private val volumeNumber = Regex("第\\s*[0-9一二三四五六七八九十百零〇]+\\s*[卷巻]")
 internal fun shelfVolumeProgressLabel(parentTitle: String, volumeTitle: String, progress: String): String {

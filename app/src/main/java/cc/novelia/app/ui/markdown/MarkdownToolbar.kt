@@ -27,6 +27,7 @@ import cc.novelia.app.data.markdown.applyMarkdownTemplate
 import cc.novelia.app.ui.components.base.AppAlertDialog
 import cc.novelia.app.ui.components.base.AppScrollColumn
 import cc.novelia.app.ui.components.base.appHorizontalScroll
+import cc.novelia.app.ui.i18n.Text
 
 internal fun TextFieldValue.format(template: MarkdownTemplate, limit: Int): TextFieldValue {
     val edit = applyMarkdownTemplate(text, selection.start, selection.end, template, limit)

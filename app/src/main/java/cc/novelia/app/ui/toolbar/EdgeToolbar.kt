@@ -44,6 +44,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlin.math.max
 import kotlin.math.roundToInt
+import cc.novelia.app.ui.i18n.Text
 
 /** 在根树观察轻量投影，不因正文进度保存而重组整个导航图。 */
 @OptIn(ExperimentalLayoutApi::class)

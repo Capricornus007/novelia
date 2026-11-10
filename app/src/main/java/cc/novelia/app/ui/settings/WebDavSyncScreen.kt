@@ -15,6 +15,7 @@ import cc.novelia.app.ui.navigation.AppController
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.*
+import cc.novelia.app.ui.i18n.Text
 
 internal val webDavLabels = mapOf(
     SyncDomain.SETTINGS to ("本地设置" to "阅读偏好、外观与屏蔽规则"),

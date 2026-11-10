@@ -26,6 +26,7 @@ import cc.novelia.app.data.model.Profile
 import cc.novelia.app.ui.components.base.AppLazyColumn
 import cc.novelia.app.ui.theme.LocalEInkMode
 import cc.novelia.app.ui.theme.LocalAmoledBlack
+import cc.novelia.app.ui.i18n.Text
 
 /** 同一组真实入口在宽屏并列显示；空间不足或字号放大时恢复纵向阅读顺序。 */
 @Composable internal fun ProfileDashboard(

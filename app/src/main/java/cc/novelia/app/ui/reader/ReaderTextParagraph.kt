@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.sp
 import cc.novelia.app.data.model.ReaderSettings
 import cc.novelia.app.reader.*
 import kotlin.math.roundToInt
+import cc.novelia.app.ui.i18n.Text
 
 
 @Composable internal fun ReaderTextParagraph(paragraph: ReadingParagraph, settings: ReaderSettings, layoutGeneration: Any, foreground: Color, onToggleMenu: () -> Unit, onSelect: () -> Unit, activeMatch: ReadingTextMatch?,

@@ -42,6 +42,7 @@ import cc.novelia.app.ui.components.base.AppScrollColumn
 import cc.novelia.app.ui.theme.readerColors
 import kotlin.math.abs
 import kotlin.math.roundToInt
+import cc.novelia.app.ui.i18n.Text
 
 /** 编辑草稿仅在保存时持久化；取消/返回不会改变阅读设置。 */
 @Composable internal fun ReaderTapZoneEditor(

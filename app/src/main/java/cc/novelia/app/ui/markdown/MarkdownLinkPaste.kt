@@ -11,6 +11,7 @@ import androidx.compose.ui.platform.Clipboard
 import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.text.input.TextFieldValue
 import cc.novelia.app.data.markdown.markdownLinkForPaste
+import cc.novelia.app.ui.i18n.Text
 
 /** 仅为当前输入框提供粘贴内容，不改写系统剪贴板；选区、光标和撤销仍由 TextField 处理。 */
 @Composable internal fun MarkdownLinkPaste(value: TextFieldValue, focused: Boolean, limit: Int,

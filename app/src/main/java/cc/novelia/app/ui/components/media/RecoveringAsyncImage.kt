@@ -5,9 +5,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import cc.novelia.app.data.network.isRemoteImage
 import cc.novelia.app.ui.components.base.NetworkRecoveryEffect
-import coil.compose.AsyncImage
-import coil.compose.AsyncImagePainter
-import coil.request.ImageRequest
+import coil3.compose.AsyncImage
+import coil3.compose.AsyncImagePainter
+import coil3.request.ImageRequest
 
 @Composable internal fun RecoveringAsyncImage(model: Any?, contentDescription: String?, modifier: Modifier = Modifier,
     contentScale: ContentScale = ContentScale.Fit,

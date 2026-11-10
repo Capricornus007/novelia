@@ -18,6 +18,7 @@ import cc.novelia.app.data.sync.pendingBookKey
 import cc.novelia.app.ui.navigation.AppController
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
+import cc.novelia.app.ui.i18n.Text
 
 internal enum class BookSyncPhase { Pending, Syncing, Failed, LoginRequired }
 internal data class BookSyncRowState(val phase: BookSyncPhase, val label: String, val detail: String)

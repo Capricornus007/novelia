@@ -15,6 +15,7 @@ import cc.novelia.app.data.model.ReaderSettings
 import cc.novelia.app.reader.SpeechPlayback
 import cc.novelia.app.ui.components.base.*
 import cc.novelia.app.ui.theme.appRoundedCornerShape
+import cc.novelia.app.ui.i18n.Text
 
 /** 播放中的操作留在正文旁；弹层只承担预览与朗读选项。 */
 @Composable internal fun ReaderSpeechSheet(

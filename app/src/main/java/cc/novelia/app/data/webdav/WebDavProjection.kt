@@ -57,6 +57,7 @@ object WebDavProjection {
         if (before.readingHistory != after.readingHistory) add(SyncDomain.HISTORY)
         if (before.notes != after.notes) { add(SyncDomain.BOOKMARKS); add(SyncDomain.NOTES) }
         if (before.reader != after.reader || before.bookSettings != after.bookSettings || before.theme != after.theme ||
+            before.interfaceLanguage != after.interfaceLanguage ||
             before.reducedMotion != after.reducedMotion || before.historyPaused != after.historyPaused ||
             before.blockedBooks != after.blockedBooks || before.blockedTags != after.blockedTags || before.blockedAuthors != after.blockedAuthors ||
             before.blockedUsers != after.blockedUsers || before.hideNovelComments != after.hideNovelComments ||
@@ -89,7 +90,8 @@ object WebDavProjection {
 
     private fun settings(state: LibraryState, includeDevicePreferences: Boolean): Map<String, JsonObject> = buildMap {
         put(GLOBAL, mapOf(
-            "theme" to JsonPrimitive(state.theme), "reducedMotion" to JsonPrimitive(state.reducedMotion),
+            "theme" to JsonPrimitive(state.theme), "interfaceLanguage" to JsonPrimitive(state.interfaceLanguage),
+            "reducedMotion" to JsonPrimitive(state.reducedMotion),
             "historyPaused" to JsonPrimitive(state.historyPaused), "hideNovelComments" to JsonPrimitive(state.hideNovelComments),
             "autoCollapseCloudFilters" to JsonPrimitive(state.autoCollapseCloudFilters),
             "autoSaveCloudFavoritesLocally" to JsonPrimitive(state.autoSaveCloudFavoritesLocally),
@@ -238,6 +240,7 @@ object WebDavProjection {
             bookSettings[key] = applyReader(state.bookSettings[key] ?: globalReader, value, includeDevicePreferences)
         }
         return state.copy(theme = values?.get("theme")?.jsonPrimitive?.content ?: state.theme,
+            interfaceLanguage = values?.get("interfaceLanguage")?.jsonPrimitive?.content ?: state.interfaceLanguage,
             reducedMotion = bool("reducedMotion", state.reducedMotion), historyPaused = bool("historyPaused", state.historyPaused),
             blockedBooks = state.blockedBooks.filterNot(::isNetworkKey).toSet() + blocked("book"),
             blockedTags = blocked("tag"), blockedAuthors = blocked("author"),

@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import cc.novelia.app.ui.i18n.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.produceState
@@ -33,7 +33,7 @@ fun OpenSourceLicensesScreen(c: AppController) {
             if (paragraphs == null) item { Text("正在读取许可证…", Modifier.padding(20.dp)) }
             items(paragraphs.orEmpty()) { paragraph ->
                 ProfileDetailCard { SelectionContainer {
-                    Text(paragraph, Modifier.padding(horizontal = 20.dp, vertical = 6.dp), style = MaterialTheme.typography.bodySmall)
+                    Text(text = paragraph, modifier = Modifier.padding(horizontal = 20.dp, vertical = 6.dp), style = MaterialTheme.typography.bodySmall)
                 } }
             }
         }

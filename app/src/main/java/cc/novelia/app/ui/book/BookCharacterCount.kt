@@ -4,7 +4,7 @@ import cc.novelia.app.ui.components.base.AppTextButton
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import cc.novelia.app.ui.i18n.Text
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier

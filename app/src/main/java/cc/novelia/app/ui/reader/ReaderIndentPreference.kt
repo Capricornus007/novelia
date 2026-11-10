@@ -26,6 +26,7 @@ import cc.novelia.app.ui.components.base.AppAlertDialog
 import cc.novelia.app.ui.components.base.AppTextButton
 import cc.novelia.app.ui.theme.appRoundedCornerShape
 import cc.novelia.app.ui.theme.motionClickable
+import cc.novelia.app.ui.i18n.Text
 
 /** 设置列表只展示当前值；编辑窗口提交有效格数后才重新排版。 */
 @Composable internal fun ReaderIndentPreference(value: Int, defaultValue: Int, onChange: (Int) -> Unit) {

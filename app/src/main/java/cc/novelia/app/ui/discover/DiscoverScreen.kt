@@ -59,6 +59,7 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.sync.withPermit
+import cc.novelia.app.ui.i18n.Text
 
 @Composable fun DiscoverScreen(c: AppController, initialQuery: String, initialCategory: Int? = null) {
     var query by rememberSaveable(initialQuery) { mutableStateOf(initialQuery) }

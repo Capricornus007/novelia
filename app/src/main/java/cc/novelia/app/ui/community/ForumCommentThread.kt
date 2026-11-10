@@ -3,7 +3,7 @@ package cc.novelia.app.ui.community
 import cc.novelia.app.ui.components.base.AppTextButton
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Text
+import cc.novelia.app.ui.i18n.Text
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier

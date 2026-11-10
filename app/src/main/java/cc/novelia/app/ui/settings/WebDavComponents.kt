@@ -26,6 +26,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import cc.novelia.app.ui.theme.LocalEInkMode
 import cc.novelia.app.ui.theme.motionClickable
+import cc.novelia.app.ui.i18n.Text
 
 /** 两个同步页面共用的层次、留白和操作区，颜色跟随应用主题。 */
 @OptIn(ExperimentalMaterial3Api::class)

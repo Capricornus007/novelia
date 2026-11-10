@@ -33,6 +33,7 @@ import cc.novelia.app.launcher.LauncherIconState
 import cc.novelia.app.ui.components.base.AppLazyColumn
 import cc.novelia.app.ui.components.base.AppSheet
 import cc.novelia.app.ui.account.ProfileMenuRow
+import cc.novelia.app.ui.i18n.Text
 
 @Composable internal fun LauncherIconPreference(manager: LauncherIconManager) {
     val state by manager.state.collectAsStateWithLifecycle()

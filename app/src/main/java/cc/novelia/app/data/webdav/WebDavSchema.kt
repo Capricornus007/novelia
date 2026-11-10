@@ -31,7 +31,7 @@ internal object WebDavSchema {
         "prefetchWifiOnly", "speechNetworkContinuation", "showEInkScreenButtons", "hideStatusBar", "tapPageTurn", "tapZoneMap", "showWideToc", "orientation")
     val readerModeFields = (portableReaderFields + deviceReaderFields) - setOf("eInkMode", "beforeEInk", "eInkPreferences")
     val devicePreferenceFields = deviceReaderFields + "activeModeSettings"
-    val portableGlobalFields = setOf("theme", "reducedMotion", "historyPaused", "hideNovelComments",
+    val portableGlobalFields = setOf("theme", "interfaceLanguage", "reducedMotion", "historyPaused", "hideNovelComments",
         "autoCollapseCloudFilters", "autoSaveCloudFavoritesLocally", "clipboardLinkHints", "keywordLimit")
     val portableBookFields = setOf("ref", "title", "originalTitle", "cover", "subtitle", "tags", "translated", "total",
         "updateAt", "translations", "volumeIds", "authors", "novelType", "attentions", "totalCharacters")

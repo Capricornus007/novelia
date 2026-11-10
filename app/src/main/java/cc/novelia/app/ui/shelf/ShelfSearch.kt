@@ -17,6 +17,7 @@ import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import cc.novelia.app.ui.components.base.FilterPanelVisibility
+import cc.novelia.app.ui.i18n.Text
 
 @Composable internal fun ShelfSearchToggle(
     expanded: Boolean, active: Boolean, onToggle: () -> Unit, tagPrefix: String, enabled: Boolean = true,

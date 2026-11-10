@@ -44,6 +44,7 @@ import cc.novelia.app.ui.theme.LocalEInkMode
 import cc.novelia.app.ui.theme.appReducedMotion
 import kotlin.math.abs
 import kotlin.math.max
+import cc.novelia.app.ui.i18n.Text
 
 @Composable internal fun ReaderSlider(label: String, value: Float, range: ClosedFloatingPointRange<Float>, modifier: Modifier = Modifier,
     enabled: Boolean = true, livePreviewStep: Float? = null, defaultValue: Float? = null, onChange: (Float) -> Unit) {

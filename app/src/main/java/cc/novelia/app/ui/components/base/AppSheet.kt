@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import cc.novelia.app.ui.theme.appReducedMotion
 import cc.novelia.app.ui.theme.LocalAmoledBlack
+import cc.novelia.app.ui.i18n.Text
 
 /** 标记内容已在应用面板中，使内部组件能选择合适的滚动和翻屏处理。 */
 internal val LocalInAppSheet = compositionLocalOf { false }

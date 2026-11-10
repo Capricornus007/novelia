@@ -30,6 +30,7 @@ import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import okhttp3.OkHttpClient
 import kotlin.coroutines.resume
+import cc.novelia.app.ui.i18n.Text
 
 @Composable internal fun TurnstileDialog(
     client: OkHttpClient,

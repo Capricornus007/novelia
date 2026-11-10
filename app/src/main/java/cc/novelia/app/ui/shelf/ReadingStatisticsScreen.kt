@@ -29,6 +29,7 @@ import cc.novelia.app.ui.theme.appRoundedCornerShape
 import java.time.LocalDate
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
+import cc.novelia.app.ui.i18n.Text
 
 @Composable fun ReadingStatisticsScreen(c: AppController, bookKey: String? = null) {
     val state by c.store.state.collectAsStateWithLifecycle()

@@ -10,6 +10,7 @@ import cc.novelia.app.data.model.ReaderSettings
 import cc.novelia.app.ui.components.base.AppButton
 import cc.novelia.app.ui.components.base.AppScrollColumn
 import kotlin.math.roundToInt
+import cc.novelia.app.ui.i18n.Text
 
 @Composable internal fun ReaderAutoReadSheet(
     settings: ReaderSettings, discrete: Boolean, onDismiss: () -> Unit,

@@ -52,6 +52,7 @@ import cc.novelia.app.ui.components.base.AppScrollColumn
 import cc.novelia.app.ui.theme.LocalEInkMode
 import cc.novelia.app.ui.theme.LocalSquareCorners
 import kotlin.math.roundToInt
+import cc.novelia.app.ui.i18n.Text
 
 private val CommonColors = listOf(0x000000L, 0xFFFFFFL, 0x282E27L, 0xF4ECD8L, 0xE8F2E5L, 0x141A16L, 0xDDE5DCL, 0xDED2B8L)
 private val HueColors = listOf(Color.Red, Color.Yellow, Color.Green, Color.Cyan, Color.Blue, Color.Magenta, Color.Red)

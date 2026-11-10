@@ -28,6 +28,7 @@ import cc.novelia.app.ui.components.base.MenuRow
 import cc.novelia.app.ui.account.ProfileDetailScreen
 import cc.novelia.app.ui.components.base.rememberDebouncedQuery
 import cc.novelia.app.ui.navigation.AppController
+import cc.novelia.app.ui.i18n.Text
 
 @Composable fun NotesScreen(c: AppController) {
     val state by c.store.state.collectAsStateWithLifecycle(); var editing by remember { mutableStateOf<Note?>(null) }

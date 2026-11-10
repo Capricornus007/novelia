@@ -21,6 +21,7 @@ import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import cc.novelia.app.ui.i18n.Text
 
 @Composable internal fun EchSettings(transport: EchTransport, onDismiss: () -> Unit) {
     val recording by transport.recording.collectAsStateWithLifecycle()

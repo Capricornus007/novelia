@@ -16,6 +16,7 @@ import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
 import cc.novelia.app.reader.*
 import cc.novelia.app.ui.theme.LocalEInkMode
+import cc.novelia.app.ui.i18n.Text
 
 @Composable fun TogglePreference(title: String, subtitle: String, value: Boolean, onChange: (Boolean) -> Unit) =
     TogglePreference(title, subtitle, value, null, onChange)

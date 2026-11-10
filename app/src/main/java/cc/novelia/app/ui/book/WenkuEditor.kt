@@ -32,6 +32,7 @@ import java.time.LocalDate
 import java.time.ZoneOffset
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.*
+import cc.novelia.app.ui.i18n.Text
 
 @Composable fun WenkuEditorScreen(c: AppController, id: String? = null) {
     val profile by c.session.profile.collectAsStateWithLifecycle()

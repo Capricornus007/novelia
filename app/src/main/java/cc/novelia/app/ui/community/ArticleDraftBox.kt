@@ -19,6 +19,7 @@ import cc.novelia.app.ui.components.base.AppLazyColumn
 import cc.novelia.app.ui.components.base.EmptyState
 import cc.novelia.app.ui.components.base.MenuRow
 import cc.novelia.app.ui.navigation.AppController
+import cc.novelia.app.ui.i18n.Text
 
 @Composable internal fun ArticleDraftBox(c: AppController, onClose: () -> Unit) {
     val state by c.store.state.collectAsStateWithLifecycle()

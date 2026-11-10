@@ -85,6 +85,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.encodeToString
+import cc.novelia.app.ui.i18n.Text
 
 
 /**
