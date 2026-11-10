@@ -45,6 +45,8 @@ import cc.novelia.app.ui.theme.appReducedMotion
 import kotlin.math.abs
 import kotlin.math.max
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.Icon
+import cc.novelia.app.ui.i18n.localizedSemantics
 
 @Composable internal fun ReaderSlider(label: String, value: Float, range: ClosedFloatingPointRange<Float>, modifier: Modifier = Modifier,
     enabled: Boolean = true, livePreviewStep: Float? = null, defaultValue: Float? = null, onChange: (Float) -> Unit) {
@@ -64,7 +66,7 @@ import cc.novelia.app.ui.i18n.Text
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(formatPreferenceValue(value), style = MaterialTheme.typography.labelLarge)
                     if(reference != null) AppTextButton(onClick = { onChange(reference) }, enabled = enabled,
-                        modifier = Modifier.testTag("reader-default-$name").semantics { contentDescription = resetDescription }) {
+                        modifier = Modifier.testTag("reader-default-$name").localizedSemantics { l -> contentDescription = l(resetDescription) }) {
                         Text("默认 ${formatPreferenceValue(reference)}", style = MaterialTheme.typography.labelSmall)
                     }
                 }
@@ -197,10 +199,10 @@ import cc.novelia.app.ui.i18n.Text
             // 语义节点不拦截拖动；实际触摸由外层区分点击、横向拖动和列表滚动。
             Box(Modifier.absoluteOffset(x = with(density) { resetBounds.left.toDp() })
                 .width(with(density) { resetBounds.width.toDp() }).height(48.dp).testTag("reader-default-$name")
-                .semantics {
-                    contentDescription = resetDescription
+                .localizedSemantics { l ->
+                    contentDescription = l(resetDescription)
                     role = Role.Button
-                    if(enabled) onClick("恢复默认值") { reset(); true } else disabled()
+                    if(enabled) onClick(l("恢复默认值")) { reset(); true } else disabled()
                 })
         }
     }

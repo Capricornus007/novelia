@@ -26,6 +26,7 @@ import cc.novelia.app.data.network.SourceSelection
 import cc.novelia.app.data.sync.CloudSyncWorker
 import cc.novelia.app.ui.components.base.AppButton
 import cc.novelia.app.ui.components.base.AppIconButton
+import cc.novelia.app.ui.i18n.Icon
 import cc.novelia.app.ui.components.base.AppTextButton
 import cc.novelia.app.ui.components.base.Screen
 import cc.novelia.app.ui.components.base.friendlyMessage
@@ -94,7 +95,7 @@ private enum class LoginMode { LOGIN, REGISTER, RESET_PASSWORD }
         password = ""; otp = ""
         if(!forum && c.store.state.value.autoSync) session.profile.value?.username?.let { CloudSyncWorker.enqueue(c.app, it) }
         finishLoginNavigation(c, forum)
-        c.message("已登录")
+        c.message("登录成功")
     }
     fun submit() {
         if(!canSubmit) return

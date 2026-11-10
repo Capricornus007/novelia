@@ -20,6 +20,7 @@ import cc.novelia.app.ui.components.base.friendlyMessage
 import cc.novelia.app.ui.navigation.AppController
 import kotlinx.coroutines.CancellationException
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.Icon
 
 @Composable fun DownloadSheet(c: AppController, book: BookCard, volumes: List<String>, onQueued: () -> Unit = {}, dismiss: () -> Unit) {
     val settings = remember(book.ref) { c.store.state.value.reader }

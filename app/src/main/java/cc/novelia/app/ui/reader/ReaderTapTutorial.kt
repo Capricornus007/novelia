@@ -22,6 +22,8 @@ import cc.novelia.app.reader.ReaderTapZoneMap
 import cc.novelia.app.ui.components.base.AppIconButton
 import cc.novelia.app.ui.components.base.AppTextButton
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.Icon
+import cc.novelia.app.ui.i18n.localizedSemantics
 
 /** 使用当前配置覆盖正文，分区位置、合并结果与真实命中范围一致。 */
 @Composable internal fun ReaderTapTutorial(
@@ -37,7 +39,7 @@ import cc.novelia.app.ui.i18n.Text
     val controlsColor = MaterialTheme.colorScheme.surface.copy(alpha = if(eInk) 1f else .96f)
     BackHandler(onBack = onDismiss)
     BoxWithConstraints(modifier.background(if(eInk) Color.White.copy(alpha = .85f) else Color.Black.copy(alpha = .12f))
-        .testTag("reader-tap-tutorial").semantics { paneTitle = "点击区域翻页引导" }
+        .testTag("reader-tap-tutorial").localizedSemantics { l -> paneTitle = l("点击区域翻页引导") }
         .pointerInput(Unit) { detectTapGestures {} }) {
         val compact = maxHeight < 400.dp
         Box(Modifier.align(Alignment.TopCenter).fillMaxHeight().windowInsetsPadding(readingInsets)

@@ -9,6 +9,7 @@ import android.os.Environment
 import androidx.core.content.FileProvider
 import cc.novelia.app.BuildConfig
 import cc.novelia.app.data.storage.appJson
+import cc.novelia.app.ui.i18n.localizedText
 import java.io.File
 import java.security.MessageDigest
 import java.util.UUID
@@ -82,7 +83,7 @@ internal class AndroidAppDownloadBackend(private val app: Context) : AppDownload
         if(!directory.isDirectory && !directory.mkdirs()) throw AppReleaseException("无法创建下载目录，请检查存储空间")
         val request = DownloadManager.Request(Uri.parse(candidate.apk.downloadUrl))
             .setTitle("Novelia ${candidate.label}")
-            .setDescription("下载完成后返回 Novelia 安装")
+            .setDescription(localizedText("下载完成后返回 Novelia 安装"))
             .setMimeType("application/vnd.android.package-archive")
             .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
             .setDestinationInExternalFilesDir(app, Environment.DIRECTORY_DOWNLOADS, "app-updates/$fileName")

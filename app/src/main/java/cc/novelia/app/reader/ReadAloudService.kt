@@ -23,6 +23,7 @@ import cc.novelia.app.data.model.Chapter
 import cc.novelia.app.data.model.ReaderSettings
 import cc.novelia.app.data.model.toReaderChapter
 import cc.novelia.app.data.storage.appJson
+import cc.novelia.app.ui.i18n.localizedText
 import java.io.File
 import java.util.Locale
 import java.util.UUID
@@ -57,7 +58,7 @@ class ReadAloudService : Service() {
     private lateinit var focus: AudioFocusRequest
     override fun onCreate() {
         super.onCreate()
-        getSystemService(NotificationManager::class.java).createNotificationChannel(NotificationChannel("reading", "小说朗读", NotificationManager.IMPORTANCE_LOW))
+        getSystemService(NotificationManager::class.java).createNotificationChannel(NotificationChannel("reading", localizedText("小说朗读"), NotificationManager.IMPORTANCE_LOW))
         focus = AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN).setAudioAttributes(AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_MEDIA).setContentType(AudioAttributes.CONTENT_TYPE_SPEECH).build()).setOnAudioFocusChangeListener { if(it <= AudioManager.AUDIOFOCUS_LOSS) pause() }.build()
         engine = TextToSpeech(this) { result -> handler.post {
             ready = result == TextToSpeech.SUCCESS
@@ -218,9 +219,9 @@ class ReadAloudService : Service() {
     private fun pause() { paused = true; currentUtterance = null; engine?.stop(); if(activeRequest.isNotEmpty()) publishPlayback(false); status.value = "朗读已暂停"; getSystemService(NotificationManager::class.java).notify(100, notification()) }
     private fun notification(): Notification {
         fun pending(action: String) = PendingIntent.getService(this, action.hashCode(), Intent(this, ReadAloudService::class.java).setAction(action), PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
-        return NotificationCompat.Builder(this, "reading").setSmallIcon(R.drawable.ic_launcher).setContentTitle(title).setContentText(if(paused) "朗读已暂停" else if(loading) "正在准备朗读…" else "正在朗读").setOngoing(!paused)
+        return NotificationCompat.Builder(this, "reading").setSmallIcon(R.drawable.ic_launcher).setContentTitle(title).setContentText(localizedText(if(paused) "朗读已暂停" else if(loading) "正在准备朗读…" else "正在朗读")).setOngoing(!paused)
             .setContentIntent(PendingIntent.getActivity(this, 0, Intent(this, MainActivity::class.java), PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE))
-            .addAction(0, if(paused) "继续" else "暂停", pending(if(paused) "resume" else "pause")).addAction(0, "停止", pending("stop")).build()
+            .addAction(0, localizedText(if(paused) "继续" else "暂停"), pending(if(paused) "resume" else "pause")).addAction(0, localizedText("停止"), pending("stop")).build()
     }
     override fun onDestroy() { if(playback.value?.session == activeRequest) playback.value = null; serviceScope.cancel(); handler.removeCallbacksAndMessages(null); engine?.stop(); engine?.shutdown(); getSystemService(AudioManager::class.java).abandonAudioFocusRequest(focus); stopForeground(STOP_FOREGROUND_REMOVE); super.onDestroy() }
     override fun onBind(intent: Intent?): IBinder? = null

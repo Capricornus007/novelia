@@ -21,6 +21,8 @@ import cc.novelia.app.ui.components.base.*
 import cc.novelia.app.ui.navigation.AppController
 import kotlin.math.roundToInt
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.Icon
+import cc.novelia.app.ui.i18n.localizedSemantics
 
 internal data class EdgeShortcut(val id: String, val title: String, val icon: ImageVector)
 internal val edgeShortcuts = listOf(
@@ -66,7 +68,7 @@ internal val edgeShortcuts = listOf(
     ProfileDetailCard {
         Column(Modifier.padding(18.dp)) {
             Text("$title · ${(pending * 100).roundToInt()}%", style = MaterialTheme.typography.titleMedium)
-            AppSlider(pending, { pending = it }, Modifier.fillMaxWidth().semantics { contentDescription = title },
+            AppSlider(pending, { pending = it }, Modifier.fillMaxWidth().localizedSemantics { l -> contentDescription = l(title) },
                 valueRange = range, onValueChangeFinished = { onChange(pending) })
         }
     }

@@ -37,6 +37,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.localizedText
 
 /** 一次交互只播放一轮有限动画，结束后静止，不续播被中断的动画。 */
 @Composable
@@ -137,7 +138,16 @@ fun StickerSnackbarHost(state: SnackbarHostState) {
                     Text(visuals.message, Modifier.weight(1f))
                 }
             }
-        } else Snackbar(data)
+        } else {
+            // 預設 Snackbar 不經過 Text wrapper；顯示時轉換才能即時跟隨語言設定。
+            val localized = object : SnackbarData by data {
+                override val visuals: SnackbarVisuals = object : SnackbarVisuals by visuals {
+                    override val message = localizedText(visuals.message)
+                    override val actionLabel = visuals.actionLabel?.let { localizedText(it) }
+                }
+            }
+            Snackbar(localized)
+        }
     }
     if(!appReducedMotion()) SnackbarHost(state, snackbar = render)
     else {

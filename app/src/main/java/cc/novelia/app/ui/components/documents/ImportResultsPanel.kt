@@ -31,6 +31,8 @@ import cc.novelia.app.ui.theme.appShape
 import cc.novelia.app.ui.components.base.AppLazyColumn
 import cc.novelia.app.ui.components.base.AppSheet
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.Icon
+import cc.novelia.app.ui.i18n.localizedClickable
 
 @Composable internal fun ImportResultsPanel(
     items: List<ImportItem>, running: Boolean, onPause: () -> Unit, onRetryFailed: () -> Unit,
@@ -74,7 +76,7 @@ import cc.novelia.app.ui.i18n.Text
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)) {
         Column {
             Row(Modifier.fillMaxWidth().padding(end = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-                Row(Modifier.weight(1f).clickable(role = Role.Button, onClickLabel = "查看导入结果") { open = true }
+                Row(Modifier.weight(1f).localizedClickable(role = Role.Button, onClickLabel = "查看导入结果") { open = true }
                     .testTag("import-results").padding(start = 14.dp, end = 8.dp, top = 12.dp, bottom = 12.dp),
                     verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                     Icon(when {

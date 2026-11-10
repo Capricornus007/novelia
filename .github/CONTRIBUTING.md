@@ -4,10 +4,10 @@
 
 ## 开始开发
 
-从[构建指南](../docs/development/getting-started.md)准备环境：JDK、Android SDK，以及 ECH 构建所需的固定 Go/NDK。使用仓库 Wrapper，Windows 命令使用 PowerShell 7。普通开发不需要发布证书或原站账号。
+从[构建指南](../docs/development/getting-started.md)准备环境：JDK、Android SDK，以及 ECH 构建所需的固定 Go/NDK。使用仓库 Wrapper 和构建脚本。普通开发不需要发布证书或原站账号。
 
-```powershell
-./scripts/build-debug.ps1 -Verify
+```sh
+./scripts/build-debug.sh --verify
 ```
 
 这会构建 Debug、运行 JVM 单元测试和 Lint。Release、设备、论坛/ECH 联调及性能检查按[测试指南](../docs/quality/testing.md)选择。[Preview APK](workflows/preview-apk.yml) 在分支推送时自动构建 Release 预览包，默认分支还会更新滚动 Pre-release，但不代替上述检查；提交者记录实际执行结果，维护者按改动复验。

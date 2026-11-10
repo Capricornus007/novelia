@@ -15,6 +15,7 @@ import cc.novelia.app.data.library.readingDestination
 import cc.novelia.app.data.model.WebDetail
 import cc.novelia.app.ui.components.book.bookUpdateDateTime
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.Icon
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable internal fun BookUpdateSummary(detail: WebDetail, onReadChapter: (String) -> Unit) {

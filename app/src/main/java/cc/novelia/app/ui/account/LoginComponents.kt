@@ -32,6 +32,9 @@ import cc.novelia.app.ui.components.base.FilterPanelExpandIcon
 import cc.novelia.app.ui.feedback.MidoriCompanion
 import cc.novelia.app.ui.theme.appRoundedCornerShape
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.Icon
+import cc.novelia.app.ui.i18n.localizedClickable
+import cc.novelia.app.ui.i18n.localizedSemantics
 
 @Composable internal fun LoginPageLayout(
     register: Boolean,
@@ -79,7 +82,7 @@ import cc.novelia.app.ui.i18n.Text
     BoxWithConstraints(modifier.fillMaxWidth().padding(horizontal = 4.dp, vertical = 8.dp).testTag("login-welcome")) {
         val text: @Composable (Modifier) -> Unit = { textModifier ->
             Column(textModifier, verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text(if(forum) "社区账户" else "阅读账户", style = MaterialTheme.typography.labelMedium,
+                Text(if(forum) "社区账号" else "阅读账号", style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.primary)
                 Text(if(register) "注册账号" else if(resetting) "重置密码" else "登录账号",
                     style = MaterialTheme.typography.headlineMedium)
@@ -135,8 +138,8 @@ import cc.novelia.app.ui.i18n.Text
         color = MaterialTheme.colorScheme.surfaceContainerLow, border = profileCardBorder()) {
         Column {
             Row(Modifier.fillMaxWidth().testTag("login-source-toggle")
-                .semantics { stateDescription = if(expanded) "已展开" else "已收起" }
-                .clickable(role = Role.Button, onClickLabel = if(expanded) "收起书源线路" else "展开书源线路") { expanded = !expanded }
+                .localizedSemantics { l -> stateDescription = l(if(expanded) "已展开" else "已收起") }
+                .localizedClickable(role = Role.Button, onClickLabel = if(expanded) "收起书源线路" else "展开书源线路") { expanded = !expanded }
                 .heightIn(min = 76.dp).padding(horizontal = 18.dp, vertical = 14.dp),
                 verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(14.dp)) {
                 Icon(Icons.Outlined.Dns, null, Modifier.size(24.dp), tint = MaterialTheme.colorScheme.primary)

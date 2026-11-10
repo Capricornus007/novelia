@@ -10,7 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Close
-import androidx.compose.material3.Icon
+import cc.novelia.app.ui.i18n.Icon
 import androidx.compose.material3.MaterialTheme
 import cc.novelia.app.ui.i18n.Text
 import androidx.compose.runtime.Composable

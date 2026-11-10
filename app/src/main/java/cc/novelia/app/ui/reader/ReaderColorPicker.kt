@@ -53,6 +53,8 @@ import cc.novelia.app.ui.theme.LocalEInkMode
 import cc.novelia.app.ui.theme.LocalSquareCorners
 import kotlin.math.roundToInt
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.Icon
+import cc.novelia.app.ui.i18n.localizedSemantics
 
 private val CommonColors = listOf(0x000000L, 0xFFFFFFL, 0x282E27L, 0xF4ECD8L, 0xE8F2E5L, 0x141A16L, 0xDDE5DCL, 0xDED2B8L)
 private val HueColors = listOf(Color.Red, Color.Yellow, Color.Green, Color.Cyan, Color.Blue, Color.Magenta, Color.Red)
@@ -120,7 +122,7 @@ private fun rgb(hue: Float, saturation: Float, brightness: Float): Long =
                 } else {
                     Text("色相 ${hue.roundToInt()}°", style = MaterialTheme.typography.labelLarge)
                     AppSlider(hue, { setHsv(h = it) }, valueRange = 0f..360f,
-                        modifier = Modifier.fillMaxWidth().testTag("reader-color-hue").semantics { contentDescription = "色相" },
+                        modifier = Modifier.fillMaxWidth().testTag("reader-color-hue").localizedSemantics { l -> contentDescription = l("色相") },
                         thumb = {
                             Surface(color = rgb(rgb(hue, 1f, 1f)), shape = appShape(CircleShape),
                                 border = BorderStroke(2.dp, MaterialTheme.colorScheme.onSurface), modifier = Modifier.size(24.dp)) {}
@@ -131,17 +133,17 @@ private fun rgb(hue: Float, saturation: Float, brightness: Float): Long =
                         })
                     Text("饱和度 ${(saturation * 100).roundToInt()}%", style = MaterialTheme.typography.labelLarge)
                     AppSlider(saturation, { setHsv(s = it) }, modifier = Modifier.fillMaxWidth().testTag("reader-color-saturation")
-                        .semantics { contentDescription = "饱和度" })
+                        .localizedSemantics { l -> contentDescription = l("饱和度") })
                     Text("明度 ${(brightness * 100).roundToInt()}%", style = MaterialTheme.typography.labelLarge)
                     AppSlider(brightness, { setHsv(v = it) }, modifier = Modifier.fillMaxWidth().testTag("reader-color-brightness")
-                        .semantics { contentDescription = "明度" })
+                        .localizedSemantics { l -> contentDescription = l("明度") })
                 }
                 Text("常用颜色", style = MaterialTheme.typography.labelLarge)
                 FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                     CommonColors.forEach { color ->
                         Surface(onClick = { selectColor(color); input = hex(color) }, color = rgb(color), shape = appShape(CircleShape),
                             border = BorderStroke(if(pickedColor == color) 2.dp else 1.dp, MaterialTheme.colorScheme.outline),
-                            modifier = Modifier.size(48.dp).semantics { contentDescription = "常用颜色 ${hex(color)}"; selected = pickedColor == color }) {
+                            modifier = Modifier.size(48.dp).localizedSemantics { l -> contentDescription = l("常用颜色 ${hex(color)}"); selected = pickedColor == color }) {
                             if(pickedColor == color) Box(contentAlignment = Alignment.Center) {
                                 Icon(Icons.Outlined.Check, null, tint = if(rgb(color).luminance() > .5f) Color.Black else Color.White)
                             }
@@ -159,8 +161,8 @@ private fun rgb(hue: Float, saturation: Float, brightness: Float): Long =
     step: Float, displayed: String, onChange: (Float) -> Unit) {
     Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
         Text(label, style = MaterialTheme.typography.labelLarge)
-        Row(Modifier.fillMaxWidth().testTag("reader-color-$tag").semantics {
-            contentDescription = label
+        Row(Modifier.fillMaxWidth().testTag("reader-color-$tag").localizedSemantics { l ->
+            contentDescription = l(label)
             progressBarRangeInfo = ProgressBarRangeInfo(value, 0f..maximum)
             setProgress { next -> if(next.isFinite()) { onChange(next.coerceIn(0f, maximum)); true } else false }
         }, verticalAlignment = Alignment.CenterVertically) {
@@ -200,9 +202,9 @@ private fun rgb(hue: Float, saturation: Float, brightness: Float): Long =
     val eInk = LocalEInkMode.current
     val latestPick by rememberUpdatedState(onPick)
     Canvas(Modifier.fillMaxWidth().aspectRatio(1.4f).clip(MaterialTheme.shapes.small)
-        .testTag("reader-color-plane").semantics {
-            contentDescription = "饱和度与明度取色盘"
-            stateDescription = "饱和度 ${(saturation * 100).roundToInt()}%，明度 ${(brightness * 100).roundToInt()}%"
+        .testTag("reader-color-plane").localizedSemantics { l ->
+            contentDescription = l("饱和度与明度取色盘")
+            stateDescription = l("饱和度 ${(saturation * 100).roundToInt()}%，明度 ${(brightness * 100).roundToInt()}%")
         }.pointerInput(eInk) {
             awaitEachGesture {
                 val down = awaitFirstDown(pass = PointerEventPass.Initial)

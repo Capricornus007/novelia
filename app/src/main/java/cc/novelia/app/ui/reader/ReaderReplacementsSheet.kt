@@ -22,6 +22,7 @@ import cc.novelia.app.ui.components.base.*
 import cc.novelia.app.ui.theme.appRoundedCornerShape
 import cc.novelia.app.ui.theme.appReducedMotion
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.Icon
 
 @Composable internal fun ReaderReplacementsSheet(settings: ReaderSettings, sample: String,
     onDismiss: () -> Unit, onChange: (ReaderSettings) -> Unit, initialSource: String? = null) {

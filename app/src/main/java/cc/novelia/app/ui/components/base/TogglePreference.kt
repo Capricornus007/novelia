@@ -17,6 +17,8 @@ import androidx.compose.ui.unit.dp
 import cc.novelia.app.reader.*
 import cc.novelia.app.ui.theme.LocalEInkMode
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.Icon
+import cc.novelia.app.ui.i18n.localizedSemantics
 
 @Composable fun TogglePreference(title: String, subtitle: String, value: Boolean, onChange: (Boolean) -> Unit) =
     TogglePreference(title, subtitle, value, null, onChange)
@@ -33,7 +35,7 @@ import cc.novelia.app.ui.i18n.Text
             uncheckedTrackColor = if(changed) scheme.primary.copy(alpha = .22f) else scheme.surfaceContainerHighest,
             uncheckedThumbColor = if(changed) scheme.primary else scheme.outline,
             uncheckedBorderColor = if(changed) scheme.primary else scheme.outlineVariant))
-    }, modifier = Modifier.heightIn(min = 48.dp).semantics {
-        if(defaultValue != null) stateDescription = "${if(changed) "已修改" else "与默认一致"}，默认${if(defaultValue) "开启" else "关闭"}"
+    }, modifier = Modifier.heightIn(min = 48.dp).localizedSemantics { l ->
+        if(defaultValue != null) stateDescription = l("${if(changed) "已修改" else "与默认一致"}，默认${if(defaultValue) "开启" else "关闭"}")
     }.toggleable(value = value, role = Role.Switch, onValueChange = onChange))
 }

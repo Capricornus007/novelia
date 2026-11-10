@@ -33,6 +33,8 @@ import cc.novelia.app.data.library.originVolumeId
 import cc.novelia.app.files.downloads.downloadedVolumeForReading
 import cc.novelia.app.data.network.encodeSegment
 import cc.novelia.app.ui.components.base.AppLazyColumn
+import cc.novelia.app.ui.i18n.Icon
+import cc.novelia.app.ui.i18n.localizedClickable
 import cc.novelia.app.ui.components.book.BookRow
 import cc.novelia.app.ui.components.base.EmptyState
 import cc.novelia.app.ui.components.base.MenuRow
@@ -125,7 +127,7 @@ import cc.novelia.app.ui.i18n.Text
                     },
                     modifier = motion.testTag("wenku-volume-${volume.volumeId}").then(if(selecting) Modifier.toggleable(checked, enabled = complete, role = Role.Checkbox) { chosen ->
                         selection = if(chosen) selection + volume.volumeId else selection - volume.volumeId
-                    } else Modifier.clickable(enabled = opening == null && (readable || complete), onClickLabel = if(readable) "阅读分卷" else "下载分卷") {
+                    } else Modifier.localizedClickable(enabled = opening == null && (readable || complete), onClickLabel = if(readable) "阅读分卷" else "下载分卷") {
                         if(readable) openVolume(volume.volumeId) else download = listOf(volume.volumeId)
                     }),
                 )

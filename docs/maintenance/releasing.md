@@ -1,6 +1,6 @@
 # 手动发布
 
-本项目通过 [GitHub Releases](https://github.com/nobYoQ/novelia/releases) 手动分发正式 APK。[Preview APK](../../.github/workflows/preview-apk.yml) 在默认分支构建成功后自动更新测试签名的 `preview` Pre-release，下载和配置见 [Actions 构建指南](../development/getting-started.md#github-actions-自动预览包)。普通本地测试使用 `scripts/build-debug.ps1` / `scripts/build-release.ps1`；以下正式证书、版本标签和发行附件流程仍手动执行。
+本项目通过 [GitHub Releases](https://github.com/nobYoQ/novelia/releases) 手动分发正式 APK。[Preview APK](../../.github/workflows/preview-apk.yml) 在默认分支构建成功后自动更新测试签名的 `preview` Pre-release，下载和配置见 [Actions 构建指南](../development/getting-started.md#github-actions-自动预览包)。普通本地测试使用 `scripts/build-debug.sh` / `scripts/build-release.sh`；以下正式证书、版本标签和发行附件流程仍手动执行。
 
 `preview` 是滚动预览专用标签，允许随成功构建移动并替换同名预览附件。已有其他标签的 Pre-release 可通过 `NOVELIA_PREVIEW_TAG` 仓库变量指定；目标必须是可修改的预发布，自动发布脚本拒绝替换普通正式 Release 和不可变 Release。
 
@@ -23,7 +23,7 @@ APK、源码、元数据和标签必须对应同一个提交。正式版本发�
 
 ## 签名配置
 
-直接执行 Gradle `assembleRelease` 默认未签名；`scripts/build-release.ps1` 默认使用本地测试签名。正式构建显式使用 `-PreleaseSigning=true`，读取以下进程环境变量：
+直接执行 Gradle `assembleRelease` 默认未签名；`scripts/build-release.sh` 默认使用本地测试签名。正式构建显式使用 `-PreleaseSigning=true`，读取以下进程环境变量：
 
 | 变量 | 用途 |
 | --- | --- |
@@ -36,17 +36,17 @@ APK、源码、元数据和标签必须对应同一个提交。正式版本发�
 
 ## 准备附件
 
-[prepare-release.ps1](../../scripts/prepare-release.ps1) 收集下表列出的发行附件。变更说明维护在 GitHub Release 正文中，脚本不依赖独立的 CHANGELOG 文件。
+[prepare-release.sh](../../scripts/prepare-release.sh) 收集下表列出的发行附件。变更说明维护在 GitHub Release 正文中，脚本不依赖独立的 CHANGELOG 文件。
 
 按脚本的正式前提执行，例如：
 
-```powershell
-$apkSigner = 'C:/Tools/Android/Sdk/build-tools/35.0.0/apksigner.bat'
-$certificateFingerprint = '<发布证书的 SHA-256 指纹>'
-./scripts/prepare-release.ps1 -ApkSignerPath $apkSigner -CertificateSha256 $certificateFingerprint -Abi arm64-v8a
+```sh
+apkSigner='/opt/android-sdk/build-tools/37.0.0/apksigner'
+certificateFingerprint='<发布证书的 SHA-256 指纹>'
+./scripts/prepare-release.sh --apksigner "$apkSigner" --certificate "$certificateFingerprint" --abi arm64-v8a
 ```
 
-工具路径是示例，使用实际安装位置。脚本要求工作区干净、版本标签指向 HEAD，执行 Release 单元测试、Lint 和构建，再检查 APK 版本、签名及证书指纹；拒绝 Debug 证书。完整缓存下可加 `-Offline`。
+工具路径是示例，使用实际安装位置。脚本要求工作区干净、版本标签指向 HEAD，执行 Release 单元测试、Lint 和构建，再检查 APK 版本、签名及证书指纹；拒绝 Debug 证书。完整缓存下可加 `--offline`。
 
 默认 ABI 为 `arm64-v8a`，也支持 `armeabi-v7a`、`x86_64`、`x86`、`universal`。正式脚本选择 universal 时不显式传 targetAbi，应确认外部 Gradle 配置没有留下单 ABI 限制。
 
@@ -63,7 +63,7 @@ $certificateFingerprint = '<发布证书的 SHA-256 指纹>'
 
 多 ABI 的共用源码和许可上传一份即可，保留校验文件引用的原名。Release 正文另填变化和迁移信息。
 
-Linux/macOS 可直接使用 Wrapper 完成正式签名构建，但仍需逐项准备和验证对应源码、证书、映射及校验附件；PowerShell 附件工具以 Windows 为目标环境。
+任何平台都可直接使用脚本或 Wrapper 完成正式签名构建，但仍需逐项准备和验证对应源码、证书、映射及校验附件。
 
 ## 上传与验收
 

@@ -26,6 +26,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.Icon
+import cc.novelia.app.ui.i18n.localizedSemantics
 
 /** 页码从 0 开始；null 表示两端页码与当前页窗口之间的省略区间。 */
 internal fun paginationItems(page: Int, count: Int): List<Int?> {
@@ -68,9 +70,9 @@ internal fun paginationItems(page: Int, count: Int): List<Int?> {
                 else {
                     val active = item == current
                     AppTextButton(onClick = { if (!active) onChange(item) },
-                        modifier = Modifier.heightIn(min = 48.dp).widthIn(min = 48.dp).semantics {
+                        modifier = Modifier.heightIn(min = 48.dp).widthIn(min = 48.dp).localizedSemantics { l ->
                             selected = active
-                            contentDescription = "第 ${item + 1} 页"
+                            contentDescription = l("第 ${item + 1} 页")
                         },
                         shape = MaterialTheme.shapes.small,
                         contentPadding = PaddingValues(horizontal = 8.dp),
@@ -99,7 +101,7 @@ internal fun paginationItems(page: Int, count: Int): List<Int?> {
                 expanded = !expanded
                 if(!expanded) focus.clearFocus()
             }, modifier = Modifier.size(48.dp).testTag("page-jump-toggle")
-                .semantics { stateDescription = if(expanded) "已展开" else "已收起" },
+                .localizedSemantics { l -> stateDescription = l(if(expanded) "已展开" else "已收起") },
                 colors = IconButtonDefaults.iconButtonColors(contentColor = MaterialTheme.colorScheme.primary)) {
                 FilterPanelExpandIcon(expanded, if(expanded) "收起页码跳转" else "展开页码跳转")
             }

@@ -51,6 +51,7 @@ import cc.novelia.app.data.sync.updateCloudPending
 import cc.novelia.app.ui.components.base.friendlyMessage
 import cc.novelia.app.ui.feedback.MidoriSticker
 import cc.novelia.app.ui.feedback.StickerSnackbarVisuals
+import cc.novelia.app.ui.i18n.localizedText
 import cc.novelia.app.ui.reader.ReaderTocState
 import java.io.IOException
 import java.util.UUID
@@ -246,20 +247,20 @@ class AppController(val app: NoveliaApplication, val nav: NavHostController, val
         }
     }
     fun message(text: String, actionLabel: String? = null, onAction: () -> Unit = {}) { scope.launch {
-        if(snackbar.showSnackbar(text, actionLabel = actionLabel, withDismissAction = actionLabel != null,
+        if(snackbar.showSnackbar(localizedText(text), actionLabel = actionLabel?.let(::localizedText), withDismissAction = actionLabel != null,
                 duration = if(actionLabel == null) SnackbarDuration.Short else SnackbarDuration.Long) == SnackbarResult.ActionPerformed) onAction()
     } }
     fun celebrate(text: String, sticker: MidoriSticker, actionLabel: String? = null, onAction: () -> Unit = {}) {
         celebration?.cancel()
         celebration = scope.launch {
-            if(snackbar.showSnackbar(StickerSnackbarVisuals(text, sticker, actionLabel = actionLabel,
+            if(snackbar.showSnackbar(StickerSnackbarVisuals(localizedText(text), sticker, actionLabel = actionLabel?.let(::localizedText),
                     duration = if(actionLabel == null) SnackbarDuration.Short else SnackbarDuration.Long)) == SnackbarResult.ActionPerformed) onAction()
         }
     }
     fun action(success: String? = null, sticker: MidoriSticker? = null, block: suspend () -> Unit) { scope.launch(Dispatchers.Main.immediate) {
-        try { block(); success?.let { if(sticker != null) celebrate(it, sticker) else snackbar.showSnackbar(it) } }
+        try { block(); success?.let { if(sticker != null) celebrate(it, sticker) else message(it) } }
         catch(e: kotlinx.coroutines.CancellationException) { throw e }
-        catch(e: Exception) { snackbar.showSnackbar(e.friendlyMessage()) }
+        catch(e: Exception) { message(e.friendlyMessage()) }
     } }
     fun requireLogin(action: () -> Unit) { if(session.profile.value == null) { afterLogin = action; go("login") } else action() }
     fun requireForumLogin(action: () -> Unit) { if(forumSession.profile.value == null) { afterLogin = action; go("forum-login") } else action() }

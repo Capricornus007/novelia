@@ -22,15 +22,15 @@ app/                         Android 应用
 benchmark/                   Macrobenchmark 与 Profile 采集
 native/ech/                  Go ECH 传输及测试
 gradle/                      工具链、原生构建、许可证与桌面图标生成配置
-scripts/                     PowerShell 构建与发行工具
+scripts/                     构建与发行工具
 docs/                        架构、开发、功能、质量和维护文档
 .github/                     工作流、协作指南与安全政策
-build.ps1                    根目录统一 Gradle 任务入口
+build.sh                     根目录统一 Gradle 任务入口
 ```
 
 源码包不是独立 Gradle 模块。`benchmark` 用来采集性能数据，不是应用运行时库。构建入口和产物目录见[构建指南](../development/getting-started.md)。
 
-根目录保留工程配置、README、许可证、版本号和 `build.ps1`。Debug/Release 快捷打包分别使用 `scripts/build-debug.ps1`、`scripts/build-release.ps1`；协作政策在 `.github/`，正式发布操作在 `docs/maintenance/releasing.md`。
+根目录保留工程配置、README、许可证、版本号和 `build.sh`。Debug/Release 快捷打包分别使用 `scripts/build-debug.sh`、`scripts/build-release.sh`；协作政策在 `.github/`，正式发布操作在 `docs/maintenance/releasing.md`。
 
 本地原始素材放 `.local/assets/`，其中桌面图标原图放 `.local/assets/launcher-icons/`；工作笔记放 `.local/notes/`，外部参考仓库放 `.reference/`。这些目录均被 Git 忽略，不作为构建输入；参与打包的图标仍放在 `app/launcher-icons/res/`。
 

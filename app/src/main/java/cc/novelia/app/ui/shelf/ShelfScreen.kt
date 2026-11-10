@@ -46,6 +46,8 @@ import cc.novelia.app.data.library.shelfGroups
 import cc.novelia.app.data.library.withReadingStatus
 import cc.novelia.app.data.library.withVolumeParent
 import cc.novelia.app.data.library.withWenkuVolumeOrder
+import cc.novelia.app.ui.i18n.Icon
+import cc.novelia.app.ui.i18n.localizedSemantics
 import cc.novelia.app.data.library.withWenkuVolumes
 import cc.novelia.app.data.model.BookRef
 import cc.novelia.app.data.model.DownloadEntry
@@ -328,10 +330,10 @@ import cc.novelia.app.ui.i18n.Text
                                                 catch(_: Exception) { /* 离线保留已有进度。 */ }
                                             }
                                         }
-                                        ShelfCoverCard(saved.book, status, open, Modifier.weight(1f).testTag("shelf-book-$key").semantics {
+                                        ShelfCoverCard(saved.book, status, open, Modifier.weight(1f).testTag("shelf-book-$key").localizedSemantics { l ->
                                             this.selected = if(pageManaging) key in selection else key == selectedBookKey
-                                            onClick(if(pageManaging) "切换选择" else "打开书籍") { open(); true }
-                                            if(selectionEnabled && key in selectableKeys) onLongClick("选择${saved.book.title}") { dragSelection.selectOne(key); true }
+                                            onClick(l(if(pageManaging) "切换选择" else "打开书籍")) { open(); true }
+                                            if(selectionEnabled && key in selectableKeys) onLongClick(l("选择${saved.book.title}")) { dragSelection.selectOne(key); true }
                                         }, selecting = pageManaging, selected = if(pageManaging) key in selection else key == selectedBookKey,
                                             enabled = !batchWorking && (!pageManaging || key in selectableKeys), pinned = saved.pinned,
                                             volumeLabel = if(saved.book.ref.isWenku) {
@@ -379,10 +381,10 @@ import cc.novelia.app.ui.i18n.Text
                                     }
                                 }) else null
                                 val itemMotion = (if(reducedMotion) Modifier else Modifier.animateItem(fadeInSpec = tween(AppMotion.Release), placementSpec = if(dragging || dragSelection.dragging) null else tween(AppMotion.Standard), fadeOutSpec = tween(AppMotion.Exit)))
-                                    .semantics {
-                                        onClick(if(pageManaging) "切换选择" else if(onRead != null) "继续阅读" else "打开书籍") { (onRead ?: onOpen)(); true }
-                                        if(pageManaging) stateDescription = if(saved.book.ref.key in selection) "已选择" else "未选择"
-                                        if(active && selectable && !batchWorking) onLongClick("选择${saved.book.title}") { dragSelection.selectOne(saved.book.ref.key); true }
+                                    .localizedSemantics { l ->
+                                        onClick(l(if(pageManaging) "切换选择" else if(onRead != null) "继续阅读" else "打开书籍")) { (onRead ?: onOpen)(); true }
+                                        if(pageManaging) stateDescription = l(if(saved.book.ref.key in selection) "已选择" else "未选择")
+                                        if(active && selectable && !batchWorking) onLongClick(l("选择${saved.book.title}")) { dragSelection.selectOne(saved.book.ref.key); true }
                                     }
                                 val trailing: @Composable () -> Unit = {
                                     if(pageManaging) AppCheckbox(saved.book.ref.key in selection, { checked ->
@@ -393,12 +395,12 @@ import cc.novelia.app.ui.i18n.Text
                                     itemMotion.zIndex(if(dragging) 1f else 0f).graphicsLayer {
                                         translationY = if(dragging) reorder.offset else 0f
                                         shadowElevation = if(dragging && !reducedMotion) 4.dp.toPx() else 0f
-                                    }.drawBehind { drawRect(selectionColor.value) }.semantics { if(!pageManaging && saved.book.ref.key == selectedBookKey) stateDescription = "已选中" }, onOpen, trailing,
+                                    }.drawBehind { drawRect(selectionColor.value) }.localizedSemantics { l -> if(!pageManaging && saved.book.ref.key == selectedBookKey) stateDescription = l("已选中") }, onOpen, trailing,
                                     dragHandle = if(canReorder && reorder.siblings(saved.book.ref.key).size > 1) {
                                         { VolumeDragHandle(reorder, saved.book.ref.key, saved.book.title) }
                                     } else null)
                                 else Column(itemMotion.testTag("shelf-book-${saved.book.ref.key}").drawBehind { drawRect(selectionColor.value) }
-                                    .semantics { if(!pageManaging && saved.book.ref.key == selectedBookKey) stateDescription = "已选中" }) {
+                                    .localizedSemantics { l -> if(!pageManaging && saved.book.ref.key == selectedBookKey) stateDescription = l("已选中") }) {
                                     BookRow(if(filterCharacters) saved.book.copy(totalCharacters = characterCounts.count(saved.book)) else saved.book, onOpen,
                                         status = bookRowStatus(saved.book, saved, state.positions[saved.book.ref.key], state.bookUpdates[saved.book.ref.key], profile?.username),
                                         showCharacterCount = filterCharacters, compactMetadata = page == 0, trailing = trailing,
@@ -410,7 +412,7 @@ import cc.novelia.app.ui.i18n.Text
                                             else if(filteringVolumes) collapsedSearchGroups = if(row.expanded) collapsedSearchGroups + saved.book.ref.key else collapsedSearchGroups - saved.book.ref.key
                                             else c.store.update { it.copy(books = it.books.map { book -> if(book.book.ref == saved.book.ref) book.copy(volumesExpanded = !row.expanded) else book }) }
                                         }, enabled = !pageManaging, modifier = Modifier.padding(start = 20.dp).testTag("wenku-volumes-${saved.book.ref.key}")
-                                            .semantics { stateDescription = if(row.volumeCount == 0) "未挂载分卷" else if(row.expanded) "已展开" else "已折叠" }) {
+                                            .localizedSemantics { l -> stateDescription = l(if(row.volumeCount == 0) "未挂载分卷" else if(row.expanded) "已展开" else "已折叠") }) {
                                             Icon(if(row.volumeCount == 0) Icons.Outlined.Add else Icons.Outlined.ExpandMore, null,
                                                 if(row.volumeCount == 0) Modifier else Modifier.rotate(rotation))
                                             Spacer(Modifier.width(8.dp))
@@ -461,8 +463,9 @@ import cc.novelia.app.ui.i18n.Text
                     val deleted = c.store.removeShelfBooks(refs)
                     managing = false; selection = emptySet(); batchWorking = false
                     if(deleted.isNotEmpty()) c.message("已移出 ${refs.size} 本书，并删除 ${deleted.size} 份本地副本")
-                    else if(c.snackbar.showSnackbar("已移出 ${refs.size} 本书", actionLabel = "撤销", withDismissAction = true, duration = SnackbarDuration.Long) == SnackbarResult.ActionPerformed)
+                    else c.message("已移出 ${refs.size} 本书", actionLabel = "撤销") {
                         c.store.update { restoreRemovedShelfBooks(it, previous, refs) }
+                    }
                 } finally { batchWorking = false }
             }
         }
@@ -528,7 +531,7 @@ import cc.novelia.app.ui.i18n.Text
             c.action {
                 val deleted = c.store.removeShelfBook(saved.book.ref)
                 if(deleted) { c.message("已移出书架并删除「${saved.book.title}」的导入副本"); return@action }
-                if(c.snackbar.showSnackbar("已将「${saved.book.title}」移出书架", actionLabel = "撤销", withDismissAction = true, duration = SnackbarDuration.Long) == SnackbarResult.ActionPerformed) {
+                c.message("已将「${saved.book.title}」移出书架", actionLabel = "撤销") {
                     c.store.update { current ->
                         restoreRemovedShelfBook(current, previous, saved.book.ref)
                     }

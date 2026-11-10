@@ -48,7 +48,7 @@ import cc.novelia.app.ui.i18n.Text
                         c.action {
                             val deleted = c.store.removeShelfBook(book.ref)
                             if(deleted) { c.message("已移出书架并删除「${book.title}」的导入副本"); return@action }
-                            if(c.snackbar.showSnackbar("已取消「${book.title}」的本地收藏", actionLabel = "撤销", withDismissAction = true, duration = SnackbarDuration.Long) == SnackbarResult.ActionPerformed) {
+                            c.message("已取消「${book.title}」的本地收藏", actionLabel = "撤销") {
                                 c.store.update { current -> restoreRemovedShelfBook(current, previous, book.ref) }
                             }
                         }

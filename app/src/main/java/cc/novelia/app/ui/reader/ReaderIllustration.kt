@@ -3,7 +3,6 @@ package cc.novelia.app.ui.reader
 
 import cc.novelia.app.ui.components.base.AppTextButton
 import androidx.compose.foundation.background
-import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.outlined.*
@@ -23,6 +22,7 @@ import cc.novelia.app.ui.theme.appReducedMotion
 import cc.novelia.app.ui.components.media.RecoveringAsyncImage as AsyncImage
 import coil3.request.ImageRequest
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.localizedCombinedClickable
 
 @Composable internal fun ReaderIllustration(model: Any, foreground: Color, onToggleMenu: () -> Unit) {
     val context = LocalContext.current
@@ -36,7 +36,7 @@ import cc.novelia.app.ui.i18n.Text
         // 解码前预留竖图区域，防止图片加载后推移后续段落。
         Box(Modifier.fillMaxWidth().height((maxWidth * 1.35f).coerceIn(180.dp, 900.dp))
             .background(foreground.copy(alpha = .035f))
-            .combinedClickable(
+            .localizedCombinedClickable(
                 interactionSource = remember { MutableInteractionSource() }, indication = null,
                 onClickLabel = "显示或收起阅读工具栏", onClick = onToggleMenu,
                 onLongClickLabel = "放大查看插图", onLongClick = { expanded = true }), contentAlignment = Alignment.Center) {

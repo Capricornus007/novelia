@@ -18,6 +18,7 @@ import cc.novelia.app.ui.components.base.AppSelectionChip
 import cc.novelia.app.ui.components.base.ChipSpacing
 import cc.novelia.app.ui.components.base.appHorizontalScroll
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.Icon
 
 @Composable fun KeywordCategoryChips(categories: List<String>, selected: String, onSelect: (String) -> Unit, modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(horizontal = 20.dp, vertical = 4.dp)) {

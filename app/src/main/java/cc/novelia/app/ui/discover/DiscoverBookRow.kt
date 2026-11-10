@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.clickable
 import androidx.compose.material3.MaterialTheme
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.localizedClickable
+import cc.novelia.app.ui.i18n.localizedSemantics
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
@@ -67,8 +69,8 @@ import cc.novelia.app.ui.theme.motionClickable
             if(tags.isNotEmpty()) {
                 var tagsExpanded by rememberSaveable(book.ref.key) { mutableStateOf(false) }
                 Row(Modifier.fillMaxWidth().testTag("discover-tags-${book.ref.key}")
-                    .clickable(role = Role.Button, onClickLabel = if(tagsExpanded) "收起标签" else "展开全部 ${tags.size} 个标签") { tagsExpanded = !tagsExpanded }
-                    .semantics { stateDescription = if(tagsExpanded) "标签已展开" else "标签已收起" }
+                    .localizedClickable(role = Role.Button, onClickLabel = if(tagsExpanded) "收起标签" else "展开全部 ${tags.size} 个标签") { tagsExpanded = !tagsExpanded }
+                    .localizedSemantics { l -> stateDescription = l(if(tagsExpanded) "标签已展开" else "标签已收起") }
                     .padding(vertical = 4.dp), horizontalArrangement = Arrangement.spacedBy(4.dp), verticalAlignment = Alignment.Top) {
                     Text(tags.joinToString(" · "), Modifier.weight(1f).testTag("discover-tags-text-${book.ref.key}"),
                         style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.primary,

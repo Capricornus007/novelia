@@ -18,13 +18,15 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import cc.novelia.app.ui.components.base.FilterPanelVisibility
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.Icon
+import cc.novelia.app.ui.i18n.localizedSemantics
 
 @Composable internal fun ShelfSearchToggle(
     expanded: Boolean, active: Boolean, onToggle: () -> Unit, tagPrefix: String, enabled: Boolean = true,
 ) {
     AppIconButton(onClick = onToggle, enabled = enabled,
-        modifier = Modifier.size(48.dp).testTag("$tagPrefix-search-toggle").semantics {
-            stateDescription = if(expanded) "搜索已展开" else if(active) "搜索已收起，关键词仍生效" else "搜索已收起"
+        modifier = Modifier.size(48.dp).testTag("$tagPrefix-search-toggle").localizedSemantics { l ->
+            stateDescription = l(if(expanded) "搜索已展开" else if(active) "搜索已收起，关键词仍生效" else "搜索已收起")
         }, colors = IconButtonDefaults.iconButtonColors(
             contentColor = if(expanded || active) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant)) {
         Icon(Icons.Outlined.Search, if(expanded) "收起书架搜索" else "展开书架搜索")

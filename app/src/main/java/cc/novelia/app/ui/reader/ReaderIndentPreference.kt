@@ -27,13 +27,15 @@ import cc.novelia.app.ui.components.base.AppTextButton
 import cc.novelia.app.ui.theme.appRoundedCornerShape
 import cc.novelia.app.ui.theme.motionClickable
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.Icon
+import cc.novelia.app.ui.i18n.localizedSemantics
 
 /** 设置列表只展示当前值；编辑窗口提交有效格数后才重新排版。 */
 @Composable internal fun ReaderIndentPreference(value: Int, defaultValue: Int, onChange: (Int) -> Unit) {
     var editing by rememberSaveable { mutableStateOf(false) }
     val label = if(value == 0) "不缩进" else "$value 格"
     Row(Modifier.fillMaxWidth().heightIn(min = 64.dp).testTag("reader-indent-setting")
-        .semantics { role = Role.Button; stateDescription = label }
+        .localizedSemantics { l -> role = Role.Button; stateDescription = l(label) }
         .motionClickable { editing = true }.padding(horizontal = 20.dp, vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
         Text("首行缩进", Modifier.weight(1f), style = MaterialTheme.typography.bodyLarge)

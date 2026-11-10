@@ -9,7 +9,6 @@ import android.text.Spannable
 import android.text.Spanned
 import android.text.style.UnderlineSpan
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -38,6 +37,8 @@ import cc.novelia.app.data.model.ReaderSettings
 import cc.novelia.app.reader.*
 import kotlin.math.roundToInt
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.localizedCombinedClickable
+import cc.novelia.app.ui.i18n.localizedSemantics
 
 /** combinedClickable 仍负责滚动取消和长按；这里只记录本次已确认点击的局部坐标。 */
 @Composable internal fun Modifier.readerInlineActions(onClick: (Offset?) -> Unit, onLongClick: () -> Unit): Modifier {
@@ -53,7 +54,7 @@ import cc.novelia.app.ui.i18n.Text
                 }
             } finally { position[0] = null }
         }
-    }.combinedClickable(interactionSource = remember { MutableInteractionSource() }, indication = null,
+    }.localizedCombinedClickable(interactionSource = remember { MutableInteractionSource() }, indication = null,
         onClickLabel = "查看脚注或显示阅读工具栏", onClick = { onClick(position[0]) },
         onLongClickLabel = "选择段落、分享或添加笔记", onLongClick = onLongClick)
 }
@@ -78,10 +79,10 @@ import cc.novelia.app.ui.i18n.Text
         }
         SideEffect { latestLayout(layout, top) }
         Canvas(Modifier.fillMaxWidth().height(with(density) { layout.height.toDp() })
-            .semantics {
+            .localizedSemantics { l ->
                 text = AnnotatedString(indent + part.text)
                 customActions = part.inline.filter { it.kind == InlineKind.Note }.map { mark ->
-                    CustomAccessibilityAction("查看脚注 ${part.text.substring(mark.start, mark.end)}") { onNote(mark.value); true }
+                    CustomAccessibilityAction(l("查看脚注 ${part.text.substring(mark.start, mark.end)}")) { onNote(mark.value); true }
                 }
             }
             .readerInlineActions({ position ->

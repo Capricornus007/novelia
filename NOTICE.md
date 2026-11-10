@@ -2,11 +2,15 @@
 
 Copyright (C) 2026 Novelia Android contributors.
 
-本项目原创代码及文档采用 GNU General Public License version 3 only（SPDX：GPL-3.0-only），完整条款见 [LICENSE](LICENSE)。第三方代码、构建工具和素材保留各自的许可证及版权声明。本项目不提供任何担保，具体以许可证条款为准。
+本專案程式碼及文件採用 GNU General Public License version 3 only（SPDX：GPL-3.0-only），完整條款見 [LICENSE](LICENSE)。第三方程式碼、建置工具和素材保留各自的授權條款及版權聲明。本專案不提供任何擔保，具體以授權條款為準。
 
-源码仓库：https://github.com/nobYoQ/novelia
+上游來源：https://github.com/nobYoQ/novelia
 
-发行版与对应源码：https://github.com/nobYoQ/novelia/releases
+目前維護的復刻版本：https://github.com/Capricornus007/novelia
+
+發行版與對應原始碼：https://github.com/Capricornus007/novelia/releases
+
+本版本為上游專案的 fork，不表示 Capricornus007 是全部程式碼的原創作者；上游版權、原始授權與修改說明依各檔案記載保留。
 
 ## 原站与接口
 
@@ -36,7 +40,7 @@ GPL-2.0 完整条款见 [licenses/GPL-2.0.txt](licenses/GPL-2.0.txt)。
 
 Novelia 自行管理实际 HTTP 连接与 TLS 期限，并实现 JNI 流式上传/下载、取消、有限连接重试、多地址拨号和主机边界。修改后的第三方组件保留原有许可证，与本项目原创实现的许可分别记录。
 
-工具链固定为 Go 1.27.1，使用 Go 标准库 TLS 1.3/ECH 和证书校验；运行时包含 `golang.org/x/net v0.56.0`、`x/sync v0.21.0`、`x/text v0.38.0` 及 `x/mobile 68735029466e` 生成的 JNI 绑定（BSD-3-Clause）。完整版本和完整性校验见 `native/ech/go.mod`、`go.sum` 与 `scripts/build-ech.ps1`；原始许可证合并于 `licenses/ECH-native.txt` 并随 APK 附带。构建用的 `x/tools` 和 `x/mod` 不作为应用运行时库打包。
+工具链固定为 Go 1.27.3，使用 Go 标准库 TLS 1.3/ECH 和证书校验；运行时包含 `golang.org/x/net v0.56.0`、`x/sync v0.21.0`、`x/text v0.38.0` 及 `x/mobile 68735029466e` 生成的 JNI 绑定（BSD-3-Clause）。完整版本和完整性校验见 `native/ech/go.mod`、`go.sum` 与 `gradle/ech-native.gradle.kts`；原始许可证合并于 `licenses/ECH-native.txt` 并随 APK 附带。构建用的 `x/tools` 和 `x/mod` 不作为应用运行时库打包。
 
 ## 内容与素材
 

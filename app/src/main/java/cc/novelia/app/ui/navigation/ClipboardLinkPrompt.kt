@@ -60,9 +60,7 @@ import kotlinx.coroutines.flow.map
     LaunchedEffect(enabled, candidate) {
         if(!enabled) { candidate = null; return@LaunchedEffect }
         val link = candidate ?: return@LaunchedEffect
-        val result = c.snackbar.showSnackbar("剪贴板中发现原站${link.label}链接", actionLabel = "打开",
-            withDismissAction = true, duration = SnackbarDuration.Long)
+        c.message("剪贴板中发现原站${link.label}链接", actionLabel = "打开") { c.go(link.route) }
         candidate = null
-        if(result == SnackbarResult.ActionPerformed) c.go(link.route)
     }
 }

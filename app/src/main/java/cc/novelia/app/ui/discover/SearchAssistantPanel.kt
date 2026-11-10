@@ -30,6 +30,7 @@ import cc.novelia.app.ui.components.keywords.KeywordCategoryChips
 import cc.novelia.app.ui.components.keywords.KeywordSelectionChip
 import cc.novelia.app.ui.components.base.rememberPanelScrollState
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.Icon
 
 @Composable
 fun SearchAssistantPanel(

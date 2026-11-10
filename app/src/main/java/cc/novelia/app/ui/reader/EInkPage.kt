@@ -16,12 +16,13 @@ import android.text.style.UpdateAppearance
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.localizedClickable
+import cc.novelia.app.ui.i18n.localizedCombinedClickable
+import cc.novelia.app.ui.i18n.localizedSemantics
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -436,7 +437,7 @@ internal fun PageBody(
         result
     }
     // 正文仅显示 readerTapFeedback 的分区提示，避免默认涟漪按容器大小给整页染色。
-    Column(modifier.combinedClickable(
+    Column(modifier.localizedCombinedClickable(
         interactionSource = remember { MutableInteractionSource() }, indication = null,
         onClickLabel = "显示或收起阅读工具栏", onClick = tapNavigation::click)) {
         groups.forEachIndexed { groupIndex, lines ->
@@ -450,7 +451,7 @@ internal fun PageBody(
                     ImageRequest.Builder(context).data(model).memoryCacheKeyExtra("readerRetry", retry.toString()).build()
                 }
                 var failed by remember(model) { mutableStateOf(false) }
-                Box(Modifier.fillMaxWidth().height(with(density) { viewportHeight.toDp() }).combinedClickable(
+                Box(Modifier.fillMaxWidth().height(with(density) { viewportHeight.toDp() }).localizedCombinedClickable(
                     interactionSource = remember { MutableInteractionSource() }, indication = null,
                     onClick = tapNavigation::click,
                     onLongClickLabel = "放大查看插图", onLongClick = { onExpandImage(model) }), contentAlignment = Alignment.Center) {
@@ -471,16 +472,16 @@ internal fun PageBody(
                 val visibleText = layout.text.subSequence(lines.first().start, lines.last().end).toString()
                 Canvas(Modifier.fillMaxWidth().height(with(density) { (sliceHeight * drawScale).toDp() }).clipToBounds()
                     .then(if(index == CHAPTER_HEADING_PARAGRAPH) Modifier.testTag("reader-page-chapter-title") else Modifier)
-                    .semantics {
+                    .localizedSemantics { l ->
                         text = AnnotatedString(visibleText)
                         if(index == CHAPTER_HEADING_PARAGRAPH) heading()
                         val marked = layout.text as? Spanned
                         customActions = marked?.getSpans(lines.first().start, lines.last().end, ReaderNoteSpan::class.java).orEmpty().map { note ->
                             val label = marked!!.subSequence(marked.getSpanStart(note), marked.getSpanEnd(note))
-                            CustomAccessibilityAction("查看脚注 $label") { onNote(note.body); true }
+                            CustomAccessibilityAction(l("查看脚注 $label")) { onNote(note.body); true }
                         }
                     }
-                    .then(if(paragraph == null) Modifier.clickable(interactionSource = remember { MutableInteractionSource() }, indication = null,
+                    .then(if(paragraph == null) Modifier.localizedClickable(interactionSource = remember { MutableInteractionSource() }, indication = null,
                         onClickLabel = "显示或收起阅读工具栏", onClick = tapNavigation::click)
                     else Modifier.readerInlineActions({ position ->
                         val note = position?.let { layout.noteAt(it.x / drawScale, it.y / drawScale + top) }

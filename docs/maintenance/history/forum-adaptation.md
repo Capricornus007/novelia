@@ -76,7 +76,7 @@
 - 初始预适配验收（历史）：93 项 JVM 测试全部通过；Debug APK、Android 测试 APK 构建成功；`lintDebug` 通过，0 个错误、25 个警告。本次结果见末尾 2026-10-05 记录。
 - 初始设备验收（历史）：`ForumAccountUiTest` 与 `ForumSessionIsolationTest` 共 6 项 Android 回归测试通过，覆盖排序选择、个人面板操作与返回键、处罚记录展示，以及双向退出隔离和退出状态持久化。会话测试使用独立存储与合成凭据。
 - 初始布局验收（历史）：在 375dp 宽模拟器上核对浅色／深色、减少动态效果；另外两次布局测试覆盖横屏和系统双倍字号，均通过并检查截图。
-- 构建与离线验证：`./build.ps1 -Tasks @('assembleDebug', 'assembleDebugAndroidTest', 'testDebugUnitTest', 'lintDebug') -Offline`。
+- 构建与离线验证：`./build.sh assembleDebug assembleDebugAndroidTest testDebugUnitTest lintDebug --offline`。
 - 可选 Android 只读联调：安装测试 APK 后使用 `adb shell am instrument -w -r -e live true -e class cc.novelia.app.integration.ForumLiveReadOnlyTest cc.novelia.app.test/androidx.test.runner.AndroidJUnitRunner`。
 
 测试站仍在变化。真实账号登录、处罚记录读取及账号写入尚未进行端到端验收；接口合约已核对部署源码，并用本地模拟服务验证。上线前应重新核对部署版本，并用测试账号验收发帖、编辑、回复、收藏及处罚记录。
@@ -154,7 +154,7 @@
 - 客户端使用可空 64 位计数区分旧响应缺失值与明确的零回复。新版的正数及零均直接显示，不再为计数请求回复接口；旧响应仍保留限流补查和失败重试。回复正文按需加载、页缓存、账号隔离和发布后定位末页继续沿用，已加载回复页的 `total` 可更新根评论快照中的数量。
 - 匿名公开 GET 核对帖子 953、1021 的 24 条一级评论，均带有 `replyCount`；四个抽查讨论串的计数 7、0、2、0 与独立回复接口的 `total` 一致。源码差异及不含评论正文的验证记录保存在本地忽略目录 `outputs/qa/forum-update-20261002/`。
 - JVM 回归增加新版完整计数不发补查请求，以及混合新旧响应只查询缺失计数的 HTTP 断言；序列化覆盖缺失、null、0 和超大 64 位值。界面回归增加新版计数滚动后的缓存复用、零回复直接显示、计数更新后展开及回复页总数覆盖旧值。
-- `:app:testDebugUnitTest`、`:app:assembleDebug`、`:app:assembleDebugAndroidTest`、`:app:lintDebug` 及 `:app:testReleaseUnitTest`、`:app:assembleRelease`、`:app:lintRelease` 均以 `build.ps1 -Offline` 执行通过。Debug／Release 各 466 项 JVM 测试，无失败、错误或跳过；两种变体的 Lint 均为 0 个错误、26 个警告。
+- `:app:testDebugUnitTest`、`:app:assembleDebug`、`:app:assembleDebugAndroidTest`、`:app:lintDebug` 及 `:app:testReleaseUnitTest`、`:app:assembleRelease`、`:app:lintRelease` 均以 `build.sh --offline` 执行通过。Debug／Release 各 466 项 JVM 测试，无失败、错误或跳过；两种变体的 Lint 均为 0 个错误、26 个警告。
 - 当前没有连接 Android 设备，界面回归仅完成测试 APK 编译，未执行设备测试。日志：`outputs/logs/forum-update-20261002-debug.log`、`outputs/logs/forum-update-20261002-release.log`；汇总：`outputs/qa/forum-update-20261002/verification.json`。
 
 ## 2026-10-03 变基至 0.2.4

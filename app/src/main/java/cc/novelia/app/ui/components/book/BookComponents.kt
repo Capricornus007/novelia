@@ -30,6 +30,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import cc.novelia.app.data.catalog.KeywordCatalog
 import cc.novelia.app.data.catalog.KeywordEntry
 import cc.novelia.app.data.catalog.providers
+import cc.novelia.app.ui.i18n.Icon
+import cc.novelia.app.ui.i18n.localizedSemantics
 import cc.novelia.app.data.catalog.formatApproximateCharacters
 import cc.novelia.app.data.model.BookCard
 import cc.novelia.app.ui.navigation.AppController
@@ -84,8 +86,8 @@ import cc.novelia.app.ui.i18n.Text
 @Composable fun BookCover(book: BookCard, modifier: Modifier = Modifier, showFallbackTitle: Boolean = true) {
     val source = book.cover?.takeIf { it.isNotBlank() }
     var loaded by remember(source) { mutableStateOf(false) }
-    Box(modifier.width(76.dp).height(104.dp).clip(appRoundedCornerShape(12.dp)).semantics {
-        contentDescription = "${book.title} ${if(loaded) "封面" else "默认封面"}"
+    Box(modifier.width(76.dp).height(104.dp).clip(appRoundedCornerShape(12.dp)).localizedSemantics { l ->
+        contentDescription = l("${book.title} ${if(loaded) "封面" else "默认封面"}")
     }, contentAlignment = Alignment.Center) {
         DefaultBookCover(book, Modifier.matchParentSize().clearAndSetSemantics {}, showTitle = showFallbackTitle)
         if(source != null) {
@@ -181,6 +183,6 @@ import cc.novelia.app.ui.i18n.Text
     // 服务器仅提供历史标记时，不能推导数值进度或显示为 0%。
     reading.progress?.let { progress ->
         AppLinearProgressIndicator(progress = { progress }, modifier = modifier.fillMaxWidth().height(3.dp)
-            .semantics { contentDescription = reading.progressLabel }, gapSize = 0.dp, drawStopIndicator = {})
+            .localizedSemantics { l -> contentDescription = l(reading.progressLabel) }, gapSize = 0.dp, drawStopIndicator = {})
     }
 }

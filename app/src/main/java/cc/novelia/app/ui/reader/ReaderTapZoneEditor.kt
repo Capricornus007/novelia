@@ -43,6 +43,8 @@ import cc.novelia.app.ui.theme.readerColors
 import kotlin.math.abs
 import kotlin.math.roundToInt
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.Icon
+import cc.novelia.app.ui.i18n.localizedSemantics
 
 /** 编辑草稿仅在保存时持久化；取消/返回不会改变阅读设置。 */
 @Composable internal fun ReaderTapZoneEditor(
@@ -60,7 +62,7 @@ import cc.novelia.app.ui.i18n.Text
     val latestDraft by rememberUpdatedState(draft)
     val controlsColor = MaterialTheme.colorScheme.surface.copy(alpha = if(eInk) 1f else .94f)
     BackHandler(onBack = onDismiss)
-    BoxWithConstraints(modifier.fillMaxSize().testTag("tap-zone-editor").semantics { paneTitle = "点击分区配置" }
+    BoxWithConstraints(modifier.fillMaxSize().testTag("tap-zone-editor").localizedSemantics { l -> paneTitle = l("点击分区配置") }
         .pointerInput(Unit) { detectTapGestures {} }) {
         val width = constraints.maxWidth.toFloat()
         val height = constraints.maxHeight.toFloat()
@@ -165,8 +167,8 @@ import cc.novelia.app.ui.i18n.Text
 
 @Composable private fun BoundaryHandle(label: String, value: Float, modifier: Modifier, onChange: (Float) -> Unit) {
     // 合并区域的标签可能跨过原来的分界线，让标签盖住手柄，避免圆点遮挡文字。
-    Box(modifier.zIndex(-1f).semantics {
-        contentDescription = label
+    Box(modifier.zIndex(-1f).localizedSemantics { l ->
+        contentDescription = l(label)
         progressBarRangeInfo = ProgressBarRangeInfo(value, 0f..1f)
         setProgress { onChange(it); true }
     }, contentAlignment = Alignment.Center) {

@@ -2,7 +2,6 @@
 package cc.novelia.app.ui.reader
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -23,6 +22,7 @@ import cc.novelia.app.data.model.ReaderSettings
 import cc.novelia.app.reader.*
 import kotlin.math.roundToInt
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.localizedCombinedClickable
 
 
 @Composable internal fun ReaderTextParagraph(paragraph: ReadingParagraph, settings: ReaderSettings, layoutGeneration: Any, foreground: Color, onToggleMenu: () -> Unit, onSelect: () -> Unit, activeMatch: ReadingTextMatch?,
@@ -33,7 +33,7 @@ import cc.novelia.app.ui.i18n.Text
     onLayout: (Int, List<ReadingAnchorLine>) -> Unit) {
     val starts = remember(paragraph, settings.resolvedIndentSize, settings.parallel) { paragraphPartStarts(paragraph, settings) }
     val latestLayout by rememberUpdatedState(onLayout)
-    Column(Modifier.fillMaxWidth().combinedClickable(
+    Column(Modifier.fillMaxWidth().localizedCombinedClickable(
         interactionSource = remember { MutableInteractionSource() }, indication = null,
         onClickLabel = "显示或收起阅读工具栏", onClick = onToggleMenu,
         onLongClickLabel = "选择段落、分享或添加笔记", onLongClick = onSelect

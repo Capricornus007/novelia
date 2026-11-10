@@ -8,7 +8,6 @@ import cc.novelia.app.ui.components.documents.DocumentPickerFallback
 import cc.novelia.app.ui.components.documents.DocumentPickerTypes
 import cc.novelia.app.ui.components.documents.rememberOpenDocumentPicker
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -51,6 +50,8 @@ import cc.novelia.app.ui.components.media.MetaParagraph
 import cc.novelia.app.ui.components.media.IllustrationViewer
 import cc.novelia.app.ui.components.base.Screen
 import cc.novelia.app.ui.components.base.SectionTitle
+import cc.novelia.app.ui.i18n.Icon
+import cc.novelia.app.ui.i18n.localizedCombinedClickable
 import cc.novelia.app.ui.components.book.TagList
 import cc.novelia.app.ui.components.base.displayDate
 import cc.novelia.app.ui.components.documents.readDocument
@@ -312,7 +313,7 @@ import cc.novelia.app.ui.i18n.Text
     Column(Modifier.fillMaxWidth().padding(start = 20.dp, end = 20.dp, top = 20.dp, bottom = bottomPadding), verticalArrangement = Arrangement.spacedBy(16.dp)) {
         Row(horizontalArrangement = Arrangement.spacedBy(20.dp)) {
             BookCover(book, Modifier.width(94.dp).height(134.dp).then(
-                if(cover != null) Modifier.combinedClickable(onClick = {},
+                if(cover != null) Modifier.localizedCombinedClickable(onClick = {},
                     onLongClickLabel = "放大查看封面", onLongClick = { expandedCover = true }) else Modifier
             ))
             BookDetailTitles(book, subtitle, Modifier.weight(1f))

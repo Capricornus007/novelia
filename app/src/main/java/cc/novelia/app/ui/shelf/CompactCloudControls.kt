@@ -23,6 +23,8 @@ import cc.novelia.app.data.network.CloudWebFilter
 import cc.novelia.app.ui.components.base.*
 import cc.novelia.app.ui.components.book.WebSourceOptions
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.Icon
+import cc.novelia.app.ui.i18n.localizedSemantics
 
 @Composable internal fun CompactCloudControls(
     folders: List<Folder>, current: Folder?, onFolder: (String) -> Unit, sort: String, onSort: (String) -> Unit,
@@ -62,8 +64,8 @@ import cc.novelia.app.ui.i18n.Text
                 }
             }
             if(kind == 0) ShelfSearchToggle(searchExpanded, filter.query.isNotBlank(), { searchExpanded = !searchExpanded; focus.clearFocus() }, "cloud")
-            AppIconButton({ focus.clearFocus(); onExpanded(true) }, Modifier.size(48.dp).testTag("cloud-filter-toggle").semantics {
-                stateDescription = if(count == 0) "未设置筛选条件" else "$count 项筛选条件"
+            AppIconButton({ focus.clearFocus(); onExpanded(true) }, Modifier.size(48.dp).testTag("cloud-filter-toggle").localizedSemantics { l ->
+                stateDescription = l(if(count == 0) "未设置筛选条件" else "$count 项筛选条件")
             }) { BadgedBox(badge = { if(count > 0) Badge { Text(count.toString()) } }) { Icon(Icons.Outlined.Tune, "筛选云端收藏") } }
         }
         ShelfSearchField(searchExpanded && kind == 0, query, onQuery, onSubmit, onClearQuery, "搜索中 / 日标题或作者", "cloud")

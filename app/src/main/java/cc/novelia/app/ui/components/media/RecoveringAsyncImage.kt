@@ -8,6 +8,7 @@ import cc.novelia.app.ui.components.base.NetworkRecoveryEffect
 import coil3.compose.AsyncImage
 import coil3.compose.AsyncImagePainter
 import coil3.request.ImageRequest
+import cc.novelia.app.ui.i18n.localizedText
 
 @Composable internal fun RecoveringAsyncImage(model: Any?, contentDescription: String?, modifier: Modifier = Modifier,
     contentScale: ContentScale = ContentScale.Fit,
@@ -20,7 +21,7 @@ import coil3.request.ImageRequest
         NetworkRecoveryEffect(failure) { failure = null; retry++ }
     }
     key(retry) {
-        AsyncImage(model, contentDescription, modifier, contentScale = contentScale,
+        AsyncImage(model, contentDescription?.let(::localizedText), modifier, contentScale = contentScale,
             onLoading = { failure = null; onLoading?.invoke(it) },
             onSuccess = { failure = null; onSuccess?.invoke(it) },
             onError = { failure = it.result.throwable; onError?.invoke(it) })

@@ -30,6 +30,7 @@ import cc.novelia.app.ui.theme.LocalEInkMode
 import cc.novelia.app.ui.theme.AppMotion
 import kotlin.math.abs
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.Icon
 
 /** 排序草稿仅在手势期间存在，完成一次拖放只持久化一次。 */
 internal class VolumeReorderState(

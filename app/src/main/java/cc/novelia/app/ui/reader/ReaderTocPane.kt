@@ -32,6 +32,7 @@ import kotlin.math.abs
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.Icon
 
 /** 目录列表和筛选由 ReaderContent 持有，侧栏与弹层切换时保留状态。 */
 @Composable internal fun ReaderTocPane(

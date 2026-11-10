@@ -56,6 +56,7 @@ import coil3.imageLoader
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.encodeToString
+import cc.novelia.app.ui.i18n.Icon
 
 private enum class SettingsSection(val title: String, val summary: String) {
     READING("阅读与朗读", "排版、配色与电子纸"),
@@ -129,7 +130,7 @@ private enum class SettingsSection(val title: String, val summary: String) {
         item { ProfileChoiceRow("应用界面语言", listOf("跟随系统", "简体中文", "繁体中文"), listOf("system", "zh-CN", "zh-TW").indexOf(state.interfaceLanguage)) { index -> c.store.update { it.copy(interfaceLanguage = listOf("system", "zh-CN", "zh-TW")[index]) } } }
         item { ProfileToggle("纯黑显示模式", "深色主题使用纯黑底色，卡片与弹层保留层次", state.amoledBlack) { value -> c.store.update { it.copy(amoledBlack = value) } } }
         item { ProfileToggle("减少动态效果", "", state.reducedMotion) { value -> c.store.update { it.copy(reducedMotion = value) } } }
-        item { ProfileToggle("fuck 圆角", "让整个应用变成直角", state.squareCorners) { value -> c.store.update { it.copy(squareCorners = value) } } }
+        item { ProfileToggle("直角显示", "让整个应用变成直角", state.squareCorners) { value -> c.store.update { it.copy(squareCorners = value) } } }
         item { ProfileToggle("剪贴板链接提示", "返回应用时识别原站链接，点击提示后打开", state.clipboardLinkHints) { value -> c.store.update { it.copy(clipboardLinkHints = value) } } }
         }
         if(section == SettingsSection.LIBRARY) {

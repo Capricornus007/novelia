@@ -18,6 +18,8 @@ import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import cc.novelia.app.data.community.ForumCategory
+import cc.novelia.app.ui.i18n.Icon
+import cc.novelia.app.ui.i18n.localizedSemantics
 import cc.novelia.app.ui.i18n.Text
 
 @Composable internal fun ForumCategoryTabs(categories: List<ForumCategory>, selected: String, onSelect: (String) -> Unit) {
@@ -47,8 +49,8 @@ import cc.novelia.app.ui.i18n.Text
                 maxLines = 1, overflow = TextOverflow.Ellipsis)
             actions()
             AppIconButton(onClick = { if(expanded) focusManager.clearFocus(); onExpanded(!expanded) },
-                modifier = Modifier.testTag("forum-search-toggle").semantics {
-                    stateDescription = if(search.isBlank()) "未筛选" else "搜索：$search"
+                modifier = Modifier.testTag("forum-search-toggle").localizedSemantics { l ->
+                    stateDescription = l(if(search.isBlank()) "未筛选" else "搜索：$search")
                 }) {
                 Icon(if(expanded) Icons.Outlined.Close else Icons.Outlined.Search,
                     if(expanded) "收起搜索" else "展开搜索",

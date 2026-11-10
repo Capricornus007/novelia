@@ -20,6 +20,8 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
+import cc.novelia.app.ui.i18n.Icon
+import cc.novelia.app.ui.i18n.localizedSemantics
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.*
 import androidx.compose.ui.text.font.FontWeight
@@ -41,8 +43,8 @@ internal fun shelfVolumeProgressLabel(parentTitle: String, volumeTitle: String, 
 }
 
 @Composable internal fun ShelfLayoutToggle(grid: Boolean, onToggle: () -> Unit, prefix: String) {
-    AppIconButton(onToggle, Modifier.size(48.dp).testTag("$prefix-layout-toggle").semantics {
-        stateDescription = if(grid) "网格布局" else "列表布局"
+    AppIconButton(onToggle, Modifier.size(48.dp).testTag("$prefix-layout-toggle").localizedSemantics { l ->
+        stateDescription = l(if(grid) "网格布局" else "列表布局")
     }) { Icon(if(grid) Icons.AutoMirrored.Outlined.ViewList else Icons.Outlined.GridView,
         if(grid) "切换为列表布局" else "切换为网格布局") }
 }
@@ -147,7 +149,7 @@ internal class ShelfLayoutState(val list: LazyListState, val grid: LazyListState
             if(selecting && selected) Box(Modifier.matchParentSize().background(MaterialTheme.colorScheme.primary.copy(alpha = .25f)))
             if(selecting) Surface(Modifier.align(Alignment.TopEnd).padding(4.dp), shape = MaterialTheme.shapes.small,
                 color = MaterialTheme.colorScheme.surfaceContainer.copy(alpha = .94f)) {
-                AppCheckbox(selected, { onToggle() }, enabled = enabled, modifier = Modifier.semantics { contentDescription = "选择${book.title}" })
+                AppCheckbox(selected, { onToggle() }, enabled = enabled, modifier = Modifier.localizedSemantics { l -> contentDescription = l("选择${book.title}") })
             } else if(pinned || status.updateLabel != null) Surface(Modifier.align(Alignment.TopStart).padding(6.dp),
                 shape = MaterialTheme.shapes.small, color = MaterialTheme.colorScheme.surfaceContainer.copy(alpha = .94f)) {
                 Row(Modifier.padding(horizontal = 6.dp, vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -157,7 +159,7 @@ internal class ShelfLayoutState(val list: LazyListState, val grid: LazyListState
             }
         }
         if(volumeLabel != null && onVolumes != null) AppTextButton(onVolumes, Modifier.fillMaxWidth().heightIn(min = 48.dp)
-            .testTag("shelf-grid-volumes-${book.ref.key}").semantics { onClick(label = "打开分卷面板", action = null) }, enabled = !selecting,
+            .testTag("shelf-grid-volumes-${book.ref.key}").localizedSemantics { l -> onClick(label = l("打开分卷面板"), action = null) }, enabled = !selecting,
             shape = MaterialTheme.shapes.small, contentPadding = PaddingValues(horizontal = 6.dp)) {
             Text(volumeLabel, Modifier.weight(1f), style = MaterialTheme.typography.labelMedium, maxLines = 1, overflow = TextOverflow.Ellipsis)
             Icon(Icons.AutoMirrored.Outlined.ViewList, null, Modifier.size(18.dp))

@@ -20,6 +20,8 @@ import androidx.compose.ui.unit.dp
 import cc.novelia.app.data.catalog.CharacterCountFilter
 import cc.novelia.app.data.library.ShelfBookType
 import cc.novelia.app.data.library.readingStatuses
+import cc.novelia.app.ui.i18n.Icon
+import cc.novelia.app.ui.i18n.localizedSemantics
 import cc.novelia.app.ui.components.base.*
 import cc.novelia.app.ui.i18n.Text
 
@@ -76,8 +78,8 @@ import cc.novelia.app.ui.i18n.Text
             }
             ShelfSearchToggle(searchExpanded, query.isNotBlank(), { searchExpanded = !searchExpanded; focus.clearFocus() }, "local")
             AppIconButton(onClick = { focus.clearFocus(); onExpanded(true) },
-                modifier = Modifier.size(48.dp).testTag("local-filter-toggle").semantics {
-                    stateDescription = if(count == 0) "未设置筛选条件" else "$count 项筛选条件"
+                modifier = Modifier.size(48.dp).testTag("local-filter-toggle").localizedSemantics { l ->
+                    stateDescription = l(if(count == 0) "未设置筛选条件" else "$count 项筛选条件")
                 }) {
                 BadgedBox(badge = { if(count > 0) Badge { Text(count.toString()) } }) { Icon(Icons.Outlined.Tune, "筛选书架") }
             }

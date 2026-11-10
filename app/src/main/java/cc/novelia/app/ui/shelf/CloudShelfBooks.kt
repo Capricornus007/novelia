@@ -20,6 +20,7 @@ import cc.novelia.app.ui.components.base.*
 import cc.novelia.app.ui.components.book.BookRow
 import cc.novelia.app.ui.components.book.bookRowStatus
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.localizedSemantics
 
 /** 列表只负责选择交互；云端请求和待同步操作仍由账户层管理。 */
 @Composable internal fun CloudShelfBooks(
@@ -72,10 +73,10 @@ import cc.novelia.app.ui.i18n.Text
                         val open = { if(!dragSelection.dragging && !busy) { if(managing) toggle(displayed) else onOpenBook(book.ref) } }
                         ShelfCoverCard(displayed, bookRowStatus(displayed, local.books.firstOrNull { it.book.ref == book.ref },
                             local.positions[book.ref.key], local.bookUpdates[book.ref.key], account, preferCloud = true), open,
-                            Modifier.weight(1f).testTag("cloud-book-${book.ref.key}").semantics {
+                            Modifier.weight(1f).testTag("cloud-book-${book.ref.key}").localizedSemantics { l ->
                                 selected = if(managing) book.ref.key in selection else book.ref.key == selectedBookKey
-                                onClick(if(managing) "切换选择" else "打开书籍") { open(); true }
-                                if(active && !busy) onLongClick("选择${book.title}") { dragSelection.selectOne(book.ref.key); true }
+                                onClick(l(if(managing) "切换选择" else "打开书籍")) { open(); true }
+                                if(active && !busy) onLongClick(l("选择${book.title}")) { dragSelection.selectOne(book.ref.key); true }
                             }, selecting = managing, selected = if(managing) book.ref.key in selection else book.ref.key == selectedBookKey, enabled = !busy,
                             footer = if(!managing) ({ actions(displayed) { !dragSelection.dragging && !busy } }) else null)
                     } }
@@ -90,17 +91,17 @@ import cc.novelia.app.ui.i18n.Text
                     if(!dragSelection.dragging && !busy) onReadBook(book.ref, position.chapterId)
                 }) else null
                 BookRow(displayed, open,
-                    Modifier.testTag("cloud-book-${book.ref.key}").semantics {
+                    Modifier.testTag("cloud-book-${book.ref.key}").localizedSemantics { l ->
                         selected = chosen
-                        onClick(if(managing) "切换选择" else if(onRead != null) "继续阅读" else "打开书籍") { (onRead ?: open)(); true }
-                        if(active && !busy) onLongClick("选择${book.title}") { dragSelection.selectOne(book.ref.key); true }
+                        onClick(l(if(managing) "切换选择" else if(onRead != null) "继续阅读" else "打开书籍")) { (onRead ?: open)(); true }
+                        if(active && !busy) onLongClick(l("选择${book.title}")) { dragSelection.selectOne(book.ref.key); true }
                     }.then(if(chosen) Modifier.background(MaterialTheme.colorScheme.secondaryContainer) else Modifier),
                     status = bookRowStatus(displayed, local.books.firstOrNull { it.book.ref == book.ref }, local.positions[book.ref.key], local.bookUpdates[book.ref.key], account, preferCloud = true),
                     compactMetadata = true,
                     onRead = onRead,
                     trailing = {
                         if(managing) AppCheckbox(book.ref.key in selection, { toggle(displayed) }, enabled = !busy,
-                            modifier = Modifier.semantics { contentDescription = "选择${book.title}" })
+                            modifier = Modifier.localizedSemantics { l -> contentDescription = l("选择${book.title}") })
                         else actions(displayed) { !dragSelection.dragging && !busy }
                     })
             }

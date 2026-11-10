@@ -19,6 +19,7 @@ import cc.novelia.app.ui.account.ProfileDetailScreen
 import cc.novelia.app.ui.account.ProfileSectionTitle
 import cc.novelia.app.ui.components.base.TextPrompt
 import cc.novelia.app.ui.navigation.AppController
+import cc.novelia.app.ui.i18n.Icon
 
 @Composable fun BlockedScreen(c: AppController) {
     val state by c.store.state.collectAsStateWithLifecycle(); var add by remember { mutableStateOf(false) }

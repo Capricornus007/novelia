@@ -6,23 +6,23 @@
 
 ## 常用命令
 
-以下在仓库根目录的 PowerShell 7 执行，环境见[构建指南](../development/getting-started.md)。
+以下在仓库根目录执行，环境见[构建指南](../development/getting-started.md)。
 
-```powershell
+```sh
 # Debug 构建、JVM 单元测试、Lint，并归档 APK
-./scripts/build-debug.ps1 -Verify
+./scripts/build-debug.sh --verify
 
 # 含 R8 的本地 Release 检查，使用测试证书
-./scripts/build-release.ps1 -Verify
+./scripts/build-release.sh --verify
 
 # 聚焦一个逻辑测试
-./build.ps1 -Tasks @(':app:testDebugUnitTest', '--tests', 'cc.novelia.app.data.network.ApiContractTest')
+./build.sh :app:testDebugUnitTest -- --tests 'cc.novelia.app.data.network.ApiContractTest'
 
 # Go 原生包及本地解析器依赖测试
-./build.ps1 -Tasks @(':app:testEchNative')
+./build.sh :app:testEchNative
 ```
 
-`-Verify` 不运行设备测试。修改依赖、资源、序列化、反射、混淆或发行配置时需要 Release 检查。普通构建可能首次下载工具/依赖，已有完整缓存时才加 `-Offline`。
+`--verify` 不运行设备测试。修改依赖、资源、序列化、反射、混淆或发行配置时需要 Release 检查。普通构建可能首次下载工具/依赖，已有完整缓存时才加 `--offline`。
 
 | 报告 | 位置 |
 | --- | --- |
@@ -64,10 +64,10 @@ Release 报告对应替换变体名。警告、失败和跳过分别记录。
 
 部分测试修改应用书架、设置、草稿、Cookie 或文件，使用专用模拟器/设备。先确认序列号，再选择相关类：
 
-```powershell
+```sh
 adb devices
-$env:ANDROID_SERIAL = '<专用测试设备序列号>'
-./build.ps1 -Tasks @(':app:connectedDebugAndroidTest', '-Pandroid.testInstrumentationRunnerArguments.class=cc.novelia.app.ui.reader.AppFlowTest')
+export ANDROID_SERIAL='<专用测试设备序列号>'
+./build.sh :app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=cc.novelia.app.ui.reader.AppFlowTest
 ```
 
 全量任务为 `:app:connectedDebugAndroidTest`，包含较耗时的场景；只编译测试包用 `:app:assembleDebugAndroidTest`。编译成功不代表设备测试已运行。
@@ -109,8 +109,8 @@ $env:ANDROID_SERIAL = '<专用测试设备序列号>'
 
 例如：
 
-```powershell
-./build.ps1 -Tasks @(':app:connectedDebugAndroidTest', '-Pandroid.testInstrumentationRunnerArguments.class=cc.novelia.app.integration.LiveReadOnlyTest', '-Pandroid.testInstrumentationRunnerArguments.live=true')
+```sh
+./build.sh :app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=cc.novelia.app.integration.LiveReadOnlyTest -Pandroid.testInstrumentationRunnerArguments.live=true
 ```
 
 下载联调会访问服务并写测试文件；“只读”不等于没有本地副作用。真实发帖、上传、修改和删除需要单独授权及专用账号，不属于普通联调。

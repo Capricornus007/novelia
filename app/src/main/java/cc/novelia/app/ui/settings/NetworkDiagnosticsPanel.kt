@@ -36,6 +36,8 @@ import cc.novelia.app.ui.theme.LocalSquareCorners
 import cc.novelia.app.ui.theme.appReducedMotion
 import cc.novelia.app.ui.theme.appRoundedCornerShape
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.Icon
+import cc.novelia.app.ui.i18n.localizedSemantics
 
 internal class NetworkDiagnosticsPanelState(
     val tab: MutableState<Int>,
@@ -91,7 +93,7 @@ internal fun NetworkDiagnosticsPanel(
                 DiagnosticTab("连接诊断", selected = state.tab.value == 0, onClick = { state.tab.value = 0 },
                     modifier = Modifier.weight(1f).fillMaxHeight())
                 DiagnosticTab("问题日志", selected = state.tab.value == 1, onClick = { state.tab.value = 1 }, recording = recording,
-                    modifier = Modifier.weight(1f).fillMaxHeight().semantics { stateDescription = if (recording) "正在记录" else "未记录" })
+                    modifier = Modifier.weight(1f).fillMaxHeight().localizedSemantics { l -> stateDescription = l(if (recording) "正在记录" else "未记录") })
             }
         }
         Column(

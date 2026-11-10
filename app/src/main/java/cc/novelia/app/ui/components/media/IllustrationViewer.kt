@@ -40,6 +40,9 @@ import coil3.request.ImageRequest
 import kotlin.math.roundToInt
 import cc.novelia.app.ui.components.base.AppDialog
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.Icon
+import cc.novelia.app.ui.i18n.localizedSemantics
+import cc.novelia.app.ui.i18n.localizedText
 
 @Composable
 internal fun IllustrationViewer(model: Any, imageLabel: String = "插图", onDismiss: () -> Unit) {
@@ -82,7 +85,7 @@ internal fun IllustrationViewer(model: Any, imageLabel: String = "插图", onDis
                         if(next != viewport) { viewport = next; transform = IllustrationTransform() }
                     }
                     .testTag("illustration-viewport")
-                    .semantics { stateDescription = "${(transform.scale * 100).roundToInt()}%" }
+                    .localizedSemantics { l -> stateDescription = l("${(transform.scale * 100).roundToInt()}%") }
                     .pointerInput(ready, imageSize, viewport, eInk) {
                         if(ready && !eInk) detectTransformGestures { centroid, pan, scale, _ -> zoom(scale, centroid, pan) }
                     }
@@ -92,7 +95,7 @@ internal fun IllustrationViewer(model: Any, imageLabel: String = "插图", onDis
                         })
                     }, contentAlignment = Alignment.Center) {
                     // Coil 将等价请求视为同一模型，重试需创建新的 painter。
-                    key(retry) { AsyncImage(request, "放大的小说${imageLabel}", Modifier.fillMaxSize().graphicsLayer {
+                    key(retry) { AsyncImage(request, localizedText("放大的小说${imageLabel}"), Modifier.fillMaxSize().graphicsLayer {
                         scaleX = transform.scale; scaleY = transform.scale
                         translationX = transform.offset.x; translationY = transform.offset.y
                     }, contentScale = ContentScale.Fit,

@@ -13,12 +13,13 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.localizedClickable
 
 @Composable internal fun CollapsibleCloudFilters(expanded: Boolean, toggle: () -> Unit, summary: String, maxHeight: androidx.compose.ui.unit.Dp, modifier: Modifier = Modifier, showHeader: Boolean = true, content: @Composable () -> Unit) {
     val scroll = rememberPanelScrollState(expanded)
     Surface(modifier, tonalElevation = 1.dp) {
         Column {
-            if(showHeader) Row(Modifier.fillMaxWidth().heightIn(min = 56.dp).clickable(onClickLabel = if (expanded) "收起筛选" else "展开筛选", onClick = toggle).padding(horizontal = 20.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+            if(showHeader) Row(Modifier.fillMaxWidth().heightIn(min = 56.dp).localizedClickable(onClickLabel = if (expanded) "收起筛选" else "展开筛选", onClick = toggle).padding(horizontal = 20.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
                 Column(Modifier.weight(1f)) {
                     Text(if (expanded) "筛选云端收藏" else "展开筛选", style = MaterialTheme.typography.labelLarge)
                     Text(summary, maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.bodySmall)

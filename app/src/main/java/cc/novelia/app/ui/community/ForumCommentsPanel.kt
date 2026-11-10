@@ -27,6 +27,7 @@ import cc.novelia.app.ui.markdown.MarkdownCommentInput
 import cc.novelia.app.ui.markdown.MarkdownText
 import cc.novelia.app.ui.markdown.rememberMarkdownRenderer
 import cc.novelia.app.ui.navigation.AppController
+import cc.novelia.app.ui.i18n.Icon
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons

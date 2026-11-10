@@ -12,7 +12,7 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowDropDown
 import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.Icon
+import cc.novelia.app.ui.i18n.Icon
 import androidx.compose.material3.MaterialTheme
 import cc.novelia.app.ui.i18n.Text
 import androidx.compose.material3.ButtonDefaults
@@ -26,6 +26,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import cc.novelia.app.ui.i18n.localizedSemantics
 
 internal data class QuickFilter(val label: String, val options: List<String>, val selected: Int, val onSelect: (Int) -> Unit)
 
@@ -50,7 +51,7 @@ internal data class QuickFilter(val label: String, val options: List<String>, va
         var expanded by remember { mutableStateOf(false) }
         val selectedOption = filter.options.getOrElse(filter.selected) { filter.options.first() }
         val buttonModifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)
-            .semantics { contentDescription = "${filter.label}：$selectedOption" }
+            .localizedSemantics { l -> contentDescription = l("${filter.label}：$selectedOption") }
         val content: @Composable RowScope.() -> Unit = {
             Text(selectedOption, Modifier.weight(1f, fill = false), maxLines = 1, overflow = TextOverflow.Ellipsis,
                 style = if(compact) MaterialTheme.typography.labelLarge else MaterialTheme.typography.labelMedium)

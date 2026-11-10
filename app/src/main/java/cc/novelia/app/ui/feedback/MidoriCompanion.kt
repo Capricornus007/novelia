@@ -13,7 +13,7 @@ import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material3.Icon
+import cc.novelia.app.ui.i18n.Icon
 import androidx.compose.material3.ripple
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -36,6 +36,8 @@ import cc.novelia.app.ui.theme.AppMotion
 import cc.novelia.app.ui.theme.appReducedMotion
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import cc.novelia.app.ui.i18n.localizedClickable
+import cc.novelia.app.ui.i18n.localizedSemantics
 
 /** 使用原始本地 WebP 素材，保留透明边缘和宽高比。 */
 enum class MidoriSticker(@get:DrawableRes val drawable: Int, val description: String) {
@@ -144,11 +146,11 @@ fun MidoriCompanion(modifier: Modifier = Modifier, visible: Boolean = true) {
 
     Box(
         modifier.size(128.dp)
-            .semantics {
-                contentDescription = "小绿，阅读搭子"
-                stateDescription = sticker.description
+            .localizedSemantics { l ->
+                contentDescription = l("小绿，阅读搭子")
+                stateDescription = l(sticker.description)
             }
-            .clickable(
+            .localizedClickable(
                 interactionSource = interactionSource,
                 indication = if(reducedMotion) null else ripple(bounded = false, radius = 56.dp),
                 enabled = active, role = Role.Button, onClickLabel = "打个招呼，切换表情",

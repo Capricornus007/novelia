@@ -41,6 +41,7 @@ import cc.novelia.app.ui.components.base.TextPrompt
 import cc.novelia.app.ui.components.base.friendlyMessage
 import cc.novelia.app.ui.navigation.AppController
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.Icon
 
 @Composable fun CloudShelf(c: AppController, onOpenBook: (BookRef) -> Unit = c::book, selectedBookKey: String? = null, active: Boolean = true, onSelectionStateChanged: (Boolean, Boolean) -> Unit = { _, _ -> }) {
     val profile by c.session.profile.collectAsStateWithLifecycle()

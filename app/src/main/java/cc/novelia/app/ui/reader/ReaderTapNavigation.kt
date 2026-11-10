@@ -1,7 +1,6 @@
 @file:OptIn(androidx.compose.foundation.ExperimentalFoundationApi::class)
 package cc.novelia.app.ui.reader
 
-import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -28,6 +27,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import cc.novelia.app.ui.i18n.localizedCombinedClickable
 
 /**
  * 只观察正文视口中的指针，不抢占列表、长按或按钮的事件。
@@ -202,5 +202,5 @@ internal data class ReaderTapFeedback(val id: Long, val bounds: List<ReaderTapRe
                 }
             } finally { navigation.finish() }
         }
-    }.combinedClickable(interactionSource = remember { MutableInteractionSource() }, indication = null,
+    }.localizedCombinedClickable(interactionSource = remember { MutableInteractionSource() }, indication = null,
         onClickLabel = "显示或收起阅读工具栏", onClick = navigation::click)

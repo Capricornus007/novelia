@@ -22,6 +22,7 @@ import cc.novelia.app.ui.navigation.AppController
 import cc.novelia.app.ui.navigation.ObserveForumLogin
 import java.time.Instant
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.Icon
 
 @Composable internal fun ForumBlacklistScreen(c: AppController) {
     ObserveForumLogin(c.session, c.forumSession)

@@ -21,6 +21,7 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.Icon
 
 @Composable internal fun ChapterCacheScreen(c: AppController) {
     val revision by c.store.chapterCacheRevision.collectAsStateWithLifecycle()

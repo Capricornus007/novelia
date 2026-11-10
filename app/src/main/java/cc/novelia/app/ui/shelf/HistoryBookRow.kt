@@ -24,6 +24,7 @@ import java.time.LocalDate
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.Icon
 
 private val clock = DateTimeFormatter.ofPattern("HH:mm")
 private val monthDay = DateTimeFormatter.ofPattern("M月d日")

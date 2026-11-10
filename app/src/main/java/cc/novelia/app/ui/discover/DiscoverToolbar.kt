@@ -22,6 +22,8 @@ import cc.novelia.app.ui.components.base.AppDropdownMenu
 import cc.novelia.app.ui.components.base.QuickFilter
 import cc.novelia.app.ui.components.base.QuickFilterButton
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.Icon
+import cc.novelia.app.ui.i18n.localizedSemantics
 
 /** 常用操作占一行；窄屏隐藏的快捷条件仍在完整筛选及摘要中可见。 */
 @Composable internal fun DiscoverToolbar(
@@ -54,8 +56,8 @@ import cc.novelia.app.ui.i18n.Text
                     QuickFilterButton(filter, Modifier.weight(1f), compact = true)
                 }
                 if(wenkuGrid != null) AppIconButton(onClick = onToggleLayout,
-                    modifier = Modifier.testTag("discover-layout-toggle").semantics {
-                        stateDescription = if(wenkuGrid) "网格布局" else "列表布局"
+                    modifier = Modifier.testTag("discover-layout-toggle").localizedSemantics { l ->
+                        stateDescription = l(if(wenkuGrid) "网格布局" else "列表布局")
                     }) {
                     Icon(if(wenkuGrid) Icons.AutoMirrored.Outlined.ViewList else Icons.Outlined.GridView,
                         if(wenkuGrid) "切换为列表布局" else "切换为网格布局")
@@ -71,7 +73,7 @@ import cc.novelia.app.ui.i18n.Text
                     if(compact) AppIconButton(onClick = onAssistant, Modifier.testTag("open-search-assistant")) {
                         Icon(Icons.AutoMirrored.Outlined.ManageSearch, "辅助搜索")
                     } else AppTextButton(onClick = onAssistant, modifier = Modifier.testTag("open-search-assistant")
-                        .semantics { contentDescription = "辅助搜索" }, contentPadding = PaddingValues(horizontal = 8.dp)) {
+                        .localizedSemantics { l -> contentDescription = l("辅助搜索") }, contentPadding = PaddingValues(horizontal = 8.dp)) {
                         Text("辅助搜索", maxLines = 1)
                     }
                 }

@@ -17,6 +17,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import cc.novelia.app.ui.theme.motionClickable
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.Icon
+import cc.novelia.app.ui.i18n.localizedSemantics
 
 @Composable fun SectionTitle(title: String, detail: String? = null, onClick: () -> Unit = {}) {
     Row(Modifier.fillMaxWidth().padding(start = 20.dp, end = 12.dp, top = 14.dp, bottom = 6.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -50,8 +52,8 @@ import cc.novelia.app.ui.i18n.Text
                                 val isDefault = index == defaultSelected
                                 AppSelectionChip(selected == index, { onSelect(index) },
                                     label = { Text(title, Modifier.fillMaxWidth(), textAlign = TextAlign.Center) },
-                                    modifier = Modifier.weight(1f).semantics {
-                                        if(defaultSelected != null) stateDescription = if(isDefault) "默认选项" else "非默认选项"
+                                    modifier = Modifier.weight(1f).localizedSemantics { l ->
+                                        if(defaultSelected != null) stateDescription = l(if(isDefault) "默认选项" else "非默认选项")
                                     },
                                     colors = if(defaultSelected == null) null else FilterChipDefaults.filterChipColors(
                                         containerColor = if(isDefault) scheme.primary.copy(alpha = .12f) else scheme.surfaceContainerLow,

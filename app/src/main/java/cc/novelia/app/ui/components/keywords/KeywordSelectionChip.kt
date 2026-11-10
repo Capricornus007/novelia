@@ -19,6 +19,7 @@ import cc.novelia.app.data.catalog.KeywordSelectionState
 import cc.novelia.app.ui.components.base.AppSelectionChip
 import cc.novelia.app.ui.theme.AppMotion
 import cc.novelia.app.ui.theme.appReducedMotion
+import cc.novelia.app.ui.i18n.localizedSemantics
 
 /** 候选、已选条件和全部标签共用三态颜色，切换状态不改变标签的占位。 */
 @Composable internal fun KeywordSelectionChip(
@@ -50,12 +51,12 @@ import cc.novelia.app.ui.theme.appReducedMotion
     AppSelectionChip(state != KeywordSelectionState.Unselected, onClick,
         label = { Text(label, maxLines = maxLines, overflow = TextOverflow.Ellipsis,
             textDecoration = if(state == KeywordSelectionState.Excluded) TextDecoration.LineThrough else null) },
-        modifier = modifier.semantics {
-            stateDescription = when(state) {
+        modifier = modifier.localizedSemantics { l ->
+            stateDescription = l(when(state) {
                 KeywordSelectionState.Unselected -> "未选择"
                 KeywordSelectionState.Included -> "已包含"
                 KeywordSelectionState.Excluded -> "已排除"
-            }
+            })
         },
         trailingIcon = trailingIcon, enabled = enabled,
         colors = FilterChipDefaults.filterChipColors(containerColor = background, selectedContainerColor = background,

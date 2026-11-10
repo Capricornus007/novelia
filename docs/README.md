@@ -1,8 +1,8 @@
 # Novelia 开发文档
 
-Novelia 是轻小说机翻机器人的 Android 客户端，使用 Kotlin 和 Jetpack Compose。它把在线小说、本地文件、阅读器和社区放在一个应用里；翻译生成和内容服务由原站提供，本仓库不包含服务端。
+Novelia 是輕小說機翻機器人的 Android 用戶端，使用 Kotlin 和 Jetpack Compose。它把線上小說、本機檔案、閱讀器和社群放在一個應用程式裡；翻譯生成和內容服務由原站提供，本儲存庫不包含伺服器。
 
-这里面向需要修改和维护客户端的开发者。产品介绍和下载见[项目首页](../README.md)，构建版本以 [version.properties](../version.properties) 为准。
+本文件維護 [Capricornus007/novelia](https://github.com/Capricornus007/novelia) 復刻版本；上游來源為 [nobYoQ/novelia](https://github.com/nobYoQ/novelia)。這裡面向需要修改和維護用戶端的開發者。產品介紹和下載見[專案首頁](../README.md)，建置版本以 [version.properties](../version.properties) 為準。
 
 ## 第一次接触项目
 
@@ -12,7 +12,7 @@ Novelia 是轻小说机翻机器人的 Android 客户端，使用 Kotlin 和 Jet
 2. [架构与状态流](architecture/architecture.md)：认识应用服务、页面控制器和本地存储。
 3. [源码导航](architecture/source-layout.md)：按要改的功能找到代码，再用[测试指南](quality/testing.md)选择验证范围。
 
-所有命令默认在仓库根目录执行。Windows 示例使用 PowerShell 7。
+所有命令默认在仓库根目录执行。
 
 ## 按任务查阅
 

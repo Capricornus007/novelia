@@ -14,7 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.PlayArrow
-import androidx.compose.material3.Icon
+import cc.novelia.app.ui.i18n.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import cc.novelia.app.ui.i18n.Text

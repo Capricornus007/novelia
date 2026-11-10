@@ -40,6 +40,8 @@ import androidx.compose.ui.window.PopupProperties
 import cc.novelia.app.data.community.ForumSort
 import cc.novelia.app.data.model.Profile
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.Icon
+import cc.novelia.app.ui.i18n.localizedSemantics
 
 internal enum class ForumAccountAction { LOGIN, POSTS, FAVORITES, BLACKLIST, STRIKES, RULES, LOGOUT }
 
@@ -56,9 +58,9 @@ internal enum class ForumAccountAction { LOGIN, POSTS, FAVORITES, BLACKLIST, STR
     val density = LocalDensity.current
     val position = remember(density) { ForumPanelPosition(with(density) { 12.dp.roundToPx() }, with(density) { 8.dp.roundToPx() }) }
     Box {
-        AppTextButton(onClick = { expanded = !expanded; if(expanded) onOpen() }, modifier = Modifier.testTag("forum-account-toggle").semantics {
-            contentDescription = "论坛我的"
-            stateDescription = (if(expanded) "已展开" else "已收起") + if(profile != null && hasUnreadStrikes) "，有新的处罚记录" else ""
+        AppTextButton(onClick = { expanded = !expanded; if(expanded) onOpen() }, modifier = Modifier.testTag("forum-account-toggle").localizedSemantics { l ->
+            contentDescription = l("论坛我的")
+            stateDescription = l((if(expanded) "已展开" else "已收起") + if(profile != null && hasUnreadStrikes) "，有新的处罚记录" else "")
         }) {
             Icon(Icons.Outlined.PersonOutline, null, Modifier.size(20.dp))
             Spacer(Modifier.width(4.dp)); Text("我的")
@@ -108,7 +110,7 @@ internal enum class ForumAccountAction { LOGIN, POSTS, FAVORITES, BLACKLIST, STR
         modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp).heightIn(min = 52.dp), contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp)) {
         Icon(icon, null, Modifier.size(22.dp)); Spacer(Modifier.width(16.dp))
         Text(label, Modifier.weight(1f), style = MaterialTheme.typography.bodyLarge)
-        if(unread) Text("新", Modifier.padding(horizontal = 8.dp).semantics { contentDescription = "有新的处罚记录" }, color = MaterialTheme.colorScheme.error)
+        if(unread) Text("新", Modifier.padding(horizontal = 8.dp).localizedSemantics { l -> contentDescription = l("有新的处罚记录") }, color = MaterialTheme.colorScheme.error)
         Icon(Icons.Outlined.ChevronRight, null, Modifier.size(18.dp))
     }
 }

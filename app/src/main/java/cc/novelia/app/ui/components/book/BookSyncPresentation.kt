@@ -19,6 +19,7 @@ import cc.novelia.app.ui.navigation.AppController
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.localizedSemantics
 
 internal enum class BookSyncPhase { Pending, Syncing, Failed, LoginRequired }
 internal data class BookSyncRowState(val phase: BookSyncPhase, val label: String, val detail: String)
@@ -82,7 +83,7 @@ private data class BookSyncInputs(val pending: List<PendingAction>, val statuses
     val presentation = LocalBookSyncPresentation.current
     val state = presentation.books[ref.key] ?: return
     val error = state.phase == BookSyncPhase.Failed || state.phase == BookSyncPhase.LoginRequired
-    Column(Modifier.fillMaxWidth().testTag("book-sync-${ref.key}").semantics { stateDescription = state.label }) {
+    Column(Modifier.fillMaxWidth().testTag("book-sync-${ref.key}").localizedSemantics { l -> stateDescription = l(state.label) }) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(state.label, Modifier.weight(1f), style = MaterialTheme.typography.labelMedium,
                 color = if (error) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary)

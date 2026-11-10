@@ -30,6 +30,8 @@ import java.time.LocalDate
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.Icon
+import cc.novelia.app.ui.i18n.localizedClearAndSetSemantics
 
 @Composable fun ReadingStatisticsScreen(c: AppController, bookKey: String? = null) {
     val state by c.store.state.collectAsStateWithLifecycle()
@@ -107,7 +109,7 @@ import cc.novelia.app.ui.i18n.Text
                 Text("${today.monthValue} 月 ${today.dayOfMonth} 日", style = MaterialTheme.typography.labelMedium)
             }
             Text(formatReadingTime(stats.dayMillis(today)), Modifier.testTag("reading-statistics-today")
-                .clearAndSetSemantics { contentDescription = "今日 · ${formatReadingTime(stats.dayMillis(today))}" },
+                .localizedClearAndSetSemantics { l -> contentDescription = l("今日 · ${formatReadingTime(stats.dayMillis(today))}") },
                 style = MaterialTheme.typography.headlineLarge, fontWeight = FontWeight.SemiBold)
             Text(if(stats.streak(today) > 0) "连续阅读 ${stats.streak(today)} 天" else "从今天开始阅读吧", style = MaterialTheme.typography.bodyMedium)
             HorizontalDivider(color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = .15f))
@@ -155,8 +157,8 @@ import cc.novelia.app.ui.i18n.Text
                     }
                 } else Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     days.forEach { (date, millis) ->
-                        Column(Modifier.weight(1f).clearAndSetSemantics {
-                            contentDescription = "${date.monthValue} 月 ${date.dayOfMonth} 日，${formatReadingTime(millis)}"
+                        Column(Modifier.weight(1f).localizedClearAndSetSemantics { l ->
+                            contentDescription = l("${date.monthValue} 月 ${date.dayOfMonth} 日，${formatReadingTime(millis)}")
                         }, horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(8.dp)) {
                             Text(when { millis == 0L -> "—"; millis < 60_000 -> "<1"; else -> "${millis / 60_000}" },
                                 style = MaterialTheme.typography.labelSmall, color = colors.onSurfaceVariant)

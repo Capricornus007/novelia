@@ -29,6 +29,7 @@ import cc.novelia.app.ui.account.ProfileDetailScreen
 import cc.novelia.app.ui.components.base.rememberDebouncedQuery
 import cc.novelia.app.ui.navigation.AppController
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.Icon
 
 @Composable fun NotesScreen(c: AppController) {
     val state by c.store.state.collectAsStateWithLifecycle(); var editing by remember { mutableStateOf<Note?>(null) }
@@ -74,10 +75,8 @@ import cc.novelia.app.ui.i18n.Text
                 AppTextButton(onClick = { c.share("${item.bookTitle} · ${item.chapterTitle}\n\n${note.quote}" + if(note.text.isNotBlank()) "\n\n${note.text}" else "") }) { Text("分享") }
                 AppTextButton(onClick = {
                     c.store.update { it.copy(notes = it.notes.filterNot { n -> n.id == note.id }) }
-                    c.action {
-                        if(c.snackbar.showSnackbar("笔记已删除", actionLabel = "撤销", withDismissAction = true, duration = SnackbarDuration.Long) == SnackbarResult.ActionPerformed) {
-                            c.store.update { if(it.notes.any { n -> n.id == note.id }) it else it.copy(notes = it.notes + note) }
-                        }
+                    c.message("笔记已删除", actionLabel = "撤销") {
+                        c.store.update { if(it.notes.any { n -> n.id == note.id }) it else it.copy(notes = it.notes + note) }
                     }
                 }) { Text("删除") }
             }

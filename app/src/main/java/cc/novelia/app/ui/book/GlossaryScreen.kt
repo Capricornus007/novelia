@@ -40,6 +40,7 @@ import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.encodeToString
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.Icon
 
 @Composable fun GlossaryScreen(c: AppController, ref: BookRef) {
     var data by remember { mutableStateOf<Map<String, String>?>(null) }; var original by remember { mutableStateOf<Map<String, String>>(emptyMap()) }; var query by remember { mutableStateOf("") }; var editing by remember { mutableStateOf<Pair<String, String>?>(null) }; var add by remember { mutableStateOf(false) }; var saving by remember { mutableStateOf(false) }

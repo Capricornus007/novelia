@@ -33,6 +33,8 @@ import cc.novelia.app.ui.components.base.AppTextButton
 import cc.novelia.app.ui.components.base.ChoiceRow
 import cc.novelia.app.ui.components.base.TogglePreference
 import cc.novelia.app.ui.markdown.format
+import cc.novelia.app.ui.i18n.Icon
+import cc.novelia.app.ui.i18n.localizedSemantics
 import cc.novelia.app.ui.theme.AppMotion
 import cc.novelia.app.ui.theme.appReducedMotion
 import cc.novelia.app.ui.theme.motionClickable
@@ -260,7 +262,7 @@ import cc.novelia.app.ui.i18n.Text
         color = MaterialTheme.colorScheme.surface,
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = .6f))) {
         Column {
-            Row(Modifier.fillMaxWidth().heightIn(min = 80.dp).semantics { stateDescription = if(expanded) "已展开" else "已收起" }
+            Row(Modifier.fillMaxWidth().heightIn(min = 80.dp).localizedSemantics { l -> stateDescription = l(if(expanded) "已展开" else "已收起") }
                 .motionClickable(onClick = onToggle).padding(20.dp), verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {

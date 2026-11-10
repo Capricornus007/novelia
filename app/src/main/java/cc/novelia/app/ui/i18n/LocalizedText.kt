@@ -19,6 +19,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.ParagraphStyle
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.TextUnit
 
 /**
@@ -83,6 +86,71 @@ fun Text(
         style = style,
     )
 }
+
+/** 保留富文字的連結、樣式與行內內容範圍，只轉換顯示文字。 */
+@Composable
+fun Text(
+    text: AnnotatedString,
+    modifier: Modifier = Modifier,
+    color: Color = Color.Unspecified,
+    fontSize: TextUnit = TextUnit.Unspecified,
+    fontStyle: FontStyle? = null,
+    fontWeight: FontWeight? = null,
+    fontFamily: FontFamily? = null,
+    letterSpacing: TextUnit = TextUnit.Unspecified,
+    textDecoration: TextDecoration? = null,
+    textAlign: TextAlign? = null,
+    lineHeight: TextUnit = TextUnit.Unspecified,
+    overflow: TextOverflow = TextOverflow.Clip,
+    softWrap: Boolean = true,
+    maxLines: Int = Int.MAX_VALUE,
+    minLines: Int = 1,
+    inlineContent: Map<String, InlineTextContent> = mapOf(),
+    onTextLayout: ((TextLayoutResult) -> Unit)? = null,
+    style: TextStyle = LocalTextStyle.current,
+) {
+    val traditional = localTraditional()
+    val localized = buildAnnotatedString {
+        // 逐段轉換整句，按新長度重算樣式、連結及行內內容的區間。
+        val ranges = text.spanStyles + text.paragraphStyles + text.getStringAnnotations(0, text.length)
+        val boundaries = (ranges.flatMap { listOf(it.start, it.end) } + 0 + text.length).distinct().sorted()
+        boundaries.zipWithNext().forEach { (start, end) ->
+            val outputStart = length
+            append(ZhLanguage.localize(text.text.substring(start, end), traditional))
+            val outputEnd = length
+            ranges.filter { it.start <= start && it.end >= end }.forEach { range ->
+                when (range.item) {
+                    is SpanStyle -> addStyle(range.item, outputStart, outputEnd)
+                    is ParagraphStyle -> addStyle(range.item, outputStart, outputEnd)
+                    else -> addStringAnnotation(range.tag, range.item, outputStart, outputEnd)
+                }
+            }
+        }
+    }
+    MaterialText(
+        text = localized,
+        modifier = modifier,
+        color = color,
+        fontSize = fontSize,
+        fontStyle = fontStyle,
+        fontWeight = fontWeight,
+        fontFamily = fontFamily,
+        letterSpacing = letterSpacing,
+        textDecoration = textDecoration,
+        textAlign = textAlign,
+        lineHeight = lineHeight,
+        overflow = overflow,
+        softWrap = softWrap,
+        maxLines = maxLines,
+        minLines = minLines,
+        inlineContent = inlineContent,
+        onTextLayout = onTextLayout,
+        style = style,
+    )
+}
+
+@Composable
+fun localizedText(text: String): String = ZhLanguage.localize(text, localTraditional())
 
 
 

@@ -33,8 +33,6 @@ val echSources = fileTree(echRoot) {
     include("**/*.go", "**/go.mod", "**/go.sum", "**/LICENSE", "**/README.novelia.md")
     exclude("build/**")
 }
-val echScript = rootProject.file("gradle/ech-native.gradle.kts")
-val echBootstrap = rootProject.file("scripts/bootstrap-ech-go.ps1")
 val echAar = echRoot.resolve("build/novelia-ech.aar")
 val echSourcesJar = echRoot.resolve("build/novelia-ech-sources.jar")
 val echJavaHome = File(System.getProperty("java.home"))
@@ -64,7 +62,7 @@ fun runEchCommand(command: List<String>, environment: Map<String, String> = empt
 fun echEnvironment(): Map<String, String> {
     val go = echGo.get()
     check(go.isFile) {
-        "ECH requires Go $echGoVersion. Install that version and set -PechGoHome=<Go directory> or NOVELIA_GO_HOME; Windows can also use scripts/build-ech.ps1."
+        "ECH requires Go $echGoVersion. Install that version and set -PechGoHome=<Go directory> or NOVELIA_GO_HOME."
     }
     val version = runEchCommand(listOf(go.absolutePath, "version"), mapOf(
         "GOTOOLCHAIN" to "local", "GOPROXY" to "off", "GOSUMDB" to "off"
@@ -95,22 +93,18 @@ fun echEnvironment(): Map<String, String> {
 
 val prepareEchGo = tasks.register("prepareEchGo") {
     group = "build setup"
-    description = "Locate pinned Go, or bootstrap its verified Windows archive when missing."
+    description = "Locate the pinned Go toolchain."
     onlyIf { !echGo.get().isFile }
     doLast {
-        check(echWindows && echExplicitGoHome == null) {
+        check(echExplicitGoHome != null || echGo.get().isFile) {
             "ECH requires Go $echGoVersion. Install it and set -PechGoHome=<Go directory> or NOVELIA_GO_HOME."
         }
-        val pwsh = File(echHostEnvironment("ProgramFiles").orEmpty(), "PowerShell/7/pwsh.exe")
-        check(pwsh.isFile) { "Install Go $echGoVersion or PowerShell 7 to bootstrap the Windows ECH toolchain." }
-        runEchCommand(listOf(pwsh.absolutePath, "-NoLogo", "-NoProfile", "-NonInteractive", "-File", echBootstrap.absolutePath) +
-            if (echOffline) listOf("-Offline") else emptyList())
     }
 }
 
 fun org.gradle.api.Task.echInputs() {
     dependsOn(prepareEchGo)
-    inputs.files(echVersionsFile, echScript, echBootstrap).withPathSensitivity(PathSensitivity.RELATIVE)
+    inputs.files(echVersionsFile, echScript).withPathSensitivity(PathSensitivity.RELATIVE)
     inputs.files(providers.provider { listOf(echGo.get()).filter { it.isFile } })
         .withPropertyName("goExecutable").withPathSensitivity(PathSensitivity.NONE)
     inputs.property("goPath", echGo.map { it.absolutePath })

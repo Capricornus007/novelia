@@ -49,6 +49,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.Icon
+import cc.novelia.app.ui.i18n.localizedSemantics
 
 internal const val READER_FONT_SAMPLE_ZH = "中文字体排版示例"
 internal const val READER_FONT_SAMPLE_LATIN = "Aa Bb 0123456789"
@@ -121,7 +123,7 @@ internal data class ReaderFontFace(val typeface: Typeface, val available: Boolea
                         horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
                         if(defaults != null && (settings.fontFamily != defaults.fontFamily || settings.customFont != defaults.customFont)) {
                             AppTextButton(onClick = { onChange(settings.copy(fontFamily = defaults.fontFamily, customFont = defaults.customFont)) },
-                                modifier = Modifier.semantics { contentDescription = "恢复默认阅读字体" }) { Text("恢复默认") }
+                                modifier = Modifier.localizedSemantics { l -> contentDescription = l("恢复默认阅读字体") }) { Text("恢复默认") }
                         }
                         AppButton(onClick = onDismiss, modifier = Modifier.weight(1f).heightIn(min = 48.dp)) { Text("完成") }
                     }

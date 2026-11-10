@@ -9,6 +9,8 @@ import android.text.format.DateFormat
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.clickable
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.localizedClickable
+import cc.novelia.app.ui.i18n.localizedSemantics
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -61,13 +63,13 @@ import kotlinx.coroutines.isActive
                         "time" -> ReaderClock(foreground, cell, align)
                         "battery" -> ReaderBattery(foreground, cell, align)
                         "chapter" -> StatusText(state.chapterTitle, foreground, cell.testTag("reader-status-chapter-title")
-                            .clickable(onClickLabel = "查看完整章节名", onClick = onChapterTitle), align)
+                            .localizedClickable(onClickLabel = "查看完整章节名", onClick = onChapterTitle), align)
                         "pages" -> if(!state.pageReady) StatusText("正在分页…", foreground, cell, align)
                             else {
                                 val total = state.pageCount.coerceAtLeast(1)
                                 val current = (state.pageIndex + 1).coerceIn(1, total)
-                                StatusText("$current / $total", foreground, cell.testTag("reader-page-counter").semantics {
-                                    contentDescription = "本章第${current}页，共${total}页"
+                                StatusText("$current / $total", foreground, cell.testTag("reader-page-counter").localizedSemantics { l ->
+                                    contentDescription = l("本章第${current}页，共${total}页")
                                 }, align)
                             }
                         "progress" -> {

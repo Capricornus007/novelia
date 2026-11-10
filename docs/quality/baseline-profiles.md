@@ -8,8 +8,8 @@
 
 在符合工具要求的专用设备上运行：
 
-```powershell
-./build.ps1 -Tasks @(':app:generateReleaseBaselineProfile', '-PlocalReleaseSigning=true')
+```sh
+./build.sh :app:generateReleaseBaselineProfile -PlocalReleaseSigning=true
 ```
 
 `ReadingBaselineProfile.startup` 收集启动路径并加入 startup profile；`localNavigation` 收集本地导航，不加入 startup profile。配置分别见 [app](../../app/build.gradle.kts)、[benchmark](../../benchmark/build.gradle.kts) 和[采集代码](../../benchmark/src/main/java/cc/novelia/benchmark/ReadingBenchmark.kt)。

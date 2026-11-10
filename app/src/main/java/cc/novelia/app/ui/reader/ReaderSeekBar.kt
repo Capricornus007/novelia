@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material3.MaterialTheme
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.localizedSemantics
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -85,7 +86,7 @@ import kotlin.math.roundToInt
                         true
                     } else false
                 }
-                .semantics { contentDescription = "本章阅读进度" },
+                .localizedSemantics { l -> contentDescription = l("本章阅读进度") },
             thumb = {
                 Canvas(Modifier.size(width = 24.dp, height = 48.dp)) {
                     val color = foreground.copy(alpha = if(enabled) 1f else .38f)

@@ -86,6 +86,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.encodeToString
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.localizedClickable
 
 
 /**
@@ -385,8 +386,7 @@ import cc.novelia.app.ui.i18n.Text
             bookmarkFeedback?.cancel()
             if(edit) note = saved
             else bookmarkFeedback = scope.launch {
-                if(c.snackbar.showSnackbar(if(saved.id == candidate.id) "书签已保存" else "此处已保存书签", actionLabel = "编辑笔记",
-                        withDismissAction = true, duration = SnackbarDuration.Long) == SnackbarResult.ActionPerformed) {
+                c.message(if(saved.id == candidate.id) "书签已保存" else "此处已保存书签", actionLabel = "编辑笔记") {
                     note = c.store.state.value.notes.firstOrNull { it.id == saved.id }
                 }
             }
@@ -833,7 +833,7 @@ import cc.novelia.app.ui.i18n.Text
                 .padding(vertical = settings.resolvedVerticalMargin.dp).clipToBounds()
                 , contentPadding = PaddingValues(horizontal = bodyHorizontalPadding), verticalArrangement = Arrangement.spacedBy(settings.resolvedParagraphSpacing.dp)) {
                 item("title", contentType = "title") {
-                    Column(Modifier.fillMaxWidth().clickable(
+                    Column(Modifier.fillMaxWidth().localizedClickable(
                         interactionSource = remember { MutableInteractionSource() }, indication = null,
                         onClickLabel = "显示或收起阅读工具栏", onClick = tapNavigation::click)) {
                         if(chapterHeading(chapter.title, paragraphs) != null) {
@@ -1057,9 +1057,8 @@ import cc.novelia.app.ui.i18n.Text
             onNotes = { selected = null; c.go("notes"); c.nav.currentBackStackEntry?.savedStateHandle?.set("notesBookKey", ref.key) },
             onDeleteNote = { removed ->
                 c.store.update { it.copy(notes = it.notes.filterNot { n -> n.id == removed.id }) }
-                scope.launch {
-                    if(c.snackbar.showSnackbar("记录已删除", actionLabel = "撤销", withDismissAction = true) == SnackbarResult.ActionPerformed)
-                        c.store.update { if(it.notes.any { n -> n.id == removed.id }) it else it.copy(notes = it.notes + removed) }
+                c.message("记录已删除", actionLabel = "撤销") {
+                    c.store.update { if(it.notes.any { n -> n.id == removed.id }) it else it.copy(notes = it.notes + removed) }
                 }
             },
         ) }
@@ -1070,7 +1069,7 @@ import cc.novelia.app.ui.i18n.Text
                 state.copy(notes = updated.filter { it.bookmarked || it.text.isNotBlank() || it.selection != null })
             }
             bookmarkFeedback?.cancel()
-            bookmarkFeedback = scope.launch { c.snackbar.showSnackbar("笔记已保存") }
+            bookmarkFeedback = scope.launch { c.message("笔记已保存") }
         } }
         }
     }

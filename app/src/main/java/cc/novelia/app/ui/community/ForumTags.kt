@@ -23,10 +23,12 @@ import cc.novelia.app.data.community.ForumTag
 import cc.novelia.app.ui.components.base.appHorizontalScroll
 import cc.novelia.app.ui.theme.LocalEInkMode
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.Icon
+import cc.novelia.app.ui.i18n.localizedSemantics
 
 @Composable internal fun ForumTagFilterToggle(expanded: Boolean, selectedTag: String?, onClick: () -> Unit) {
-    AppIconButton(onClick, Modifier.testTag("forum-tag-toggle").semantics {
-        stateDescription = selectedTag?.let { "已筛选：$it" } ?: "全部标签"
+    AppIconButton(onClick, Modifier.testTag("forum-tag-toggle").localizedSemantics { l ->
+        stateDescription = l(selectedTag?.let { "已筛选：$it" } ?: "全部标签")
     }) {
         BadgedBox(badge = { if(selectedTag != null) AppBadge() }) {
             Icon(Icons.Outlined.FilterAlt, if(expanded) "收起标签筛选" else "展开标签筛选",

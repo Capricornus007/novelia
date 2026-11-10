@@ -38,6 +38,8 @@ import cc.novelia.app.data.model.Profile
 import cc.novelia.app.ui.components.base.AppDropdownMenu
 import cc.novelia.app.ui.components.base.AppScrollColumn
 import cc.novelia.app.ui.components.base.ConfirmDialog
+import cc.novelia.app.ui.i18n.Icon
+import cc.novelia.app.ui.i18n.localizedSemantics
 import cc.novelia.app.ui.components.base.Screen
 import cc.novelia.app.ui.components.base.displayDate
 import cc.novelia.app.ui.components.base.FilterPanelExpandIcon
@@ -119,7 +121,7 @@ import cc.novelia.app.ui.i18n.Text
     Box(modifier.fillMaxWidth()) {
         AppTextButton(onClick = { expanded = !expanded }, modifier = Modifier.fillMaxWidth()
             .heightIn(min = 48.dp).testTag("account-permissions-toggle")
-            .semantics { stateDescription = if(expanded) "已展开" else "已收起" },
+            .localizedSemantics { l -> stateDescription = l(if(expanded) "已展开" else "已收起") },
             colors = ButtonDefaults.textButtonColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
             shape = appRoundedCornerShape(20.dp), contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp)) {
             Icon(Icons.Outlined.VerifiedUser, null, Modifier.size(18.dp))
@@ -155,7 +157,7 @@ import cc.novelia.app.ui.i18n.Text
                     tonalElevation = 4.dp, shadowElevation = if(LocalEInkMode.current) 0.dp else 8.dp, border = profileCardBorder(),
                     modifier = Modifier.width(minOf(336.dp, (configuration.screenWidthDp.dp - 24.dp).coerceAtLeast(1.dp)))
                         .heightIn(max = (configuration.screenHeightDp.dp - 32.dp).coerceAtLeast(1.dp))
-                        .testTag("account-permissions-panel").semantics { paneTitle = "账号权限" }) {
+                        .testTag("account-permissions-panel").localizedSemantics { l -> paneTitle = l("账号权限") }) {
                     AppScrollColumn(contentModifier = Modifier.padding(vertical = 8.dp)) {
                         Row(Modifier.fillMaxWidth().padding(start = 20.dp, end = 8.dp), verticalAlignment = Alignment.CenterVertically) {
                             Text("账号权限", Modifier.weight(1f), style = MaterialTheme.typography.titleMedium)

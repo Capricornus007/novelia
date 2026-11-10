@@ -8,8 +8,8 @@
 
 | 现象 | 先检查 |
 | --- | --- |
-| 找不到 JDK / SDK | `./build.ps1 -CheckEnvironment`；手动路径、环境变量和 local.properties 优先级 |
-| 缺少 Platform 或 NDK | SDK Manager 是否安装 Platform 36 和工具链指定 NDK |
+| 找不到 JDK / SDK | `./build.sh --check-env`；手动路径、环境变量和 local.properties 优先级 |
+| 缺少 Platform 或 NDK | SDK Manager 是否安装 Platform 37 和工具链指定 NDK |
 | ECH 原生库构建失败 | Go 是否与 ech-native.properties 完全一致，NDK、gomobile 与模块缓存是否齐全 |
 | IDE 成功，脚本离线失败 | 是否使用了不同 GRADLE_USER_HOME；离线不能补缺失依赖 |
 | Unsupported targetAbi | 仅支持 universal、arm64-v8a、armeabi-v7a、x86_64、x86 |
@@ -18,7 +18,7 @@
 | VERSION_DOWNGRADE | 已安装版本码更高，使用正确升级版本 |
 | 多设备或 runner 错误 | adb devices、ANDROID_SERIAL、测试 APK 和完整测试类名 |
 
-环境与构建入口见[构建指南](../development/getting-started.md)，设备运行见[测试指南](../quality/testing.md)。`-CheckEnvironment` 不检查全部 Go/NDK/依赖，不启动 Gradle。
+环境与构建入口见[构建指南](../development/getting-started.md)，设备运行见[测试指南](../quality/testing.md)。`--check-env` 不检查全部 Go/NDK/依赖，不启动 Gradle。
 
 需要堆栈时对失败任务加 `--stacktrace`。签名任务不使用 build scan 或泄露环境的调试输出，不用禁用证书校验或清空全部缓存解决下载故障。
 

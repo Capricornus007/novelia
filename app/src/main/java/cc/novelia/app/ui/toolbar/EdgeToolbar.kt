@@ -45,6 +45,9 @@ import kotlinx.coroutines.flow.map
 import kotlin.math.max
 import kotlin.math.roundToInt
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.Icon
+import cc.novelia.app.ui.i18n.localizedClickable
+import cc.novelia.app.ui.i18n.localizedSemantics
 
 /** 在根树观察轻量投影，不因正文进度保存而重组整个导航图。 */
 @OptIn(ExperimentalLayoutApi::class)
@@ -180,7 +183,7 @@ import cc.novelia.app.ui.i18n.Text
             Surface(shape = panelShape, color = MaterialTheme.colorScheme.surfaceContainerHigh,
                 shadowElevation = if(eInk) 0.dp else 6.dp,
                 modifier = Modifier.testTag("edge-toolbar-panel")
-                    .then(if(open) Modifier.semantics { paneTitle = "快捷入口"; isTraversalGroup = true }
+                    .then(if(open) Modifier.localizedSemantics { l -> paneTitle = l("快捷入口"); isTraversalGroup = true }
                         else Modifier.clearAndSetSemantics { })) {
                 Column(Modifier.appVerticalScroll(rememberScrollState(), enabled = open).padding(8.dp)) {
                     Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
@@ -196,7 +199,7 @@ import cc.novelia.app.ui.i18n.Text
                             Text(entry.title, Modifier.weight(1f), style = MaterialTheme.typography.bodyMedium)
                             if(id == "downloads" && preferences.downloadBadge && downloadCount > 0) {
                                 Text(if(downloadCount > 99) "99+" else downloadCount.toString(),
-                                    Modifier.semantics { contentDescription = "$downloadCount 个进行中的下载任务" },
+                                    Modifier.localizedSemantics { l -> contentDescription = l("$downloadCount 个进行中的下载任务") },
                                     color = MaterialTheme.colorScheme.primary, style = MaterialTheme.typography.labelMedium)
                             }
                         }
@@ -229,15 +232,15 @@ import cc.novelia.app.ui.i18n.Text
                         )
                     } finally { if(dragging) { fraction = dragOrigin; dragging = false } }
                 }
-                .clickable(enabled = shown, interactionSource = interactionSource, indication = null, role = Role.Button,
+                .localizedClickable(enabled = shown, interactionSource = interactionSource, indication = null, role = Role.Button,
                     onClickLabel = if(open) "收起快捷入口" else "打开快捷入口") { wake(); expanded = !expanded }
-                .semantics {
-                    contentDescription = "快捷工具栏"
-                    stateDescription = if(open) "已展开" else if(idle) "半隐藏，可上下拖动" else "可上下拖动"
+                .localizedSemantics { l ->
+                    contentDescription = l("快捷工具栏")
+                    stateDescription = l(if(open) "已展开" else if(idle) "半隐藏，可上下拖动" else "可上下拖动")
                     customActions = listOf(
-                        CustomAccessibilityAction("向上移动") { wake(); fraction = (fraction - .1f).coerceAtLeast(0f); onPositionChange(fraction); true },
-                        CustomAccessibilityAction("向下移动") { wake(); fraction = (fraction + .1f).coerceAtMost(1f); onPositionChange(fraction); true },
-                        CustomAccessibilityAction("工具栏设置") { navigateUpdated("edge-toolbar"); true },
+                        CustomAccessibilityAction(l("向上移动")) { wake(); fraction = (fraction - .1f).coerceAtLeast(0f); onPositionChange(fraction); true },
+                        CustomAccessibilityAction(l("向下移动")) { wake(); fraction = (fraction + .1f).coerceAtMost(1f); onPositionChange(fraction); true },
+                        CustomAccessibilityAction(l("工具栏设置")) { navigateUpdated("edge-toolbar"); true },
                     )
                 }, contentAlignment = Alignment.Center) {
                 // 圆点是固定形状的拖动把手，直角模式也保留圆形；只移动视觉层，触控区留在屏幕内。

@@ -2,8 +2,8 @@
 
 2000 本本地书的导入、重复检测、进度保存及重启回归：
 
-```powershell
-./scripts/test-large-library.ps1 -Offline -Books 2000 -Iterations 3
+```sh
+./scripts/test-large-library.sh --offline --books 2000 --iterations 3
 ```
 
 脚本构建并安装独立 Debug 应用 `cc.novelia.app.librarytest`，不会升级或清空正式应用；同时运行隔离的备份/恢复回归。`LargeLibraryPerformanceTest` 实际生成、导入 2000 个独立的小型 UTF-8 TXT，为全部书目建立进度和历史，测量重载、筛选排序、进度更新与落盘，再重复导入并验证书目和阅读锚点完全不变。暂停导入也验证已完成书目和旧进度保留。夹具结束后删除。
@@ -25,10 +25,10 @@
 
 测试正文每段 500 字，字号 20、行距 1.8，测量密度固定为 1。默认重复 3 次；各阶段逐项记录，不设置未经测量的性能合格阈值。测试使用独立 `ContextWrapper` 和随机临时目录，不替换真实书架；结束或失败时刷新写入并删除本次临时数据，不增加 release 导出组件。
 
-PowerShell 7 中运行诊断矩阵（调试构建只用于验证测量流程）：
+仓库根目录运行诊断矩阵（调试构建只用于验证测量流程）：
 
-```powershell
-.\gradlew.bat :app:connectedDebugAndroidTest '-Pandroid.testInstrumentationRunnerArguments.class=cc.novelia.app.performance.PerformanceScenarioTest' '-Pandroid.testInstrumentationRunnerArguments.performanceIterations=3'
+```sh
+./gradlew :app:connectedDebugAndroidTest '-Pandroid.testInstrumentationRunnerArguments.class=cc.novelia.app.performance.PerformanceScenarioTest' '-Pandroid.testInstrumentationRunnerArguments.performanceIterations=3'
 ```
 
 JSON 与文本报告写入应用外部文件目录 `performance/scenarios-<运行ID>.json` / `.txt`，instrumentation 结果返回准确路径。日志标签 `NoveliaPerformance` 会打印当前阶段、字数、视口和重复编号，便于定位耗时阶段。报告包含设备型号、API、ABI、低内存设备标记、RAM、构建版本、是否可调试、每阶段耗时和前后 Java/native heap、PSS。

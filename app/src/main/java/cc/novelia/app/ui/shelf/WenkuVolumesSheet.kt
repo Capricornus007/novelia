@@ -28,6 +28,8 @@ import cc.novelia.app.data.model.SavedBook
 import cc.novelia.app.ui.components.base.*
 import cc.novelia.app.ui.components.book.BookCover
 import cc.novelia.app.ui.components.book.bookRowStatus
+import cc.novelia.app.ui.i18n.Icon
+import cc.novelia.app.ui.i18n.localizedSemantics
 import cc.novelia.app.ui.theme.appReducedMotion
 import cc.novelia.app.ui.theme.appShape
 import kotlinx.coroutines.launch
@@ -116,10 +118,10 @@ import cc.novelia.app.ui.i18n.Text
                             !managing && saved.book.ref == recent?.book?.ref -> MaterialTheme.colorScheme.primaryContainer.copy(alpha = .35f)
                             else -> MaterialTheme.colorScheme.surfaceContainerLow
                         }, appShape(MaterialTheme.shapes.medium))
-                        .semantics {
+                        .localizedSemantics { l ->
                             selected = managing && key in selection
-                            onClick(if(managing) "切换选择" else "阅读分卷") { open(); true }
-                            if(!busy) onLongClick("选择${saved.book.title}") { drag.selectOne(key); true }
+                            onClick(l(if(managing) "切换选择" else "阅读分卷")) { open(); true }
+                            if(!busy) onLongClick(l("选择${saved.book.title}")) { drag.selectOne(key); true }
                         }, open, trailing = {
                             if(managing) AppCheckbox(key in selection, { toggle(saved) }, enabled = !busy)
                             else AppIconButton({ onManageBook(saved) }, enabled = !busy) { Icon(Icons.Outlined.MoreVert, "管理 ${saved.book.title}") }
@@ -156,7 +158,7 @@ import cc.novelia.app.ui.i18n.Text
                 AppButton({ onContinue(recent, position) }, enabled = !busy, shape = MaterialTheme.shapes.large,
                     contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp),
                     modifier = Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp, bottom = 12.dp).heightIn(min = 80.dp).testTag("volume-resume")
-                        .semantics { if(compact) stateDescription = progress }) {
+                        .localizedSemantics { l -> if(compact) stateDescription = l(progress) }) {
                     Icon(Icons.AutoMirrored.Outlined.MenuBook, null, Modifier.size(24.dp))
                     Spacer(Modifier.width(12.dp))
                     Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {

@@ -18,6 +18,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import cc.novelia.app.ui.components.base.*
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.Icon
+import cc.novelia.app.ui.i18n.localizedSemantics
 
 @Composable internal fun ShelfSelectionHeader(count: Int, enabled: Boolean, minimumHeight: Dp,
     onSelectAll: () -> Unit, onFinish: () -> Unit, tagPrefix: String = "local", selectAllLabel: String = "全选") {
@@ -70,7 +72,7 @@ import cc.novelia.app.ui.i18n.Text
 @Composable internal fun RowScope.ShelfActionButton(label: String, description: String, icon: ImageVector, tag: String,
     enabled: Boolean, onClick: () -> Unit) {
     AppTextButton(onClick, enabled = enabled, shape = MaterialTheme.shapes.medium,
-        modifier = Modifier.weight(1f).heightIn(min = 64.dp).testTag(tag).semantics { contentDescription = description },
+        modifier = Modifier.weight(1f).heightIn(min = 64.dp).testTag(tag).localizedSemantics { l -> contentDescription = l(description) },
         contentPadding = PaddingValues(horizontal = 4.dp, vertical = 8.dp)) {
         Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(4.dp)) {
             Icon(icon, null, Modifier.size(24.dp))

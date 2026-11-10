@@ -85,6 +85,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.delay
 import cc.novelia.app.startup.StartupScreen
+import cc.novelia.app.ui.i18n.localizedText
 
 private data class AppAppearance(val theme: String, val amoledBlack: Boolean, val squareCorners: Boolean, val reducedMotion: Boolean, val eInk: Boolean, val eInkBooks: Set<String>,
     val screenButtons: Boolean, val hideStatusBar: Boolean, val bookStatusBars: Map<String, Boolean>,
@@ -144,7 +145,7 @@ class MainActivity : ComponentActivity() {
                     FavoriteSheet(controller, book, initialCloud = controller.pendingFavoriteCloud) { controller.pendingFavorite = null }
                 }
                 val recoveryIssue by app.store.recoveryIssue.collectAsStateWithLifecycle()
-                LaunchedEffect(app) { app.store.persistenceError.filterNotNull().collect { snackbar.showSnackbar(it) } }
+                LaunchedEffect(app) { app.store.persistenceError.filterNotNull().collect { snackbar.showSnackbar(localizedText(it)) } }
                 // 恢复保护优先于普通导航，避免损坏状态下继续执行会修改书库的页面操作。
                 if(recoveryIssue != null) {
                     Scaffold(snackbarHost = { StickerSnackbarHost(snackbar) }) { padding ->

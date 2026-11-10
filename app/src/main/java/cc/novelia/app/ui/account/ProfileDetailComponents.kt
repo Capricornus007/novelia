@@ -23,6 +23,7 @@ import cc.novelia.app.ui.components.base.ChoiceRow
 import cc.novelia.app.ui.components.base.EmptyState
 import cc.novelia.app.ui.components.base.Screen
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.Icon
 
 /** “我的”二级页共用内容宽度，保留系统栏、返回和电子纸翻屏行为。 */
 @Composable internal fun ProfileDetailScreen(

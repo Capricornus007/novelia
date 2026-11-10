@@ -19,6 +19,7 @@ import cc.novelia.app.ui.components.base.AppIconButton
 import cc.novelia.app.ui.components.base.AppScrollColumn
 import cc.novelia.app.ui.components.base.AppTextButton
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.Icon
 
 /** 预览占据固定行数；完整表达式单独查看，避免条件增长挤动正在编辑的表单。 */
 @Composable internal fun SearchAssistantPreview(query: String, generated: String, compact: Boolean, hasError: Boolean) {

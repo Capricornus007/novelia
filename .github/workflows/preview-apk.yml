@@ -12,14 +12,14 @@ permissions:
 jobs:
   build:
     name: Build ARM64 Release preview
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     timeout-minutes: 60
     outputs:
       apk-artifact-id: ${{ steps.apk.outputs.artifact-id }}
       info-artifact-id: ${{ steps.build-info.outputs.artifact-id }}
     defaults:
       run:
-        shell: pwsh
+        shell: bash
 
     steps:
       - name: Checkout source
@@ -37,32 +37,25 @@ jobs:
         env:
           NOVELIA_PREVIEW_KEYSTORE_BASE64: ${{ secrets.NOVELIA_PREVIEW_KEYSTORE_BASE64 }}
         run: |
-          Set-StrictMode -Version Latest
-          $ErrorActionPreference = 'Stop'
-          if ([string]::IsNullOrWhiteSpace($env:NOVELIA_PREVIEW_KEYSTORE_BASE64)) {
-            throw 'Missing NOVELIA_PREVIEW_KEYSTORE_BASE64. Run scripts/configure-preview-signing.ps1 on the original signing machine.'
-          }
-          if ($env:NOVELIA_PREVIEW_KEYSTORE_BASE64.Length -gt 48 * 1024) { throw 'Preview keystore Secret is too large.' }
-          $keystorePath = Join-Path $env:RUNNER_TEMP 'novelia-preview.keystore'
-          if (Test-Path -LiteralPath $keystorePath) { throw 'Refusing to overwrite an existing preview keystore.' }
-          $bytes = $null
-          try {
-            try { $bytes = [Convert]::FromBase64String($env:NOVELIA_PREVIEW_KEYSTORE_BASE64) }
-            catch { throw 'Preview keystore Secret is not valid Base64.' }
-            if ($bytes.Length -eq 0) { throw 'Preview keystore Secret is empty.' }
-            [IO.File]::WriteAllBytes($keystorePath, $bytes)
-            ./scripts/configure-preview-signing.ps1 -KeystorePath $keystorePath -CheckOnly
-            "NOVELIA_PREVIEW_KEYSTORE_PATH=$keystorePath" | Out-File -LiteralPath $env:GITHUB_ENV -Append -Encoding utf8
-          } finally {
-            if ($null -ne $bytes) { [Array]::Clear($bytes, 0, $bytes.Length) }
-            $env:NOVELIA_PREVIEW_KEYSTORE_BASE64 = $null
-          }
+          set -euo pipefail
+          python3 scripts/restore_preview_signing.py
 
       - name: Read pinned native toolchain
         id: toolchain
         run: |
-          $toolchain = ConvertFrom-StringData (Get-Content -LiteralPath 'gradle/ech-native.properties' -Raw -Encoding utf8)
-          "ndk-version=$($toolchain.ndkVersion)" | Out-File -LiteralPath $env:GITHUB_OUTPUT -Append -Encoding utf8
+          set -euo pipefail
+          python3 - "$GITHUB_OUTPUT" <<'PY'
+          import os
+          from pathlib import Path
+          for line in Path('gradle/ech-native.properties').read_text(encoding='utf-8').splitlines():
+              if line.startswith('ndkVersion='):
+                  ndk_version = line.split('=', 1)[1].strip()
+                  break
+          else:
+              raise SystemExit('Missing ndkVersion in gradle/ech-native.properties.')
+          with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as output:
+              output.write(f'ndk-version={ndk_version}\n')
+          PY
 
       - name: Set up Android SDK and NDK
         uses: android-actions/setup-android@v4
@@ -94,70 +87,14 @@ jobs:
         env:
           NOVELIA_MIRROR_ACCESS_TOKEN: ${{ secrets.NOVELIA_MIRROR_ACCESS_TOKEN }}
         run: |
-          $PSNativeCommandUseErrorActionPreference = $false
           # The same pinned test key as the local Release build; missing keys never fall back.
-          & ./gradlew --no-daemon --console=plain :app:assembleRelease '-PreleaseSigning=false' '-PlocalReleaseSigning=true' '-PtargetAbi=arm64-v8a'
-          if ($LASTEXITCODE -ne 0) { throw "Release build failed with exit code $LASTEXITCODE." }
+          ./gradlew --no-daemon --console=plain :app:assembleRelease -PreleaseSigning=false -PlocalReleaseSigning=true -PtargetAbi=arm64-v8a
 
       - name: Verify and prepare preview artifacts
         id: package
         run: |
-          Set-StrictMode -Version Latest
-          $PSNativeCommandUseErrorActionPreference = $false
-          $apkDirectory = [IO.Path]::GetFullPath('app/build/outputs/apk/release')
-          $metadata = Get-Content -LiteralPath (Join-Path $apkDirectory 'output-metadata.json') -Raw -Encoding utf8 | ConvertFrom-Json
-          if ($metadata.applicationId -ne 'cc.novelia.app' -or @($metadata.elements).Count -ne 1) {
-            throw 'Unexpected Release APK metadata.'
-          }
-          $element = $metadata.elements[0]
-          $apk = [IO.Path]::GetFullPath((Join-Path $apkDirectory $element.outputFile))
-          $apkPrefix = $apkDirectory + [IO.Path]::DirectorySeparatorChar
-          if (-not $apk.StartsWith($apkPrefix, [StringComparison]::Ordinal) -or
-              [IO.Path]::GetExtension($apk) -ne '.apk' -or -not (Test-Path -LiteralPath $apk -PathType Leaf)) {
-            throw 'Release APK is missing or outside its output directory.'
-          }
-          $mapping = 'app/build/outputs/mapping/release/mapping.txt'
-          if (-not (Test-Path -LiteralPath $mapping -PathType Leaf)) { throw 'Release R8 mapping is missing.' }
-          $apksigner = Join-Path $env:ANDROID_HOME 'build-tools/37.0.0/apksigner'
-          $signature = (& $apksigner verify --print-certs $apk 2>&1) -join "`n"
-          if ($LASTEXITCODE -ne 0) { throw 'Release APK signature verification failed.' }
-          $expectedCertificate = (Get-Content -LiteralPath 'gradle/preview-signing.sha256' -Raw -Encoding utf8).Trim()
-          $certificates = [regex]::Matches($signature, '(?im)^(?:V\d+\s+)?Signer(?:\s+#\d+)?:?\s+certificate SHA-256 digest: ([0-9a-fA-F]{64})\s*$')
-          if ($certificates.Count -ne 1 -or $certificates[0].Groups[1].Value.ToLowerInvariant() -ne $expectedCertificate) {
-            throw 'Release APK was not signed with the shared preview certificate.'
-          }
-          $archive = [IO.Compression.ZipFile]::OpenRead($apk)
-          try {
-            $nativeAbis = @($archive.Entries | Where-Object { $_.FullName -match '^lib/[^/]+/[^/]+\.so$' } |
-              ForEach-Object { $_.FullName.Split('/')[1] } | Sort-Object -Unique)
-            if ($nativeAbis.Count -ne 1 -or $nativeAbis[0] -ne 'arm64-v8a') {
-              throw 'Preview APK must contain only ARM64 native libraries.'
-            }
-          } finally { $archive.Dispose() }
-
-          $outputDirectory = 'outputs/preview'
-          [IO.Directory]::CreateDirectory($outputDirectory) | Out-Null
-          $shortCommit = $env:GITHUB_SHA.Substring(0, 7)
-          $stem = "Novelia-$($element.versionName)-preview-arm64-v8a-$shortCommit-$env:GITHUB_RUN_NUMBER.$env:GITHUB_RUN_ATTEMPT"
-          $outputApk = Join-Path $outputDirectory "$stem.apk"
-          Copy-Item -LiteralPath $apk -Destination $outputApk
-          Copy-Item -LiteralPath $mapping -Destination (Join-Path $outputDirectory "$stem-mapping.txt")
-          $hash = (Get-FileHash -LiteralPath $outputApk -Algorithm SHA256).Hash.ToLowerInvariant()
-          "$hash  $stem.apk" | Set-Content -LiteralPath "$outputApk.sha256" -Encoding utf8NoBOM
-          @(
-            "commit=$env:GITHUB_SHA"
-            "ref=$env:GITHUB_REF"
-            "run=$env:GITHUB_RUN_NUMBER"
-            "attempt=$env:GITHUB_RUN_ATTEMPT"
-            "versionName=$($element.versionName)"
-            "versionCode=$($element.versionCode)"
-            'variant=release'
-            'abi=arm64-v8a'
-            'signing=shared-preview-test-certificate'
-            "certificateSha256=$expectedCertificate"
-          ) | Set-Content -LiteralPath (Join-Path $outputDirectory "$stem-build-info.txt") -Encoding utf8NoBOM
-          "apk-path=$outputApk" | Out-File -LiteralPath $env:GITHUB_OUTPUT -Append -Encoding utf8
-          "artifact-name=$stem" | Out-File -LiteralPath $env:GITHUB_OUTPUT -Append -Encoding utf8
+          set -euo pipefail
+          python3 scripts/prepare_preview.py
 
       - name: Upload preview APK
         id: apk
@@ -186,32 +123,28 @@ jobs:
           BUILD_INFO_URL: ${{ steps.build-info.outputs.artifact-url }}
           DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
         run: |
-          @(
-            'ARM64 Release 预览包已构建，包含 R8 压缩与资源收缩，与本地构建共用固定预览测试证书。'
-            ''
-            "[下载 APK]($env:APK_URL) · [下载校验文件、构建信息和 R8 映射]($env:BUILD_INFO_URL)"
-            ''
-            '产物保留 14 天，下载需要登录 GitHub。同签名本地包可覆盖安装，新包版本码须不低于已安装版本。'
-            $(if ($env:GITHUB_REF -eq "refs/heads/$env:DEFAULT_BRANCH") {
-              '默认分支构建：接下来由 Update preview Pre-release 任务发布，结果请查看该任务。'
-            } else {
-              '当前为非默认分支：仅保留 Actions 下载产物，不更新 Pre-release。'
-            })
-          ) | Out-File -LiteralPath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+          cat >> "$GITHUB_STEP_SUMMARY" <<EOF
+          ARM64 Release 预览包已构建，包含 R8 压缩与资源收缩，与本地构建共用固定预览测试证书。
+
+          [下载 APK]($APK_URL) · [下载校验文件、构建信息和 R8 映射]($BUILD_INFO_URL)
+
+          产物保留 14 天，下载需要登录 GitHub。同签名本地包可覆盖安装，新包版本码须不低于已安装版本。
+          EOF
+          if [[ "$GITHUB_REF" == "refs/heads/$DEFAULT_BRANCH" ]]; then
+            echo '默认分支构建：接下来由 Update preview Pre-release 任务发布，结果请查看该任务。' >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo '当前为非默认分支：仅保留 Actions 下载产物，不更新 Pre-release。' >> "$GITHUB_STEP_SUMMARY"
+          fi
 
       - name: Remove temporary signing key
         if: always()
-        run: |
-          $keystorePath = Join-Path $env:RUNNER_TEMP 'novelia-preview.keystore'
-          if (Test-Path -LiteralPath $keystorePath -PathType Leaf) {
-            Remove-Item -LiteralPath $keystorePath -Force
-          }
+        run: rm -f -- "$RUNNER_TEMP/novelia-preview.keystore"
 
   publish:
     name: Update preview Pre-release
     needs: build
     if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
       contents: write
@@ -220,7 +153,7 @@ jobs:
       cancel-in-progress: false
     defaults:
       run:
-        shell: pwsh
+        shell: bash
     steps:
       - name: Checkout publication script
         uses: actions/checkout@v7
@@ -239,4 +172,4 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           PREVIEW_DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
           PREVIEW_RELEASE_TAG: ${{ vars.NOVELIA_PREVIEW_TAG || 'preview' }}
-        run: ./scripts/publish-preview.ps1 -ArtifactsDirectory 'outputs/publish-preview' -Tag $env:PREVIEW_RELEASE_TAG
+        run: python3 scripts/publish_preview.py --artifacts-directory outputs/publish-preview --tag "$PREVIEW_RELEASE_TAG"

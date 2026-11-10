@@ -24,6 +24,8 @@ import cc.novelia.app.ui.shelf.BookFavoriteState
 import cc.novelia.app.ui.theme.AppMotion
 import cc.novelia.app.ui.theme.appReducedMotion
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.Icon
+import cc.novelia.app.ui.i18n.localizedSemantics
 
 /** 两个入口只展示各自的收藏状态，共用收藏面板的不同初始位置。 */
 @Composable internal fun BookFavoriteActions(
@@ -63,9 +65,9 @@ import cc.novelia.app.ui.i18n.Text
     val background by animateColorAsState(
         if(saved) MaterialTheme.colorScheme.primaryContainer else Color.Transparent,
         tween(if(appReducedMotion()) 0 else AppMotion.Standard), label = "$tag-container")
-    AppTextButton(onClick = onClick, modifier = modifier.heightIn(min = 48.dp).testTag(tag).semantics {
-        contentDescription = description
-        stateDescription = label
+    AppTextButton(onClick = onClick, modifier = modifier.heightIn(min = 48.dp).testTag(tag).localizedSemantics { l ->
+        contentDescription = l(description)
+        stateDescription = l(label)
     }, colors = ButtonDefaults.textButtonColors(containerColor = background), shape = MaterialTheme.shapes.medium,
         contentPadding = PaddingValues(horizontal = 8.dp, vertical = 10.dp)) {
         if(stacked) {

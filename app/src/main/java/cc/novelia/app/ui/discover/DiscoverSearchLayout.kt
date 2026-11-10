@@ -33,6 +33,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import cc.novelia.app.ui.components.base.rememberCloudFilterCollapse
 import cc.novelia.app.ui.theme.AppMotion
+import cc.novelia.app.ui.i18n.Icon
+import cc.novelia.app.ui.i18n.localizedSemantics
 import cc.novelia.app.ui.theme.appReducedMotion
 import cc.novelia.app.ui.i18n.Text
 
@@ -71,7 +73,7 @@ import cc.novelia.app.ui.i18n.Text
                 Surface(onClick = {
                     if(editing) { focus.requestFocus(); keyboard?.show() } else onEditingChange(true)
                 }, modifier = Modifier.weight(1f).testTag("discover-search-bar")
-                        .semantics { stateDescription = if(editing) "正在编辑搜索" else "当前搜索" },
+                        .localizedSemantics { l -> stateDescription = l(if(editing) "正在编辑搜索" else "当前搜索") },
                     shape = MaterialTheme.shapes.extraLarge, color = MaterialTheme.colorScheme.surfaceContainerHigh) {
                     Row(Modifier.heightIn(min = 48.dp).padding(start = 12.dp, end = 8.dp),
                         horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {

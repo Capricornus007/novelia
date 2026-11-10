@@ -8,9 +8,11 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ExpandMore
-import androidx.compose.material3.Icon
+import cc.novelia.app.ui.i18n.Icon
 import androidx.compose.material3.LocalMinimumInteractiveComponentSize
 import androidx.compose.material3.MaterialTheme
+import cc.novelia.app.ui.i18n.localizedClickable
+import cc.novelia.app.ui.i18n.localizedSemantics
 import cc.novelia.app.ui.i18n.Text
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -61,10 +63,10 @@ import cc.novelia.app.ui.theme.appReducedMotion
         Row(Modifier.fillMaxWidth().testTag("$tag-row"), verticalAlignment = Alignment.Bottom) {
             Text(text,
                 Modifier.weight(1f).testTag(tag).semantics { if(!original) heading() }
-                    .then(if(canExpand) Modifier.clickable(
+                    .then(if(canExpand) Modifier.localizedClickable(
                         onClickLabel = if(expanded) "收起$label" else "展开$label", role = Role.Button
-                    ) { expanded = !expanded }.semantics {
-                        stateDescription = if(expanded) "${label}已展开" else "${label}已折叠"
+                    ) { expanded = !expanded }.localizedSemantics { l ->
+                        stateDescription = l(if(expanded) "${label}已展开" else "${label}已折叠")
                     } else Modifier)
                     .then(if(reducedMotion) Modifier else Modifier.animateContentSize(
                         tween(AppMotion.Standard, easing = FastOutSlowInEasing), alignment = Alignment.TopStart)),
@@ -75,7 +77,7 @@ import cc.novelia.app.ui.theme.appReducedMotion
                 CompositionLocalProvider(LocalMinimumInteractiveComponentSize provides 0.dp) {
                     AppIconButton(onClick = { expanded = !expanded },
                         modifier = Modifier.size(28.dp).testTag("$tag-toggle")
-                            .semantics { stateDescription = if(expanded) "${label}已展开" else "${label}已折叠" }) {
+                            .localizedSemantics { l -> stateDescription = l(if(expanded) "${label}已展开" else "${label}已折叠") }) {
                         Icon(Icons.Outlined.ExpandMore, if(expanded) "收起$label" else "展开$label",
                             Modifier.size(18.dp).rotate(if(reducedMotion) targetRotation else rotation))
                     }
