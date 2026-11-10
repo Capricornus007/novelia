@@ -52,7 +52,7 @@ def binascii_error():
 
 def mock_gh(arguments):
     state_path = Path(os.environ["NOVELIA_PREVIEW_FIXTURE"])
-    fixture = Fixture(state_path.parent.name)
+    fixture = Fixture(os.environ["NOVELIA_PREVIEW_FIXTURE_MODE"])
     stdin = sys.stdin.read()
     status, output = fixture.gh(arguments, stdin)
     state_path.write_text(str(fixture.secret_writes), encoding="utf-8")
@@ -74,6 +74,7 @@ def run_configure(arguments, fixture_directory, mode, environment):
         **environment,
         "PATH": f"{fixture_directory}{os.pathsep}{environment['PATH']}",
         "NOVELIA_PREVIEW_FIXTURE": str(state_path),
+        "NOVELIA_PREVIEW_FIXTURE_MODE": mode,
         "NOVELIA_PREVIEW_KEYSTORE_PATH": environment.get("NOVELIA_PREVIEW_KEYSTORE_PATH", ""),
     }
     env.pop("NOVELIA_PREVIEW_KEYSTORE_PATH", None)
