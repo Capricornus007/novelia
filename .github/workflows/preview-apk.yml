@@ -67,7 +67,7 @@ jobs:
       - name: Set up Android SDK and NDK
         uses: android-actions/setup-android@v4
         with:
-          packages: platform-tools platforms;android-37 build-tools;37.0.0 ndk;${{ steps.toolchain.outputs.ndk-version }}
+          packages: platform-tools platforms;android-37.2 build-tools;37.0.0 ndk;${{ steps.toolchain.outputs.ndk-version }}
 
       - name: Set up pinned Go
         uses: actions/setup-go@v7
@@ -118,7 +118,7 @@ jobs:
           }
           $mapping = 'app/build/outputs/mapping/release/mapping.txt'
           if (-not (Test-Path -LiteralPath $mapping -PathType Leaf)) { throw 'Release R8 mapping is missing.' }
-          $apksigner = Join-Path $env:ANDROID_HOME 'build-tools/35.0.0/apksigner'
+          $apksigner = Join-Path $env:ANDROID_HOME 'build-tools/37.0.0/apksigner'
           $signature = (& $apksigner verify --print-certs $apk 2>&1) -join "`n"
           if ($LASTEXITCODE -ne 0) { throw 'Release APK signature verification failed.' }
           $expectedCertificate = (Get-Content -LiteralPath 'gradle/preview-signing.sha256' -Raw -Encoding utf8).Trim()
