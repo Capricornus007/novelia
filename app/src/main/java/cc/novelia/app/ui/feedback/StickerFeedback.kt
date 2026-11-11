@@ -36,7 +36,10 @@ import kotlin.math.sin
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
+import cc.novelia.app.ui.i18n.Icon
 import cc.novelia.app.ui.i18n.Text
+import cc.novelia.app.ui.i18n.localizedClickable
+import cc.novelia.app.ui.i18n.localizedSemantics
 import cc.novelia.app.ui.i18n.localizedText
 
 /** 一次交互只播放一轮有限动画，结束后静止，不续播被中断的动画。 */
@@ -99,11 +102,11 @@ internal fun AboutIdentity() {
     }
     Column(Modifier.padding(24.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Box(Modifier.size(64.dp)) {
-            if(waving) StickerAccent(MidoriSticker.Wave, wave, Modifier.fillMaxSize().semantics { contentDescription = "小绿向你招手" })
+            if(waving) StickerAccent(MidoriSticker.Wave, wave, Modifier.fillMaxSize().localizedSemantics { l -> contentDescription = l("小绿向你招手") })
             else Icon(Icons.Outlined.AutoStories, null, Modifier.fillMaxSize(), tint = MaterialTheme.colorScheme.primary)
         }
         Text("Novelia", style = MaterialTheme.typography.headlineLarge)
-        Box(Modifier.heightIn(min = 48.dp).clickable(onClickLabel = "版本信息") {
+        Box(Modifier.heightIn(min = 48.dp).localizedClickable(onClickLabel = "版本信息") {
             val now = SystemClock.uptimeMillis()
             taps = if(now - lastTap < 800) taps + 1 else 1
             lastTap = now

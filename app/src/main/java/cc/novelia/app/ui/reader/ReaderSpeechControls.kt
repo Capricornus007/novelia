@@ -17,6 +17,7 @@ import cc.novelia.app.ui.components.base.*
 import cc.novelia.app.ui.theme.appRoundedCornerShape
 import cc.novelia.app.ui.i18n.Text
 import cc.novelia.app.ui.i18n.Icon
+import cc.novelia.app.ui.i18n.localizedText
 
 /** 播放中的操作留在正文旁；弹层只承担预览与朗读选项。 */
 @Composable internal fun ReaderSpeechSheet(
@@ -26,7 +27,7 @@ import cc.novelia.app.ui.i18n.Icon
     playback: SpeechPlayback? = null, onPrevious: () -> Unit = {}, onNext: () -> Unit = {}, onFollow: (Boolean) -> Unit = {},
     sample: String = "", onRate: (Float) -> Unit = {}, onTimer: (Int) -> Unit = {},
 ) {
-    val preparing = speechStatus == "正在准备朗读…" || speechStatus == "正在准备下一章…"
+    val preparing = localizedText(speechStatus) == localizedText("正在准备朗读…") || localizedText(speechStatus) == localizedText("正在准备下一章…")
     ReaderSheet(onDismissRequest = onDismiss) {
         AppScrollColumn(modifier = Modifier.fillMaxWidth().testTag("reader-speech-panel"),
             contentModifier = Modifier.padding(start = 20.dp, end = 20.dp, bottom = 24.dp),

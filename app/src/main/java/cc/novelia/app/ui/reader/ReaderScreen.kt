@@ -87,6 +87,7 @@ import kotlinx.coroutines.withContext
 import kotlinx.serialization.encodeToString
 import cc.novelia.app.ui.i18n.Text
 import cc.novelia.app.ui.i18n.localizedClickable
+import cc.novelia.app.ui.i18n.localizedText
 
 
 /**
@@ -181,7 +182,7 @@ import cc.novelia.app.ui.i18n.localizedClickable
     val bookSpeech = speechPlayback?.takeIf { it.bookKey == ref.key && it.count > 0 }
     LaunchedEffect(speechStatus, bookSpeech) {
         if(bookSpeech?.playing == true) speechRequestPending = false
-        else if(bookSpeech == null && speechRequestPending && speechStatus.isNotBlank() && speechStatus != "正在准备朗读…") {
+        else if(bookSpeech == null && speechRequestPending && speechStatus.isNotBlank() && localizedText(speechStatus) != localizedText("正在准备朗读…")) {
             speechRequestPending = false; speechSheet = true
         }
     }

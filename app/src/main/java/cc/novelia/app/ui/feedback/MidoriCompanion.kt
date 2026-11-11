@@ -37,6 +37,7 @@ import cc.novelia.app.ui.theme.appReducedMotion
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import cc.novelia.app.ui.i18n.localizedClickable
+import cc.novelia.app.ui.i18n.localizedText
 import cc.novelia.app.ui.i18n.localizedSemantics
 
 /** 使用原始本地 WebP 素材，保留透明边缘和宽高比。 */
@@ -153,7 +154,7 @@ fun MidoriCompanion(modifier: Modifier = Modifier, visible: Boolean = true) {
             .localizedClickable(
                 interactionSource = interactionSource,
                 indication = if(reducedMotion) null else ripple(bounded = false, radius = 56.dp),
-                enabled = active, role = Role.Button, onClickLabel = "打个招呼，切换表情",
+                enabled = active, role = Role.Button, onClickLabel = localizedText("打个招呼，切换表情"),
             ) {
                 reactionIndex = (reactionIndex + 1) % HappyReactions.size
                 reacting = true
