@@ -19,8 +19,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.text.ParagraphStyle
-import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.TextUnit
 
@@ -112,19 +110,25 @@ fun Text(
     val traditional = localTraditional()
     val localized = buildAnnotatedString {
         // 逐段轉換整句，按新長度重算樣式、連結及行內內容的區間。
-        val ranges = text.spanStyles + text.paragraphStyles + text.getStringAnnotations(0, text.length)
-        val boundaries = (ranges.flatMap { listOf(it.start, it.end) } + 0 + text.length).distinct().sorted()
+        val spans = text.spanStyles
+        val paragraphs = text.paragraphStyles
+        val annotations = text.getStringAnnotations(0, text.length)
+        val boundaries = (
+            spans.flatMap { listOf(it.start, it.end) } +
+                paragraphs.flatMap { listOf(it.start, it.end) } +
+                annotations.flatMap { listOf(it.start, it.end) } +
+                0 + text.length
+            ).distinct().sorted()
         boundaries.zipWithNext().forEach { (start, end) ->
             val outputStart = length
             append(ZhLanguage.localize(text.text.substring(start, end), traditional))
             val outputEnd = length
-            ranges.filter { it.start <= start && it.end >= end }.forEach { range ->
-                when (range.item) {
-                    is SpanStyle -> addStyle(range.item, outputStart, outputEnd)
-                    is ParagraphStyle -> addStyle(range.item, outputStart, outputEnd)
-                    else -> addStringAnnotation(range.tag, range.item, outputStart, outputEnd)
-                }
-            }
+            spans.filter { it.start <= start && it.end >= end }
+                .forEach { addStyle(it.item, outputStart, outputEnd) }
+            paragraphs.filter { it.start <= start && it.end >= end }
+                .forEach { addStyle(it.item, outputStart, outputEnd) }
+            annotations.filter { it.start <= start && it.end >= end }
+                .forEach { addStringAnnotation(it.tag, it.item, outputStart, outputEnd) }
         }
     }
     MaterialText(
@@ -144,15 +148,10 @@ fun Text(
         maxLines = maxLines,
         minLines = minLines,
         inlineContent = inlineContent,
-        onTextLayout = onTextLayout,
+        onTextLayout = onTextLayout ?: {},
         style = style,
     )
 }
-
-@Composable
-fun localizedText(text: String): String = ZhLanguage.localize(text, localTraditional())
-
-
 
 /** 讓所有呼叫端在同一個組合週期看到同一個布林值。 */
 @Composable
