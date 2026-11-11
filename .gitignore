@@ -40,3 +40,7 @@ signing.properties
 *.key
 *.pem
 problem.md
+
+# Python bytecode
+__pycache__/
+*.pyc

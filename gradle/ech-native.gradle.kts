@@ -33,6 +33,7 @@ val echSources = fileTree(echRoot) {
     include("**/*.go", "**/go.mod", "**/go.sum", "**/LICENSE", "**/README.novelia.md")
     exclude("build/**")
 }
+val echScript = rootProject.file("gradle/ech-native.gradle.kts")
 val echAar = echRoot.resolve("build/novelia-ech.aar")
 val echSourcesJar = echRoot.resolve("build/novelia-ech-sources.jar")
 val echJavaHome = File(System.getProperty("java.home"))
